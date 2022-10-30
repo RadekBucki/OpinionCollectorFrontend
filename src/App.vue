@@ -4,7 +4,7 @@
     |
     <router-link to="/admin">Admin</router-link>
   </nav>
-  <router-view/>
+  <router-view />
 </template>
 
 <style>

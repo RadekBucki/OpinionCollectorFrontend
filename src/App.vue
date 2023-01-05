@@ -1,11 +1,18 @@
 <template>
-  <nav>
+  <NavbarComponent class="" />
+  <!-- <nav>
     <router-link to="/">Home</router-link>
     |
     <router-link to="/admin">Admin</router-link>
-  </nav>
+    |
+    <router-link to="/login">Login</router-link>
+  </nav> -->
   <router-view />
 </template>
+
+<script setup>
+import NavbarComponent from "./components/NavbarComponent.vue";
+</script>
 
 <style>
 #app {

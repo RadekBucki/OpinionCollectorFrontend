@@ -1,8 +1,8 @@
 <template>
   <div>
-    <nav class="navbar navbar-dark navbar-expand-md bg-dark justify-content-md-center justify-content-start">
+    <nav class="navbar navbar-dark navbar-expand-lg bg-dark justify-content-md-center justify-content-start">
       <a class="navbar-brand d-md-none d-inline" href="">Opinion Collector</a>
-      <button class="navbar-toggler ml-1" type="button" data-toggle="collapse" data-target="#collapsingNavbar2">
+      <button class="navbar-toggler ml-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapsingNavbar2">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -69,10 +69,6 @@ export default {
     this.token = localStorage.getItem("token");
   },
 };
-// const drop = document.querySelector("#drop");
-// drop.addEventListener("blur", () => {
-//   this.isDropdownVisible = false;
-// });
 </script>
 
 <style>

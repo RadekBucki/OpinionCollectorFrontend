@@ -38,10 +38,11 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 .mobile ul {
   list-style: none;
 }
+
 @media (min-width: 1150px) {
   .mobile ul {
     display: none;

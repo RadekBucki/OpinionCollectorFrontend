@@ -1,11 +1,12 @@
 import {createRouter, createWebHistory} from 'vue-router'
 
-import HomeView from '../views/HomeView.vue'
-import AdminView from '../views/AdminView.vue'
-import LoginView from '../views/LoginView.vue'
-import RegisterView from '../views/RegisterView.vue'
-import DataPage from '../views/UserPanel/DataPage.vue'
-import OpinionsPage from '../views/UserPanel/OpinionsPage.vue'
+import HomeView from '@/views/HomeView.vue'
+import AdminView from '@/views/AdminView.vue'
+import LoginView from '@/views/LoginView.vue'
+import RegisterView from '@/views/RegisterView.vue'
+import DataPage from '@/views/UserPanel/DataPage.vue'
+import OpinionsPage from '@/views/UserPanel/OpinionsPage.vue'
+import SuggestionsPage from '@/views/UserPanel/SuggestionsPage.vue'
 
 const routes = [
     {
@@ -37,6 +38,11 @@ const routes = [
         path: '/opinions',
         name: 'Opinions',
         component: OpinionsPage
+    },
+    {
+        path: '/suggestions',
+        name: 'Suggestions',
+        component: SuggestionsPage
     }
 ]
 

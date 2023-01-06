@@ -10,17 +10,17 @@
           <RouterLink class="nav-link link-dark" :to="{ name: 'Panel' }">Data</RouterLink>
         </li>
         <li>
-          <RouterLink class="nav-link active" :to="{ name: 'Opinions' }">Opinions</RouterLink>
+          <RouterLink class="nav-link link-dark" :to="{ name: 'Opinions' }">Opinions</RouterLink>
         </li>
         <li>
-          <RouterLink class="nav-link link-dark" :to="{ name: 'Suggestions' }">Suggestions</RouterLink>
+          <RouterLink class="nav-link active" :to="{ name: 'Suggestions' }">Suggestions</RouterLink>
         </li>
       </ul>
       <hr />
     </div>
 
     <div class="col-8 mt-3">
-      <h1>User Opinions</h1>
+      <h1>User Suggestions</h1>
     </div>
   </div>
 </template>

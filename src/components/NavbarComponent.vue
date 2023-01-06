@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nav class="navbar navbar-dark navbar-expand-lg bg-dark justify-content-md-center justify-content-start">
+    <nav class="navbar navbar-dark navbar-expand-lg bg-dark justify-content-md-center justify-content-end">
       <a class="navbar-brand d-md-none d-inline" href="">Opinion Collector</a>
       <button class="navbar-toggler ml-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapsingNavbar2">
         <span class="navbar-toggler-icon"></span>
@@ -11,19 +11,17 @@
           <li class="nav-item">
             <RouterLink v-if="!token" class="nav-link mx-3" :to="{ name: 'Panel' }">Panel </RouterLink>
           </li>
-          <li class="nav-item">
-            <RouterLink v-if="!token" class="nav-link mx-3" :to="{ name: 'Admin' }">Admin </RouterLink>
-          </li>
+
           <li class="nav-item my-auto">
-            <RouterLink v-if="!token" class="nav-link navbar-brand fs-3 fw-bold mx-0 d-none d-md-inline" to="/"
+            <RouterLink
+              v-if="!token"
+              class="nav-link navbar-brand fs-3 fw-bold mx-0 d-none d-md-inline"
+              :to="{ name: 'Home' }"
               >Opinion Collector</RouterLink
             >
           </li>
           <li class="nav-item">
-            <RouterLink v-if="!token" class="nav-link mx-3" :to="{ name: 'Panel' }">Panel</RouterLink>
-          </li>
-          <li class="nav-item">
-            <RouterLink v-if="!token" class="nav-link mx-3" :to="{ name: 'Home' }">Link</RouterLink>
+            <RouterLink v-if="!token" class="nav-link mx-3" :to="{ name: 'Admin' }">Admin </RouterLink>
           </li>
         </ul>
         <ul
@@ -37,7 +35,7 @@
               <img src="@/assets/avatarprofile.svg" alt="Dropdown trigger" />
             </div>
             <div class="dropdown-menu" v-bind:class="{ show: isDropdownVisible }">
-              <RouterLink v-if="!token" class="dropdown-item" :to="{ name: 'Panel' }">Panel</RouterLink>
+              <RouterLink v-if="token" class="dropdown-item" :to="{ name: 'Panel' }">Panel</RouterLink>
               <RouterLink v-if="!token" class="dropdown-item" :to="{ name: 'Login' }">Sign in </RouterLink>
               <a class="dropdown-item" v-if="token" @click.prevent="signOut">Sign out </a>
             </div>

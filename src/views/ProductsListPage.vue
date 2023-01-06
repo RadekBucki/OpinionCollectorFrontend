@@ -1,9 +1,9 @@
 <template>
   <div class="home container mt-3">
-    <form>
+    <form @submit.prevent="filterProducts()">
       <div class="row">
         <div class="col-5">
-          <input type="text" class="form-control" placeholder="Keywords" />
+          <input v-model="this.searchFilter" type="text" class="form-control" placeholder="Keywords"  required/>
         </div>
         <div class="col-1">
           <button type="submit" class="btn btn-dark mb-2">Search</button>
@@ -17,19 +17,19 @@
 
   <div class="container">
     <div class="row products">
-      <div v-for="item in products" :key="item" class="col-lg-10">
+      <div v-for="item in filteredProducts" :key="item" class="col-lg-10">
         <div class="p-2 mt-3 border rounded item row">
           <div class="fw-semibold fs-5 col-2">{{ item.name }}</div>
           <div class="row">
             <img :src="item.pictureUrl" class="img-fluid" alt="productImage" />
             <div class="col-3">{{ item.description }}</div>
             <div class="col-2" v-for="opinion in item.opinions" :key="opinion">
-              <div>{{ opinion.advantages }}</div>
+              <div>{{ opinion.advantages[0] }}</div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      </div>
   </div>
 </template>
 
@@ -96,8 +96,21 @@ export default {
       ],
       actualPage: 1,
       numberOfPages: 1,
+      filteredProducts: [],
+      searchFilter: ''
     };
   },
+  methods: {
+    filterProducts() {
+      if (this.searchFilter === '') {
+        return
+      }
+      this.filteredProducts = this.products.filter((product) => product.name.toLowerCase().includes(this.searchFilter))
+    }
+  },
+  mounted() {
+    this.filteredProducts = this.products
+  }
 }
 </script>
 

@@ -6,6 +6,7 @@ import DataPage from '@/views/UserPanel/DataPage.vue'
 import OpinionsPage from '@/views/UserPanel/OpinionsPage.vue'
 import SuggestionsPage from '@/views/UserPanel/SuggestionsPage.vue'
 import ProductsListPage from "@/views/ProductsListPage";
+import EditProduct from '@/views/AdminPanel/pages/EditProduct.vue';
 
 const routes = [
     {
@@ -18,7 +19,7 @@ const routes = [
                 path: 'products',
                 name: 'Products',
                 component: ProductsListPage,
-                props: true
+                props: true,
             },
             {
                 path: 'admin',
@@ -42,6 +43,12 @@ const routes = [
                 path: 'suggestions',
                 name: 'Suggestions',
                 component: SuggestionsPage,
+                props: true
+            },
+            {
+                path: 'editProduct',
+                name: 'EditProduct',
+                component: EditProduct,
                 props: true
             }
         ]

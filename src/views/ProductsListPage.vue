@@ -1,17 +1,33 @@
 <template>
   <div class="home container mt-3">
+    <h1>Filters</h1>
     <form @submit.prevent="filterProducts()">
-      <div class="row">
-        <div class="col-5">
-          <input v-model="this.searchFilter" type="text" class="form-control" placeholder="Keywords"  required/>
+      <div class="row justify-content-center">
+        <div class="col-3">
+          <input v-model="this.searchFilter" type="text" class="form-control" placeholder="Product name" required/>
         </div>
         <div class="col-1">
           <button type="submit" class="btn btn-dark mb-2">Search</button>
         </div>
       </div>
-    </form>
-    <form>
-      <h1>Filters</h1>
+      <div class="row justify-content-center">
+        <div class="col-2">
+          <input v-model="this.searchFilter" type="text" class="form-control" placeholder="Opinion avg min"  required/>
+        </div>
+        <div class="col-2">
+          <input v-model="this.searchFilter" type="text" class="form-control" placeholder="Opinion avg max"  required/>
+        </div>
+      </div>
+      <div class="row justify-content-center mt-2">
+        <div class="col-4">
+          <select class="form-select">
+            <option selected>Choose product category</option>
+            <option>category 2</option>
+            <option>category 3</option>
+            <option>category 4</option>
+          </select>
+        </div>
+      </div>
     </form>
   </div>
 

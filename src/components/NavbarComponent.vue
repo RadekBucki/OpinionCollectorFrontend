@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-dark navbar-expand-lg bg-dark justify-content-md-center justify-content-end">
-      <RouterLink class="navbar-brand d-md-none d-inline" :to="{ name: 'Home' }">Opinion Collector</RouterLink>
+      <RouterLink class="navbar-brand d-md-none d-inline" :to="{ name: 'Products' }">Opinion Collector</RouterLink>
       <button class="navbar-toggler ml-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapsingNavbar2">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -36,7 +36,7 @@
             </div>
             <div class="dropdown-menu" v-bind:class="{ show: isDropdownVisible }">
               <RouterLink v-if="token" class="dropdown-item" :to="{ name: 'Panel' }">Panel</RouterLink>
-              <a class="dropdown-item" v-if="token" @click.prevent="signOut">Sign out </a>
+              <a class="dropdown-item" @click.prevent="signOut">Sign out </a>
             </div>
           </li>
         </ul>

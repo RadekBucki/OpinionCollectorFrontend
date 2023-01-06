@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-dark navbar-expand-lg bg-dark justify-content-md-center justify-content-end">
-      <a class="navbar-brand d-md-none d-inline" href="">Opinion Collector</a>
+      <RouterLink class="navbar-brand d-md-none d-inline" :to="{ name: 'Home' }">Opinion Collector</RouterLink>
       <button class="navbar-toggler ml-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapsingNavbar2">
         <span class="navbar-toggler-icon"></span>
       </button>

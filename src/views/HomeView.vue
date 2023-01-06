@@ -1,11 +1,7 @@
 <template>
   <div v-if="!isLoggedIn">
-  <login-view
-      @change-modal="changeModal"
-      v-if="!isRegisterSelected"/>
-  <register-view
-      @change-modal="changeModal"
-      v-if="isRegisterSelected"/>
+    <login-modal @change-modal="changeModal" v-if="!isRegisterSelected" />
+    <register-modal @change-modal="changeModal" v-if="isRegisterSelected" />
   </div>
 
   <div v-if="isLoggedIn">
@@ -16,30 +12,30 @@
 
 <script>
 import NavbarComponent from "@/components/NavbarComponent";
-import LoginView from "@/views/LoginView";
-import RegisterView from "@/views/RegisterView";
+import LoginModal from "@/components/modals/LoginModal.vue";
+import RegisterModal from "@/components/modals/RegisterModal";
 
 export default {
   name: "HomeView",
   components: {
     NavbarComponent,
-    LoginView,
-    RegisterView
+    LoginModal,
+    RegisterModal,
   },
   data: () => ({
     isLoggedIn: false,
-    isRegisterSelected: false
+    isRegisterSelected: false,
   }),
   methods: {
     changeModal(isRegisterSelected) {
-      console.log(isRegisterSelected)
-      this.isRegisterSelected = isRegisterSelected
-    }
+      console.log(isRegisterSelected);
+      this.isRegisterSelected = isRegisterSelected;
+    },
   },
   mounted() {
     // token management
-    this.isLoggedIn = true
-  }
+    this.isLoggedIn = true;
+  },
 };
 </script>
 

@@ -36,7 +36,7 @@
             </div>
             <div class="dropdown-menu" v-bind:class="{ show: isDropdownVisible }">
               <RouterLink v-if="token" class="dropdown-item" :to="{ name: 'Panel' }">Panel</RouterLink>
-              <a class="dropdown-item" v-if="token" @click.prevent="signOut">Sign out</a>
+              <a class="dropdown-item" @click.prevent="signOut">Sign out</a>
             </div>
           </li>
         </ul>

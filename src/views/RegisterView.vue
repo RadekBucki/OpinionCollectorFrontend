@@ -1,7 +1,7 @@
 <template>
-  <div class="container-fluid">
+  <div class="container">
     <div class="row">
-      <div class="col-sm-5 px-0 d-none d-sm-block d-flex align-items-center justify-content-center">
+      <div class="col-sm-6 px-0 d-none d-sm-block d-flex align-items-center justify-content-center">
         <img
           src="https://images.unsplash.com/photo-1484807352052-23338990c6c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
           alt="Login image"
@@ -20,26 +20,26 @@
           <form @submit="registerUser" style="width: 23rem">
             <div class="row">
               <div class="col-6 form-outline mb-2">
-                <label class="form-label" for="firstNameForm">First name</label>
+                <label class="form-label">First name</label>
                 <input type="text" v-model="firstName" id="firstNameForm" class="form-control form-control-lg" />
               </div>
               <div class="col-6 form-outline mb-2">
-                <label class="form-label" for="lastNameForm">Last name</label>
+                <label class="form-label">Last name</label>
                 <input type="text" v-model="lastName" id="lastNameForm" class="form-control form-control-lg" />
               </div>
             </div>
             <div class="form-outline mb-2">
-              <label class="form-label" for="imageForm">Image url</label>
+              <label class="form-label">Image url</label>
               <input type="text" v-model="imageUrl" id="imageForm" class="form-control form-control-lg" />
             </div>
 
             <div class="form-outline mb-2">
-              <label class="form-label" for="emailForm">Email address</label>
+              <label class="form-label">Email address</label>
               <input type="email" v-model="email" id="emailForm" class="form-control form-control-lg" />
             </div>
 
             <div class="form-outline mb-4">
-              <label class="form-label" for="passwordForm">Password</label>
+              <label class="form-label">Password</label>
               <input type="password" v-model="password" id="passwordForm" class="form-control form-control-lg" />
             </div>
 
@@ -78,6 +78,7 @@ export default {
 img {
   width: 100%;
   overflow: hidden;
-  transform: translate(15%, 20%);
+  max-width: 611px;
+  transform: translate(0%, 20%);
 }
 </style>

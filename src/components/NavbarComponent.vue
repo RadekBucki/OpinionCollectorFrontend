@@ -16,7 +16,7 @@
             <RouterLink
               v-if="!token"
               class="nav-link navbar-brand fs-3 fw-bold mx-0 d-none d-md-inline"
-              :to="{ name: 'Home' }"
+              :to="{ name: 'Products' }"
               >Opinion Collector</RouterLink
             >
           </li>
@@ -36,7 +36,6 @@
             </div>
             <div class="dropdown-menu" v-bind:class="{ show: isDropdownVisible }">
               <RouterLink v-if="token" class="dropdown-item" :to="{ name: 'Panel' }">Panel</RouterLink>
-              <RouterLink v-if="!token" class="dropdown-item" :to="{ name: 'Login' }">Sign in </RouterLink>
               <a class="dropdown-item" v-if="token" @click.prevent="signOut">Sign out </a>
             </div>
           </li>

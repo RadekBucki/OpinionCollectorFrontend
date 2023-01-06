@@ -2,47 +2,49 @@ import {createRouter, createWebHistory} from 'vue-router'
 
 import HomeView from '@/views/HomeView.vue'
 import AdminView from '@/views/AdminView.vue'
-import LoginView from '@/views/LoginView.vue'
-import RegisterView from '@/views/RegisterView.vue'
 import DataPage from '@/views/UserPanel/DataPage.vue'
 import OpinionsPage from '@/views/UserPanel/OpinionsPage.vue'
 import SuggestionsPage from '@/views/UserPanel/SuggestionsPage.vue'
+import ProductsListPage from "@/views/ProductsListPage";
 
 const routes = [
     {
         path: '/',
         name: 'Home',
-        component: HomeView
-    },
-    {
-        path: '/admin',
-        name: 'Admin',
-        component: AdminView
-    },
-    {
-        path: '/login',
-        name: 'Login',
-        component: LoginView
-    },
-    {
-        path: '/register',
-        name: 'Register',
-        component: RegisterView
-    },
-    {
-        path: '/panel',
-        name: 'Panel',
-        component: DataPage
-    },
-    {
-        path: '/opinions',
-        name: 'Opinions',
-        component: OpinionsPage
-    },
-    {
-        path: '/suggestions',
-        name: 'Suggestions',
-        component: SuggestionsPage
+        component: HomeView,
+        props: true,
+        children: [
+            {
+                path: 'products',
+                name: 'Products',
+                component: ProductsListPage,
+                props: true
+            },
+            {
+                path: 'admin',
+                name: 'Admin',
+                component: AdminView,
+                props: true
+            },
+            {
+                path: 'panel',
+                name: 'Panel',
+                component: DataPage,
+                props: true
+            },
+            {
+                path: 'opinions',
+                name: 'Opinions',
+                component: OpinionsPage,
+                props: true
+            },
+            {
+                path: 'suggestions',
+                name: 'Suggestions',
+                component: SuggestionsPage,
+                props: true
+            }
+        ]
     }
 ]
 

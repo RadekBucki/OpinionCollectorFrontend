@@ -47,7 +47,10 @@
               <button class="btn btn-dark text-light btn-lg col-12" type="button">Register</button>
             </div>
 
-            <p>Have an account? <RouterLink class="link-primary" :to="{ name: 'Login' }">Sign in here</RouterLink></p>
+            <p>
+              Have an account?
+              <a href="#" @click="$emit('change-modal', false)">Sign in here</a>
+            </p>
           </form>
         </div>
       </div>
@@ -57,6 +60,7 @@
 
 <script>
 export default {
+  emits: ['change-modal'],
   data() {
     return {
       email: null,

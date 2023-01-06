@@ -24,7 +24,7 @@
 
             <p>
               Don't have an account?
-              <RouterLink class="link-primary" :to="{ name: 'Register' }">Register here</RouterLink>
+              <a href="#" @click="$emit('change-modal', true)">Register here</a>
             </p>
           </form>
         </div>
@@ -43,6 +43,7 @@
 
 <script>
 export default {
+  emits: ['change-modal'],
   data() {
     return {
       email: null,

@@ -25,18 +25,18 @@
           </li>
         </ul>
         <ul
-          class="nav navbar-nav flex-row justify-content-md-center align-items-center justify-content-start flex-nowrap"
+          class="nav navbar-nav flex-row justify-content-md-center align-items-center justify-content-center flex-nowrap"
         >
           <li class="nav-item">
             <div v-if="token" class="text-light mx-1">{{ this.username }}</div>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown mx-auto">
             <div class="nav-item" @click="toggleDropdown()">
               <img src="@/assets/avatarprofile.svg" alt="Dropdown trigger" />
             </div>
             <div class="dropdown-menu" v-bind:class="{ show: isDropdownVisible }">
               <RouterLink v-if="token" class="dropdown-item" :to="{ name: 'Panel' }">Panel</RouterLink>
-              <a class="dropdown-item" @click.prevent="signOut">Sign out </a>
+              <a class="dropdown-item" v-if="token" @click.prevent="signOut">Sign out</a>
             </div>
           </li>
         </ul>

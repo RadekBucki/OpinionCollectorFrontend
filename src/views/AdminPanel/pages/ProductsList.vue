@@ -1,10 +1,7 @@
 <template>
   <div>
-    <ProductsFilter />
-    <ProductItem v-for="product in products" 
-      :key="product.sku" 
-      :name="product.name" 
-      :url="product.pictureUrl"
+    <ProductsFilter @pass-data="setFilter" />
+    <ProductItem v-for="product in filteredProducts" :key="product.sku" :name="product.name" :url="product.pictureUrl"
       :sku="product.sku" />
   </div>
 </template>
@@ -99,7 +96,27 @@ export default {
       ],
       actualPage: 1,
       numberOfPages: 1,
+      filter: null,
     };
+  },
+  methods: {
+    setFilter(payload) {
+      this.filter = payload;
+      console.log(this.filter);
+    },
+  },
+  computed: {
+    filteredProducts() {
+      if (this.filter === null) {
+        return this.products;
+      }
+      const products = this.products;
+      return products.filter(product => {
+        if (product.name.toLocaleLowerCase().includes(this.filter.name.toLocaleLowerCase())) {
+          return true;
+        } 
+      });
+    }
   },
 }
 </script>

@@ -4,7 +4,7 @@
     <form @submit.prevent="filterProducts()">
       <div class="row justify-content-center">
         <div class="col-3">
-          <input v-model="this.filters.searchFilter" type="text" class="form-control" placeholder="Product name" required />
+          <input v-model="this.filters.searchFilter" type="text" class="form-control" placeholder="Product name"  />
         </div>
         <div class="col-1">
           <button type="submit" class="btn btn-dark mb-2">Search</button>
@@ -18,7 +18,7 @@
             step="0.1"
             class="form-control"
             placeholder="Opinion avg min"
-            required
+      
           />
         </div>
         <div class="col-2">
@@ -28,7 +28,7 @@
             step="0.1"
             class="form-control"
             placeholder="Opinion avg max"
-            required
+    
           />
         </div>
       </div>

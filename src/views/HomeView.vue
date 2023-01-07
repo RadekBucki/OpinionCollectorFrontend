@@ -28,7 +28,6 @@ export default {
   }),
   methods: {
     changeModal(isRegisterSelected) {
-      console.log(isRegisterSelected);
       this.isRegisterSelected = isRegisterSelected;
     },
   },

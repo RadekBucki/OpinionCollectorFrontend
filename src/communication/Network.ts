@@ -1,11 +1,14 @@
 import axios from "axios";
-import {Get, Post, Global} from "./EnumEndpoints";
-import { UserType,
+import {Get, Post, Delete, Global} from "./EnumEndpoints";
+import { TokenType,
+        UserType,
         PageType,
         SuggestionsType,
         ProductType,
         OpinionType,
-        CategoryType } from "./ObjectTypes";
+        CategoryType,
+        UserLoginType,
+        UserRegisterType } from "./ObjectTypes";
 
 
 export class GetRequest {
@@ -355,6 +358,49 @@ export class PostRequest {
             throw error
         })
         }
-
 }
 
+export class DeleteRequest {
+
+    //---------------------------------//
+    //       category-controller      //
+    //-------------------------------//
+
+    static deleteCategory(categoryName: string): Promise<Object> {
+    return axios({
+        method: 'DELETE',
+        url: Global.BASE_URL + Delete.CATEGORIES_DELETE,
+        headers: {
+           Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        params: {
+            name: categoryName,
+        },
+    }).then(function (res) {
+        return res.data
+    }).catch(function (error) {
+        throw error
+    })
+    }
+
+    //---------------------------------//
+    //       product-controller       //
+    //-------------------------------//
+
+    static deleteProduct(skuval: string): Promise<Object> {
+        return axios({
+            method: 'DELETE',
+            url: Global.BASE_URL + Delete.PRODUCTS_DELETE,
+            headers: {
+               Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            params: {
+                sku: skuval,
+            },
+        }).then(function (res) {
+            return res.data
+        }).catch(function (error) {
+            throw error
+        })
+        }
+}

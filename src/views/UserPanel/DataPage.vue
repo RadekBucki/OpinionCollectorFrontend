@@ -1,8 +1,8 @@
 <template>
-  <MobilePanelNavigationVue />
+  <MobilePanelNavigation />
 
   <div class="row mx-0">
-    <PanelNavigationVue />
+    <PanelNavigation />
 
     <div class="form col-9 mt-3">
       <h1>User Data</h1>
@@ -43,13 +43,13 @@
 </template>
 
 <script>
-import PanelNavigationVue from "@/components/PanelNavigation.vue";
-import MobilePanelNavigationVue from "@/components/MobilePanelNavigation.vue";
+import PanelNavigation from "@/components/PanelNavigation.vue";
+import MobilePanelNavigation from "@/components/MobilePanelNavigation.vue";
 export default {
   name: "DataPage",
   components: {
-    MobilePanelNavigationVue,
-    PanelNavigationVue,
+    MobilePanelNavigation,
+    PanelNavigation,
   },
   data() {
     return {

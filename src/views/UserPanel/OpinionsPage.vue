@@ -1,7 +1,7 @@
 <template>
-  <MobilePanelNavigationVue />
+  <MobilePanelNavigation />
   <div class="row mx-0">
-    <PanelNavigationVue />
+    <PanelNavigation />
     <div class="col-8 mt-3">
       <h1>User Opinions</h1>
     </div>
@@ -9,6 +9,6 @@
 </template>
 
 <script setup>
-import PanelNavigationVue from "@/components/PanelNavigation.vue";
-import MobilePanelNavigationVue from "@/components/MobilePanelNavigation.vue";
+import PanelNavigation from "@/components/PanelNavigation.vue";
+import MobilePanelNavigation from "@/components/MobilePanelNavigation.vue";
 </script>

@@ -1,18 +1,26 @@
 <template>
-  <div class="home">
-    <h1>This is an home page</h1>
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App view" />
-  </div>
+  <NavbarComponent />
+  <router-view />
 </template>
 
 <script>
-import HelloWorld from '@/components/HelloWorld.vue'
+import NavbarComponent from "@/components/NavbarComponent";
 
 export default {
-  name: 'HomeView',
+  name: "HomeView",
   components: {
-    HelloWorld
-  }
-}
+    NavbarComponent,
+  },
+};
 </script>
+
+<style>
+.item {
+  height: 300px;
+}
+.item img {
+  object-fit: contain;
+  max-width: 55%;
+  max-height: 55%;
+}
+</style>

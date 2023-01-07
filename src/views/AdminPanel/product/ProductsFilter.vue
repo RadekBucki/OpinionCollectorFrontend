@@ -15,7 +15,7 @@
     </div>
     <div class="form-floating mb-3">
       <input type="text" class="form-control" id="avgMax" placeholder="Average minimum value" v-model.number="avgMax" />
-      <label for="avgMax">Average minimum</label>
+      <label for="avgMax">Average maximum</label>
     </div>
     <div class="form-floating">
       <select class="form-select" id="Category" aria-label="Category" v-model="pickedCategory">

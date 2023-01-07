@@ -49,7 +49,7 @@ export default {
           pictureUrl:
             "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/macbook-air-space-gray-select-201810?wid=1200&hei=630&fmt=jpeg&qlt=95&.v=1664472289661",
           description: "Procesor Intel, dysk tysionc, cztery ka xD",
-          opinionAvg: null,
+          opinionAvg: 3,
           firstName: "Uzytkownik2",
           opinions: [
             {
@@ -110,11 +110,37 @@ export default {
       if (this.filter === null) {
         return this.products;
       }
-      const products = this.products;
+      const { products } = this;
       return products.filter(product => {
-        if (product.name.toLocaleLowerCase().includes(this.filter.name.toLocaleLowerCase())) {
-          return true;
-        } 
+        let avgTo = false;
+        let avgFrom = false;
+        let haveCategory = false;
+
+        const nameInclude = product.name.toLocaleLowerCase().includes(this.filter.name.toLocaleLowerCase());
+
+        const skuInclude = product.sku.toLocaleLowerCase().includes(this.filter.sku.toLocaleLowerCase());
+
+        if (product.opinionAvg >= this.filter.avgMin) {
+          avgFrom = true;
+        } else if (!this.filter.avgMin) {
+          avgFrom = true;
+        }
+
+        if (product.opinionAvg <= this.filter.avgMax) {
+          avgTo = true;
+        } else if (!this.filter.avgMax) {
+          avgTo = true;
+        }
+
+        for (let i in product.categories) {
+          if (product.categories[i].categoryName === this.filter.pickedCategory) {
+            haveCategory = true;
+          } else if (!this.filter.pickedCategory) {
+            haveCategory = true;
+          }
+        }
+
+        return nameInclude && skuInclude && avgFrom && avgTo && haveCategory;
       });
     }
   },

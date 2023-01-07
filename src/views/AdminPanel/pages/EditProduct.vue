@@ -1,17 +1,18 @@
 <template>
   <div class="container">
+    <DisplayEdit :url="product.pictureUrl"/>
     <EditForm />
   </div>
 </template>
 
 <script>
-// import ProductItem from '../product/ProductItem.vue';
 import EditForm from '../product/EditForm.vue';
+import DisplayEdit from '../product/DisplayEdit.vue';
 
 export default {
   components: {
-    // ProductItem,
     EditForm,
+    DisplayEdit,
   },
   data() {
     return {

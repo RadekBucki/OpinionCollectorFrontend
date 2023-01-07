@@ -27,7 +27,7 @@ export class GetRequest {
         }).then(function (response) {
             return response.data as CategoryType[];
         }).catch(function (error) {
-            throw error
+            throw error;
         })
     }
 
@@ -41,7 +41,7 @@ export class GetRequest {
         }).then(function (response) {
             return response.data as CategoryType[];
         }).catch(function (error) {
-            throw error
+            throw error;
         })
     }
 
@@ -55,11 +55,11 @@ export class GetRequest {
             url: Global.BASE_URL + Get.OPINIONS_PRODUCT,
             params: {
                 sku: skuval
-            }
+            },
         }).then(function (response) {
             return response.data as OpinionType[];
         }).catch(function (error) {
-            throw error
+            throw error;
         })
     }
 
@@ -73,7 +73,7 @@ export class GetRequest {
         }).then(function (response) {
             return response.data as OpinionType[];
         }).catch(function (error) {
-            throw error
+            throw error;
         })
     }
 
@@ -88,7 +88,7 @@ export class GetRequest {
         }).then(function (response) {
             return response.data as PageType;
         }).catch(function (error) {
-            throw error
+            throw error;
         })
     }
 
@@ -102,7 +102,7 @@ export class GetRequest {
         }).then(function (response) {
             return response.data as PageType;
         }).catch(function (error) {
-            throw error
+            throw error;
         })
     }
 
@@ -111,12 +111,12 @@ export class GetRequest {
             method: 'GET',
             url: Global.BASE_URL + Get.PRODUCTS_DETAILS,
             params: {
-                sku: skuParam
-            }
+                sku: skuParam,
+            },
         }).then(function (response) {
             return response.data as ProductType[]
         }).catch(function (error) {
-            throw error
+            throw error;
         })
     }
 
@@ -128,12 +128,12 @@ export class GetRequest {
                 categoryName: ctgName,
                 opinionAvgMax: opinionMax,
                 opinionAvgMin: opinionMin,
-                searchPhrase: srhPhrase
-            }
+                searchPhrase: srhPhrase,
+            },
         }).then(function (response) {
             return response.data as ProductType[];
         }).catch(function (error) {
-            throw error
+            throw error;
         })
     }
 
@@ -151,7 +151,7 @@ export class GetRequest {
         }).then(function (response) {
             return response.data as SuggestionsType[];
         }).catch(function (error) {
-            throw error
+            throw error;
         })
     }
 
@@ -165,7 +165,7 @@ export class GetRequest {
         }).then(function (response) {
             return response.data as SuggestionsType[];
         }).catch(function (error) {
-            throw error
+            throw error;
         })
     }
 
@@ -183,7 +183,7 @@ export class GetRequest {
         }).then(function (response) {
             return response.data as UserType[];
         }).catch(function (error) {
-            throw error
+            throw error;
         })
     }
 }
@@ -198,7 +198,7 @@ export class PostRequest {
 
     const newCategory: CategoryType = {
         name: categoryName,
-        visible: isVisible,
+        visible: isVisible
     };
 
     return axios({
@@ -211,7 +211,7 @@ export class PostRequest {
     }).then(function (response) {
         return response.data as CategoryType;
     }).catch(function (error) {
-        throw error
+        throw error;
     })
     }
 
@@ -233,7 +233,7 @@ export class PostRequest {
             opinionValue: oval,
             pictureUrl: picurl,
             sku: skuval
-        }
+        };
 
         return axios({
             method: 'POST',
@@ -245,7 +245,7 @@ export class PostRequest {
         }).then(function (response) {
             return response.data as OpinionType;
         }).catch(function (error) {
-            throw error
+            throw error;
         })
         }
 
@@ -267,7 +267,7 @@ export class PostRequest {
             pictureUrl: picurl,
             sku: skuval,
             visible: isVisible
-        }
+        };
 
         return axios({
             method: 'POST',
@@ -279,7 +279,7 @@ export class PostRequest {
         }).then(function (response) {
             return response.data as ProductType;
         }).catch(function (error) {
-            throw error
+            throw error;
         })
         }
 
@@ -292,7 +292,7 @@ export class PostRequest {
         const newSuggestion: SuggestionsType = {
             description: desc,
             sku: skuval
-        }
+        };
 
         return axios({
             method: 'POST',
@@ -304,7 +304,7 @@ export class PostRequest {
         }).then(function (response) {
             return response.data as SuggestionsType;
         }).catch(function (error) {
-            throw error
+            throw error;
         })
         }
 
@@ -317,7 +317,7 @@ export class PostRequest {
 
         const LoginUser: UserLoginType = {
             email: mail,
-            password: pass,
+            password: pass
         };
 
         return axios({
@@ -328,7 +328,7 @@ export class PostRequest {
             localStorage.setItem("token", response.data["token"]);
             return response.data as TokenType;
         }).catch(function (error) {
-            throw error
+            throw error;
         })
         }
 
@@ -355,7 +355,7 @@ export class PostRequest {
         }).then(function (response) {
             return response.data as UserType;
         }).catch(function (error) {
-            throw error
+            throw error;
         })
         }
 }
@@ -366,7 +366,7 @@ export class DeleteRequest {
     //       category-controller      //
     //-------------------------------//
 
-    static deleteCategory(categoryName: string): Promise<Object> {
+    static deleteCategory(categoryName: string): Promise<CategoryType> {
     return axios({
         method: 'DELETE',
         url: Global.BASE_URL + Delete.CATEGORIES_DELETE,
@@ -377,9 +377,9 @@ export class DeleteRequest {
             name: categoryName,
         },
     }).then(function (res) {
-        return res.data
+        return res.data as CategoryType;
     }).catch(function (error) {
-        throw error
+        throw error;
     })
     }
 
@@ -387,7 +387,7 @@ export class DeleteRequest {
     //       product-controller       //
     //-------------------------------//
 
-    static deleteProduct(skuval: string): Promise<Object> {
+    static deleteProduct(skuval: string): Promise<ProductType> {
         return axios({
             method: 'DELETE',
             url: Global.BASE_URL + Delete.PRODUCTS_DELETE,
@@ -398,9 +398,9 @@ export class DeleteRequest {
                 sku: skuval,
             },
         }).then(function (res) {
-            return res.data
+            return res.data as ProductType;
         }).catch(function (error) {
-            throw error
+            throw error;
         })
         }
 }
@@ -428,7 +428,7 @@ export class PutRequest {
         }).then(function (response) {
             return response.data as CategoryType;
         }).catch(function (error) {
-            throw error
+            throw error;
         })
         }
     
@@ -462,7 +462,7 @@ export class PutRequest {
         }).then(function (response) {
             return response.data as ProductType;
         }).catch(function (error) {
-            throw error
+            throw error;
         })
         }
 
@@ -490,7 +490,7 @@ export class PutRequest {
         }).then(function (response) {
             return response.data as ReplySuggestionType;
         }).catch(function (error) {
-            throw error
+            throw error;
         })
         }
 
@@ -528,7 +528,7 @@ export class PutRequest {
         }).then(function (response) {
             return response.data as UserType;
         }).catch(function (error) {
-            throw error
+            throw error;
         })
         }
 

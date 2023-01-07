@@ -1,13 +1,22 @@
 <template>
   <div class="container">
-    <DisplayEdit :url="product.pictureUrl"/>
-    <EditForm />
+    <div class="row">
+      <div class="my-2 p-2 col-12">
+        <RouterLink :to="{ name: 'ListAdmin' }" class="btn btn-outline-dark">
+          Back to browse
+        </RouterLink>
+      </div>
+      <div class="col">
+        <DisplayEdit :url="product.pictureUrl" />
+        <EditForm />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import EditForm from '@/views/AdminPanel/product/EditForm.vue';
-import DisplayEdit from '@/views/AdminPanel/product/DisplayEdit.vue';
+import EditForm from '@/components/product/EditForm.vue';
+import DisplayEdit from '@/components/product/DisplayEdit.vue';
 
 export default {
   components: {
@@ -55,7 +64,7 @@ export default {
     },
     sku() {
       return this.product.sku;
-    }
-  }
+    },
+  },
 }
 </script>

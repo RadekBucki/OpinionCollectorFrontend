@@ -6,9 +6,10 @@ import DataPage from '@/views/UserPanel/DataPage.vue'
 import OpinionsPage from '@/views/UserPanel/OpinionsPage.vue'
 import SuggestionsPage from '@/views/UserPanel/SuggestionsPage.vue'
 import ProductsListPage from "@/views/ProductsListPage";
-import EditProduct from '@/views/AdminPanel/pages/EditProduct.vue';
-import ProductsList from '@/views/AdminPanel/pages/ProductsList.vue';
-import AddProduct from '@/views/AdminPanel/pages/AddProduct.vue';
+
+import EditProduct from '@/views/EditProduct.vue';
+import ProductsList from '@/views/ProductsList.vue';
+import AddProduct from '@/views/AddProduct.vue';
 
 const routes = [
     {

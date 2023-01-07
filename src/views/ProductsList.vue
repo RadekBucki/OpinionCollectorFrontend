@@ -1,15 +1,18 @@
 <template>
   <div>
     <ProductsFilter @pass-data="setFilter" />
-    <ProductItem v-for="product in filteredProducts" :key="product.sku" :name="product.name" :url="product.pictureUrl"
+    <ProductItem v-for="product in products" 
+      :key="product.sku" 
+      :name="product.name" 
+      :url="product.pictureUrl"
       :sku="product.sku" />
     <ProductItem />
   </div>
 </template>
 
 <script>
-import ProductItem from '@/views/AdminPanel/product/ProductItem.vue';
-import ProductsFilter from '@/views/AdminPanel/product/ProductsFilter.vue';
+import ProductItem from '@/components/product/ProductItem.vue';
+import ProductsFilter from '@/components/product/ProductsFilter.vue';
 
 export default {
   components: {
@@ -103,47 +106,7 @@ export default {
   methods: {
     setFilter(payload) {
       this.filter = payload;
-      console.log(this.filter);
     },
-  },
-  computed: {
-    filteredProducts() {
-      if (this.filter === null) {
-        return this.products;
-      }
-      const { products } = this;
-      return products.filter(product => {
-        let avgTo = false;
-        let avgFrom = false;
-        let haveCategory = false;
-
-        const nameInclude = product.name.toLocaleLowerCase().includes(this.filter.name.toLocaleLowerCase());
-
-        const skuInclude = product.sku.toLocaleLowerCase().includes(this.filter.sku.toLocaleLowerCase());
-
-        if (product.opinionAvg >= this.filter.avgMin) {
-          avgFrom = true;
-        } else if (!this.filter.avgMin) {
-          avgFrom = true;
-        }
-
-        if (product.opinionAvg <= this.filter.avgMax) {
-          avgTo = true;
-        } else if (!this.filter.avgMax) {
-          avgTo = true;
-        }
-
-        for (let i in product.categories) {
-          if (product.categories[i].categoryName === this.filter.pickedCategory) {
-            haveCategory = true;
-          } else if (!this.filter.pickedCategory) {
-            haveCategory = true;
-          }
-        }
-
-        return nameInclude && skuInclude && avgFrom && avgTo && haveCategory;
-      });
-    }
   },
 }
 </script>

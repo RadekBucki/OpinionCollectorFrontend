@@ -41,7 +41,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .item {
   height: 300px;
 }

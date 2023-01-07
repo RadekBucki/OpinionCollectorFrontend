@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import DashBoard from './AdminPanel/layout/DashBoard.vue';
+import DashBoard from '@/components/layout/DashBoard.vue';
 
 export default {
   name: 'AdminView',
@@ -21,6 +21,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-</style>

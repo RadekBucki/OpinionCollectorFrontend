@@ -1,57 +1,50 @@
 <template>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-6 px-0 d-none d-sm-block d-flex align-items-center justify-content-center">
-        <img
-          src="https://images.unsplash.com/photo-1484807352052-23338990c6c6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-          alt="Login image"
-          class="img-fluid"
-          style="object-fit: cover; object-position: center"
-        />
-      </div>
-      <div class="col-sm-6 text-black">
-        <div class="px-5 mt-4 ms-xl-4">
-          <h1 class="h1 fw-bold mb-0">Register</h1>
+  <div class="modal fade" ref="staticBackdropForRegister" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Register</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-
-        <div
-          class="col-12 d-flex justify-content-center align-items-center h-custom-2 ms-xl-4 mt-5 pt-5 pt-xl-0 mt-xl-n5"
-        >
-          <form @submit="registerUser" style="width: 23rem">
-            <div class="row">
-              <div class="col-6 form-outline mb-2">
-                <label class="form-label">First name</label>
-                <input type="text" v-model="firstName" id="firstNameForm" class="form-control form-control-lg" />
-              </div>
-              <div class="col-6 form-outline mb-2">
-                <label class="form-label">Last name</label>
-                <input type="text" v-model="lastName" id="lastNameForm" class="form-control form-control-lg" />
-              </div>
+        <div class="modal-body">
+          <form @submit.prevent="registerUser">
+            <div class="form-group mb-3">
+              <label for="exampleInputEmail1">Email</label>
+              <input v-model="this.email" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" required>
             </div>
-            <div class="form-outline mb-2">
-              <label class="form-label">Image url</label>
-              <input type="text" v-model="imageUrl" id="imageForm" class="form-control form-control-lg" />
+            <div class="form-group mb-3">
+              <label for="exampleInputPassword1">First name</label>
+              <input v-model="this.firstName" type="password" class="form-control" placeholder="Enter first name" required>
             </div>
-
-            <div class="form-outline mb-2">
-              <label class="form-label">Email address</label>
-              <input type="email" v-model="email" id="emailForm" class="form-control form-control-lg" />
+            <div class="form-group mb-3">
+              <label for="exampleInputPassword1">Last name</label>
+              <input v-model="this.lastName" type="password" class="form-control" placeholder="Enter last name" required>
             </div>
-
-            <div class="form-outline mb-4">
-              <label class="form-label">Password</label>
-              <input type="password" v-model="password" id="passwordForm" class="form-control form-control-lg" />
+            <div class="form-group mb-3">
+              <label for="exampleInputPassword1">Password</label>
+              <input v-model="this.password" type="password" class="form-control" placeholder="Enter password" required>
             </div>
-
-            <div class="pt-1 mb-4">
-              <button class="btn btn-dark text-light btn-lg col-12" type="button">Register</button>
+            <div class="form-group mb-3">
+              <label for="exampleInputPassword1">Confirm password</label>
+              <input v-model="this.confirmPassword" type="password" class="form-control" placeholder="Enter password again" required>
             </div>
-
-            <p>
-              Have an account?
-              <a href="#" @click="$emit('change-modal', false)">Sign in here</a>
-            </p>
+            <button type="submit" class="btn btn-primary m-auto w-100">Register</button>
           </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" ref="staticBackdropForError" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="staticBackdropLabel">Error!</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h3>Error occurred</h3>
+          <p>Error message</p>
         </div>
       </div>
     </div>
@@ -59,12 +52,17 @@
 </template>
 
 <script>
+import {Modal} from "bootstrap";
+
 export default {
-  emits: ['change-modal'],
+  emits: ['get-modal'],
   data() {
     return {
+      modal: null,
+      errorModal: null,
       email: null,
       password: null,
+      confirmPassword: null,
       firstName: null,
       lastName: null,
       imageUrl: null,
@@ -75,6 +73,11 @@ export default {
       e.preventDefault();
     },
   },
+  mounted() {
+    this.modal = new Modal(this.$refs.staticBackdropForRegister)
+    this.errorModal = new Modal(this.$refs.staticBackdropForError)
+    this.$emit('get-modal', this.modal)
+  }
 };
 </script>
 

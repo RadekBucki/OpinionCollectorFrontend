@@ -36,6 +36,8 @@
             </div>
             <div class="dropdown-menu" v-bind:class="{ show: isDropdownVisible }">
               <RouterLink v-if="token" class="dropdown-item" :to="{ name: 'Panel' }">Panel</RouterLink>
+              <a class="dropdown-item" @click="this.loginModal.show()">Log in</a>
+              <a class="dropdown-item" @click="this.registerModal.show()">Register</a>
               <a class="dropdown-item" @click.prevent="signOut">Sign out</a>
             </div>
           </li>
@@ -43,15 +45,27 @@
       </div>
     </nav>
   </div>
+
+  <login-modal @get-modal="(modal) => { this.loginModal = modal }"/>
+  <register-modal @get-modal="(modal) => { this.registerModal = modal }"/>
 </template>
 
 <script>
+import LoginModal from "@/components/modals/LoginModal";
+import RegisterModal from "@/components/modals/RegisterModal";
+
 export default {
+  components: {
+    LoginModal,
+    RegisterModal
+  },
   data() {
     return {
       isDropdownVisible: false,
       token: null,
       username: "User1",
+      loginModal: null,
+      registerModal: null,
     };
   },
   methods: {

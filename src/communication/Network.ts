@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Get, Post, Delete, Global} from "./EnumEndpoints";
+import {Get, Post, Delete, Put, Global} from "./EnumEndpoints";
 import { ReplySuggestionType, 
         TokenType,
         UserType,
@@ -21,8 +21,6 @@ export class GetRequest {
     //-------------------------------//
 
     static getCategories(): Promise<CategoryType[]> {
-
-
         return axios({
             method: 'GET',
             url: Global.BASE_URL + Get.CATEGORIES,
@@ -64,7 +62,6 @@ export class GetRequest {
             throw error
         })
     }
-
 
     static getUserOpinions(): Promise<OpinionType[]> {
         return axios({
@@ -500,7 +497,6 @@ export class PutRequest {
     //---------------------------------//
     //         user-controller        //
     //-------------------------------//
-
 
     static editUser(uid: number,
                     mail: string,

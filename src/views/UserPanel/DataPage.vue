@@ -67,7 +67,7 @@ export default {
   border-radius: 50%;
 }
 
-@media (max-width: 1150px) {
+@media (max-width: 1200px) {
   .form {
     width: 100%;
   }

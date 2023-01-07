@@ -5,14 +5,14 @@
         <router-link class="list-group-item" :class="itemClasses('panel')" :to="{ name: 'Panel' }">Data</router-link>
       </li>
       <li>
-        <router-link class="list-group-item" :class="itemClasses('opinions')" :to="{ name: 'Opinions' }"
-          >Opinions</router-link
-        >
+        <router-link class="list-group-item" :class="itemClasses('opinions')" :to="{ name: 'Opinions' }">
+          Opinions
+        </router-link>
       </li>
       <li>
-        <router-link class="list-group-item" :class="itemClasses('suggestions')" :to="{ name: 'Suggestions' }"
-          >Suggestions</router-link
-        >
+        <router-link class="list-group-item" :class="itemClasses('suggestions')" :to="{ name: 'Suggestions' }">
+          Suggestions
+        </router-link>
       </li>
     </ul>
   </div>

@@ -9,17 +9,9 @@ import NavbarComponent from "@/components/NavbarComponent";
 export default {
   name: "HomeView",
   components: {
-    NavbarComponent,
-  },
-  data: () => ({
-  }),
-  methods: {
-
-  },
-  mounted() {
-
-  },
-};
+    NavbarComponent
+  }
+}
 </script>
 
 <style>

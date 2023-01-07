@@ -17,6 +17,9 @@
       <hr />
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
+          <RouterLink class="nav-link active" :to="{ name: 'AdminProfile' }">Admin profile</RouterLink>
+        </li>
+        <li class="nav-item">
           <RouterLink class="nav-link active" :to="{ name: 'ListAdmin' }">Browse Products</RouterLink>
         </li>
         <li class="nav-item">

@@ -10,6 +10,7 @@ import ProductsListPage from "@/views/ProductsListPage";
 import EditProduct from '@/views/EditProduct.vue';
 import ProductsList from '@/views/ProductsList.vue';
 import AddProduct from '@/views/AddProduct.vue';
+import AdminProfile from '@/views/AdminProfile.vue';
 
 const routes = [
     {
@@ -19,7 +20,7 @@ const routes = [
         props: true,
         children: [
             {
-                path: 'products',
+                path: '/',
                 name: 'Products',
                 component: ProductsListPage,
                 props: true,
@@ -30,6 +31,12 @@ const routes = [
                 component: AdminView,
                 props: true,
                 children: [
+                    {
+                        path: '',
+                        name: 'AdminProfile',
+                        component: AdminProfile,
+                        props: true,
+                    },
                     {
                         path: '/productsListAdmin',
                         name: 'ListAdmin',

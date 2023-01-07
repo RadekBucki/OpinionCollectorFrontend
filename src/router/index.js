@@ -15,7 +15,7 @@ const routes = [
         props: true,
         children: [
             {
-                path: 'products',
+                path: '/',
                 name: 'Products',
                 component: ProductsListPage,
                 props: true

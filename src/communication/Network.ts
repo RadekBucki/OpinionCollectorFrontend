@@ -1,14 +1,17 @@
 import axios from "axios";
 import {Get, Post, Delete, Global} from "./EnumEndpoints";
-import { TokenType,
+import { ReplySuggestionType, 
+        TokenType,
         UserType,
         PageType,
+        SuggestionsReplyType,
         SuggestionsType,
         ProductType,
         OpinionType,
         CategoryType,
         UserLoginType,
-        UserRegisterType } from "./ObjectTypes";
+        UserRegisterType,
+        UserEditType } from "./ObjectTypes";
 
 
 export class GetRequest {
@@ -403,4 +406,134 @@ export class DeleteRequest {
             throw error
         })
         }
+}
+
+export class PutRequest {
+
+    //---------------------------------//
+    //       category-controller      //
+    //-------------------------------//
+    
+    static editCategory(categoryName: string, isVisible: boolean): Promise<CategoryType> {
+
+        const modifyCategory: CategoryType = {
+            name: categoryName,
+            visible: isVisible,
+        };
+    
+        return axios({
+            method: 'PUT',
+            url: Global.BASE_URL + Put.CATEGORIES_EDIT,
+            headers: {
+               Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            data: modifyCategory,
+        }).then(function (response) {
+            return response.data as CategoryType;
+        }).catch(function (error) {
+            throw error
+        })
+        }
+    
+    //---------------------------------//
+    //       product-controller       //
+    //-------------------------------//
+
+    static editProduct(ctgName: string[],
+                        desc: string, 
+                        prodname: string, 
+                        picurl:string, 
+                        skuval: string, 
+                        isVisible: boolean): Promise<ProductType> {
+
+        const modifyProduct: ProductType = {
+            categoryNames: ctgName,
+            description: desc,
+            name: prodname,
+            pictureUrl: picurl,
+            sku: skuval,
+            visible:isVisible
+        }
+
+        return axios({
+            method: 'PUT',
+            url: Global.BASE_URL + Put.PRODUCTS_EDIT,
+            headers: {
+               Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            data: modifyProduct,
+        }).then(function (response) {
+            return response.data as ProductType;
+        }).catch(function (error) {
+            throw error
+        })
+        }
+
+    //---------------------------------//
+    //     suggestions-controller     //
+    //-------------------------------//
+
+    static replySuggestion(sugId: number,
+                        sugReply: string,
+                        sugStatus: string): Promise<ReplySuggestionType> {
+
+        const respondSuggestion: SuggestionsReplyType = {
+            suggestionId: sugId,
+            suggestionReply: sugReply,
+            suggestionStatus: sugStatus
+        }
+
+        return axios({
+            method: 'PUT',
+            url: Global.BASE_URL + Put.SUGGESTIONS_REPLY,
+            headers: {
+               Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            data: respondSuggestion,
+        }).then(function (response) {
+            return response.data as ReplySuggestionType;
+        }).catch(function (error) {
+            throw error
+        })
+        }
+
+    //---------------------------------//
+    //         user-controller        //
+    //-------------------------------//
+
+
+    static editUser(uid: number,
+                    mail: string,
+                    fname:string, 
+                    lname: string,
+                    pass: string, 
+                    admin:boolean, 
+                    picurl: string): Promise<UserType> {
+
+        const modifyUser: UserEditType = {
+            email: mail,
+            firstName: fname,
+            isAdmin: admin,
+            lastName: lname,
+            password: pass,
+            pictureUrl:picurl
+        };
+
+        return axios({
+            method: 'PUT',
+            url: Global.BASE_URL + Put.USER_EDIT,
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            data: modifyUser,
+            params: {
+                userId: uid,
+            }
+        }).then(function (response) {
+            return response.data as UserType;
+        }).catch(function (error) {
+            throw error
+        })
+        }
+
 }

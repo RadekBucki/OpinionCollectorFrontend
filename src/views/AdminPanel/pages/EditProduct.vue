@@ -1,22 +1,16 @@
 <template>
   <div class="container">
-    <ProductItem 
-      :name="productName" 
-      :url="pictureUrl" 
-      :description="description" 
-      :sku="sku"
-    />
     <EditForm />
   </div>
 </template>
 
 <script>
-import ProductItem from '../product/ProductItem.vue';
+// import ProductItem from '../product/ProductItem.vue';
 import EditForm from '../product/EditForm.vue';
 
 export default {
   components: {
-    ProductItem,
+    // ProductItem,
     EditForm,
   },
   data() {

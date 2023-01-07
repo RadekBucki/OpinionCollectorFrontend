@@ -7,6 +7,8 @@ import OpinionsPage from '@/views/UserPanel/OpinionsPage.vue'
 import SuggestionsPage from '@/views/UserPanel/SuggestionsPage.vue'
 import ProductsListPage from "@/views/ProductsListPage";
 import EditProduct from '@/views/AdminPanel/pages/EditProduct.vue';
+import ProductsList from '@/views/AdminPanel/pages/ProductsList.vue';
+import AddProduct from '@/views/AdminPanel/pages/AddProduct.vue';
 
 const routes = [
     {
@@ -46,10 +48,22 @@ const routes = [
                 props: true
             },
             {
-                path: 'editProduct',
+                path: 'productsListAdmin',
+                name: 'listAdmin',
+                component: ProductsList,
+                props: true,
+            },
+            {
+                path: '/editProduct/:sku',
                 name: 'EditProduct',
-                component: EditProduct,
-                props: true
+                component: EditProduct, 
+                props: true 
+            },
+            {
+                path: '/addProduct',
+                name: 'AddProduct',
+                component: AddProduct, 
+                props: true 
             }
         ]
     }

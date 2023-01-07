@@ -1,16 +1,14 @@
 <template>
-  <div v-if="!isLoggedIn">
-  <login-view
-      @change-modal="changeModal"
-      v-if="!isRegisterSelected"/>
-  <register-view
-      @change-modal="changeModal"
-      v-if="isRegisterSelected"/>
-  </div>
+  <div>
+    <div v-if="!isLoggedIn">
+      <login-view @change-modal="changeModal" v-if="!isRegisterSelected" />
+      <register-view @change-modal="changeModal" v-if="isRegisterSelected" />
+    </div>
 
-  <div v-if="isLoggedIn">
-    <NavbarComponent />
-    <router-view />
+    <div v-if="isLoggedIn">
+      <NavbarComponent />
+      <router-view />
+    </div>
   </div>
 </template>
 
@@ -47,6 +45,7 @@ export default {
 .item {
   height: 300px;
 }
+
 .item img {
   object-fit: contain;
   max-width: 55%;

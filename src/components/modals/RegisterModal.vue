@@ -9,23 +9,23 @@
         <div class="modal-body">
           <form @submit.prevent="registerUser">
             <div class="form-group mb-3">
-              <label for="exampleInputEmail1">Email</label>
+              <label >Email</label>
               <input v-model="this.email" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" required>
             </div>
             <div class="form-group mb-3">
-              <label for="exampleInputPassword1">First name</label>
+              <label >First name</label>
               <input v-model="this.firstName" type="password" class="form-control" placeholder="Enter first name" required>
             </div>
             <div class="form-group mb-3">
-              <label for="exampleInputPassword1">Last name</label>
+              <label >Last name</label>
               <input v-model="this.lastName" type="password" class="form-control" placeholder="Enter last name" required>
             </div>
             <div class="form-group mb-3">
-              <label for="exampleInputPassword1">Password</label>
+              <label >Password</label>
               <input v-model="this.password" type="password" class="form-control" placeholder="Enter password" required>
             </div>
             <div class="form-group mb-3">
-              <label for="exampleInputPassword1">Confirm password</label>
+              <label >Confirm password</label>
               <input v-model="this.confirmPassword" type="password" class="form-control" placeholder="Enter password again" required>
             </div>
             <button type="submit" class="btn btn-primary m-auto w-100">Register</button>

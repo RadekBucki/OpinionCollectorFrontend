@@ -9,11 +9,11 @@
         <div class="modal-body">
           <form @submit.prevent="loginUser">
             <div class="form-group mb-3">
-              <label for="exampleInputEmail1">Email</label>
+              <label >Email</label>
               <input v-model="this.email" type="text" class="form-control" aria-describedby="emailHelp" placeholder="Enter email" required>
             </div>
             <div class="form-group mb-3">
-              <label for="exampleInputPassword1">Password</label>
+              <label >Password</label>
               <input v-model="this.password" type="password" class="form-control" placeholder="Enter password" required>
             </div>
             <button type="submit" class="btn btn-primary m-auto w-100">Log in</button>

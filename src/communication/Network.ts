@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Get, Global} from "./EnumEndpoints";
+import {Get, Post, Global} from "./EnumEndpoints";
 import { UserType,
         PageType,
         SuggestionsType,
@@ -184,3 +184,177 @@ export class GetRequest {
         })
     }
 }
+
+export class PostRequest {
+
+    //---------------------------------//
+    //       category-controller      //
+    //-------------------------------//
+
+    static addCategory(categoryName: string, isVisible: boolean): Promise<CategoryType> {
+
+    const newCategory: CategoryType = {
+        name: categoryName,
+        visible: isVisible,
+    };
+
+    return axios({
+        method: 'POST',
+        url: Global.BASE_URL + Post.CATEGORIES_ADD,
+        headers: {
+           Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+        data: newCategory,
+    }).then(function (response) {
+        return response.data as CategoryType;
+    }).catch(function (error) {
+        throw error
+    })
+    }
+
+    //---------------------------------//
+    //       opinion-controller       //
+    //-------------------------------//
+
+    static addOpinion(adv: string[],
+                     desc: string,
+                    disadv: string[], 
+                    oval: number, 
+                    picurl: string, 
+                    skuval: string): Promise<OpinionType> {
+
+        const newOpinion: OpinionType = {
+            advantages: adv,
+            description: desc,
+            disadvantages: disadv,
+            opinionValue: oval,
+            pictureUrl: picurl,
+            sku: skuval
+        }
+
+        return axios({
+            method: 'POST',
+            url: Global.BASE_URL + Post.OPINIONS_ADD,
+            headers: {
+               Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            data: newOpinion,
+        }).then(function (response) {
+            return response.data as OpinionType;
+        }).catch(function (error) {
+            throw error
+        })
+        }
+
+    //---------------------------------//
+    //       product-controller       //
+    //-------------------------------//
+
+    static addProduct(ctgName: string[],
+                    desc: string,
+                    prodname: string,
+                    picurl:string, 
+                    skuval: string, 
+                    isVisible: boolean): Promise<ProductType> {
+
+        const newProduct: ProductType = {
+            categoryNames: ctgName,
+            description: desc,
+            name: prodname,
+            pictureUrl: picurl,
+            sku: skuval,
+            visible: isVisible
+        }
+
+        return axios({
+            method: 'POST',
+            url: Global.BASE_URL + Post.PRODUCTS_ADD,
+            headers: {
+               Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            data: newProduct,
+        }).then(function (response) {
+            return response.data as ProductType;
+        }).catch(function (error) {
+            throw error
+        })
+        }
+
+    //---------------------------------//
+    //     suggestions-controller     //
+    //-------------------------------//
+
+    static addSuggestion(desc: string, skuval: string): Promise<SuggestionsType> {
+
+        const newSuggestion: SuggestionsType = {
+            description: desc,
+            sku: skuval
+        }
+
+        return axios({
+            method: 'POST',
+            url: Global.BASE_URL + Post.SUGGESTIONS_ADD,
+            headers: {
+               Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            data: newSuggestion,
+        }).then(function (response) {
+            return response.data as SuggestionsType;
+        }).catch(function (error) {
+            throw error
+        })
+        }
+
+    //---------------------------------//
+    //         user-controller        //
+    //-------------------------------//
+
+
+    static userLogin(mail: string, pass: string): Promise<TokenType> {
+
+        const LoginUser: UserLoginType = {
+            email: mail,
+            password: pass,
+        };
+
+        return axios({
+            method: 'POST',
+            url: Global.BASE_URL + Post.USER_LOGIN,
+            data: LoginUser,
+        }).then(function (response) {
+            localStorage.setItem("token", response.data["token"]);
+            return response.data as TokenType;
+        }).catch(function (error) {
+            throw error
+        })
+        }
+
+    static userRegister(mail: string,
+                        fname:string, 
+                        lname: string, 
+                        pass: string, 
+                        admin:boolean, 
+                        picurl: string): Promise<UserType> {
+
+        const RegisterUser: UserRegisterType = {
+            email: mail,
+            firstName: fname,
+            isAdmin: admin,
+            lastName: lname,
+            password: pass,
+            pictureUrl:picurl
+        };
+
+        return axios({
+            method: 'POST',
+            url: Global.BASE_URL + Post.USER_REGISTER,
+            data: RegisterUser,
+        }).then(function (response) {
+            return response.data as UserType;
+        }).catch(function (error) {
+            throw error
+        })
+        }
+
+}
+

@@ -18,7 +18,6 @@
             step="0.1"
             class="form-control"
             placeholder="Opinion avg min"
-      
           />
         </div>
         <div class="col-2">
@@ -28,13 +27,12 @@
             step="0.1"
             class="form-control"
             placeholder="Opinion avg max"
-    
           />
         </div>
       </div>
       <div class="row justify-content-center mt-2">
         <div class="col-4">
-          <select class="form-select">
+          <select class="form-select" v-model="this.filters.categoryFilter">
             <option selected>Choose product category</option>
             <option>category 2</option>
             <option>category 3</option>
@@ -134,10 +132,8 @@ export default {
   },
   methods: {
     filterProducts() {
-      if (this.searchFilter === "") {
-        return;
-      }
-      this.filteredProducts = this.products.filter((product) => product.name.toLowerCase().includes(this.searchFilter));
+      //TODO: Axios new request for filters
+      this.filteredProducts = this.products
     },
   },
   mounted() {

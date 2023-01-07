@@ -21,11 +21,15 @@
     "@babel/eslint-parser": "^7.12.16",
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-eslint": "~5.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
-    "axios": "^1.2.2",
-    "eslint": "^7.32.0",
+    "@vue/eslint-config-typescript": "^9.1.0",
+    "axios": "^0.18.0",
+    "eslint": "^8.1.0",
     "eslint-plugin-vue": "^8.0.3",
+    "typescript": "^4.9.4",
     "vue-cli-plugin-axios": "~0.0.4"
   },
   "eslintConfig": {
@@ -35,10 +39,11 @@
     },
     "extends": [
       "plugin:vue/vue3-essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "@vue/typescript"
     ],
     "parserOptions": {
-      "parser": "@babel/eslint-parser"
+      "parser": "@typescript-eslint/parser"
     },
     "rules": {}
   },

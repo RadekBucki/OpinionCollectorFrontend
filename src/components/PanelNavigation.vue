@@ -43,7 +43,7 @@ export default {
 </script>
 
 <style scoped>
-@media (max-width: 1150px) {
+@media (max-width: 1200px) {
   .sidepanel {
     display: none !important;
   }

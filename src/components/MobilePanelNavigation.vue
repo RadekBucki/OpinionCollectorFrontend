@@ -1,6 +1,6 @@
 <template>
   <div class="mobile">
-    <ul class="list-group list-group-horizontal justify-content-center">
+    <ul class="d-xl-none list-group list-group-horizontal justify-content-center">
       <li class="nav-item">
         <RouterLink class="list-group-item" :class="itemClasses('panel')" :to="{ name: 'Panel' }">Data</RouterLink>
       </li>
@@ -43,11 +43,5 @@ export default {
 .mobile ul {
   list-style: none;
   margin-top: 1.4em;
-}
-
-@media (min-width: 1150px) {
-  .mobile ul {
-    display: none;
-  }
 }
 </style>

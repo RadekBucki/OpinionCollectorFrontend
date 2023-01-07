@@ -2,7 +2,7 @@
   <div class="mobile mt-3">
     <ul class="list-group list-group-horizontal justify-content-center">
       <li class="nav-item">
-        <RouterLink class="nav-link active" :to="{ name: 'listAdmin' }">Browse Products</RouterLink>
+        <RouterLink class="nav-link active" :to="{ name: 'ListAdmin' }">Browse Products</RouterLink>
       </li>
       <li class="nav-item">
         <RouterLink class="nav-link active" :to="{ name: 'AddProduct' }">Add Product</RouterLink>
@@ -17,7 +17,7 @@
       <hr />
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
-          <RouterLink class="nav-link active" :to="{ name: 'listAdmin' }">Browse Products</RouterLink>
+          <RouterLink class="nav-link active" :to="{ name: 'ListAdmin' }">Browse Products</RouterLink>
         </li>
         <li class="nav-item">
           <RouterLink class="nav-link active" :to="{ name: 'AddProduct' }">Add Product</RouterLink>

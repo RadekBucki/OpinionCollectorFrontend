@@ -27,7 +27,27 @@ const routes = [
                 path: 'admin',
                 name: 'Admin',
                 component: AdminView,
-                props: true
+                props: true,
+                children: [
+                    {
+                        path: '/productsListAdmin',
+                        name: 'ListAdmin',
+                        component: ProductsList,
+                        props: true,
+                    },
+                    {
+                        path: '/editProduct/:sku',
+                        name: 'EditProduct',
+                        component: EditProduct,
+                        props: true
+                    },
+                    {
+                        path: '/addProduct',
+                        name: 'AddProduct',
+                        component: AddProduct,
+                        props: true
+                    }
+                ]
             },
             {
                 path: 'panel',
@@ -47,24 +67,6 @@ const routes = [
                 component: SuggestionsPage,
                 props: true
             },
-            {
-                path: 'productsListAdmin',
-                name: 'listAdmin',
-                component: ProductsList,
-                props: true,
-            },
-            {
-                path: '/editProduct/:sku',
-                name: 'EditProduct',
-                component: EditProduct, 
-                props: true 
-            },
-            {
-                path: '/addProduct',
-                name: 'AddProduct',
-                component: AddProduct, 
-                props: true 
-            }
         ]
     }
 ]

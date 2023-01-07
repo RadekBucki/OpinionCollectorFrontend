@@ -3,12 +3,13 @@
     <ProductsFilter @pass-data="setFilter" />
     <ProductItem v-for="product in filteredProducts" :key="product.sku" :name="product.name" :url="product.pictureUrl"
       :sku="product.sku" />
+    <ProductItem />
   </div>
 </template>
 
 <script>
-import ProductItem from '../product/ProductItem.vue';
-import ProductsFilter from '../product/ProductsFilter.vue';
+import ProductItem from '@/views/AdminPanel/product/ProductItem.vue';
+import ProductsFilter from '@/views/AdminPanel/product/ProductsFilter.vue';
 
 export default {
   components: {

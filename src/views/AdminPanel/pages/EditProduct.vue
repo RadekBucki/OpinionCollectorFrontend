@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import EditForm from '../product/EditForm.vue';
-import DisplayEdit from '../product/DisplayEdit.vue';
+import EditForm from '@/views/AdminPanel/product/EditForm.vue';
+import DisplayEdit from '@/views/AdminPanel/product/DisplayEdit.vue';
 
 export default {
   components: {
@@ -59,7 +59,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-
-</style>

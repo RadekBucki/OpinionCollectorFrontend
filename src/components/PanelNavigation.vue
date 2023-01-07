@@ -6,14 +6,14 @@
     <hr />
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <RouterLink class="nav-link" :class="itemClasses('panel')" :to="{ name: 'Panel' }">Data</RouterLink>
+        <router-link class="nav-link" :class="itemClasses('panel')" :to="{ name: 'Panel' }">Data</router-link>
       </li>
       <li>
-        <RouterLink class="nav-link" :class="itemClasses('opinions')" :to="{ name: 'Opinions' }">Opinions</RouterLink>
+        <router-link class="nav-link" :class="itemClasses('opinions')" :to="{ name: 'Opinions' }">Opinions</router-link>
       </li>
       <li>
-        <RouterLink class="nav-link" :class="itemClasses('suggestions')" :to="{ name: 'Suggestions' }"
-          >Suggestions</RouterLink
+        <router-link class="nav-link" :class="itemClasses('suggestions')" :to="{ name: 'Suggestions' }"
+          >Suggestions</router-link
         >
       </li>
     </ul>

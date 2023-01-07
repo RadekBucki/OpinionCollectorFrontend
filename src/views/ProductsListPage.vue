@@ -4,7 +4,7 @@
     <form @submit.prevent="filterProducts()">
       <div class="row justify-content-center">
         <div class="col-3">
-          <input v-model="this.searchFilter" type="text" class="form-control" placeholder="Product name" required />
+          <input v-model="this.filters.searchFilter" type="text" class="form-control" placeholder="Product name" required />
         </div>
         <div class="col-1">
           <button type="submit" class="btn btn-dark mb-2">Search</button>
@@ -13,8 +13,9 @@
       <div class="row justify-content-center">
         <div class="col-2">
           <input
-            v-model="this.searchFilter"
+            v-model="this.filters.opinionAvgMinFilter"
             type="number"
+            step="0.1"
             class="form-control"
             placeholder="Opinion avg min"
             required
@@ -22,8 +23,9 @@
         </div>
         <div class="col-2">
           <input
-            v-model="this.searchFilter"
+            v-model="this.filters.opinionAvgMaxFilter"
             type="number"
+            step="0.1"
             class="form-control"
             placeholder="Opinion avg max"
             required
@@ -122,7 +124,12 @@ export default {
       actualPage: 1,
       numberOfPages: 1,
       filteredProducts: [],
-      searchFilter: "",
+      filters: {
+        searchFilter: "",
+        opinionAvgMinFilter: null,
+        opinionAvgMaxFilter: null,
+        categoryFilter: null
+      }
     };
   },
   methods: {

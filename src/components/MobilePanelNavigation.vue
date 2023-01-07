@@ -2,16 +2,16 @@
   <div class="mobile">
     <ul class="d-xl-none list-group list-group-horizontal justify-content-center">
       <li class="nav-item">
-        <RouterLink class="list-group-item" :class="itemClasses('panel')" :to="{ name: 'Panel' }">Data</RouterLink>
+        <router-link class="list-group-item" :class="itemClasses('panel')" :to="{ name: 'Panel' }">Data</router-link>
       </li>
       <li>
-        <RouterLink class="list-group-item" :class="itemClasses('opinions')" :to="{ name: 'Opinions' }"
-          >Opinions</RouterLink
+        <router-link class="list-group-item" :class="itemClasses('opinions')" :to="{ name: 'Opinions' }"
+          >Opinions</router-link
         >
       </li>
       <li>
-        <RouterLink class="list-group-item" :class="itemClasses('suggestions')" :to="{ name: 'Suggestions' }"
-          >Suggestions</RouterLink
+        <router-link class="list-group-item" :class="itemClasses('suggestions')" :to="{ name: 'Suggestions' }"
+          >Suggestions</router-link
         >
       </li>
     </ul>

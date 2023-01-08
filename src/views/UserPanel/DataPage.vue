@@ -7,11 +7,12 @@
     <div class="form col-9 mt-3">
       <h1>User Data</h1>
 
-      <div class="avatarCircle col-4 mt-4 mx-auto">
+      <div class="avatarCircle col-2 mt-4 mx-auto">
         <label class="form-label text-dark mx-4">Avatar Image</label>
         <img
           src="https://images.unsplash.com/photo-1536164261511-3a17e671d380?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=682&q=80"
           alt="Avatar Profile"
+          class="img-fluid"
         />
         <input type="text" v-model="imgUrl" class="form-control mt-3" placeholder="Image url" />
       </div>

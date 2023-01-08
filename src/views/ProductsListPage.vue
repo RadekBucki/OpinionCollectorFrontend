@@ -4,7 +4,7 @@
     <form @submit.prevent="filterProducts()">
       <div class="row justify-content-center">
         <div class="col-3">
-          <input v-model="this.filters.searchFilter" type="text" class="form-control" placeholder="Product name"  />
+          <input v-model="this.filters.searchFilter" type="text" class="form-control" placeholder="Product name" />
         </div>
         <div class="col-1">
           <button type="submit" class="btn btn-dark mb-2">Search</button>
@@ -12,22 +12,12 @@
       </div>
       <div class="row justify-content-center">
         <div class="col-2">
-          <input
-            v-model="this.filters.opinionAvgMinFilter"
-            type="number"
-            step="0.1"
-            class="form-control"
-            placeholder="Opinion avg min"
-          />
+          <input v-model="this.filters.opinionAvgMinFilter" type="number" step="0.1" class="form-control"
+            placeholder="Opinion avg min" />
         </div>
         <div class="col-2">
-          <input
-            v-model="this.filters.opinionAvgMaxFilter"
-            type="number"
-            step="0.1"
-            class="form-control"
-            placeholder="Opinion avg max"
-          />
+          <input v-model="this.filters.opinionAvgMaxFilter" type="number" step="0.1" class="form-control"
+            placeholder="Opinion avg max" />
         </div>
       </div>
       <div class="row justify-content-center mt-2">
@@ -44,16 +34,16 @@
   </div>
 
   <div class="container">
-    <div class="row products">
-      <div v-for="item in filteredProducts" :key="item" class="col-lg-10">
-        <div class="p-2 mt-3 border rounded item row">
-          <div class="fw-semibold fs-5 col-2">{{ item.name }}</div>
-          <div class="row">
+    <div v-for="item in filteredProducts" :key="item">
+      <div class="p-1 mt-3 border rounded item row">
+        <div class="row">
+          <div class="py-2 fw-semibold fs-5 col text-start">{{ item.name }}</div>
+          <div class="col">
             <img :src="item.pictureUrl" class="img-fluid" alt="productImage" />
-            <div class="col-3">{{ item.description }}</div>
-            <div class="col-2" v-for="opinion in item.opinions" :key="opinion">
-              <div>{{ opinion.advantages[0] }}</div>
-            </div>
+          </div>
+          <div class="col-3">{{ item.description }}</div>
+          <div class="col-2" v-for="opinion in item.opinions" :key="opinion">
+            <div>{{ opinion.advantages[0] }}</div>
           </div>
         </div>
       </div>

@@ -6,7 +6,6 @@
       :name="product.name" 
       :url="product.pictureUrl"
       :sku="product.sku" />
-    <ProductItem />
   </div>
 </template>
 

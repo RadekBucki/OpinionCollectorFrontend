@@ -1,5 +1,5 @@
 import axios from "axios";
-import {Get, Post, Delete, Put, Global} from "./EnumEndpoints";
+import {Get, Post, Delete, Put, BaseUrl} from "./EnumEndpoints.ts";
 import { Token,
         User,
         Page,
@@ -22,7 +22,7 @@ export class GetRequest {
     static getCategories(): Promise<Category[]> {
         return axios({
             method: 'GET',
-            url: Global.BASE_URL + Get.CATEGORIES,
+            url: BaseUrl + Get.CATEGORIES,
         }).then(function (response) {
             return response.data as Category[];
         }).catch(function (error) {
@@ -33,7 +33,7 @@ export class GetRequest {
     static getAllCategories(): Promise<Category[]> {
         return axios({
             method: 'GET',
-            url: Global.BASE_URL + Get.CATEGORIES_ALL,
+            url: BaseUrl + Get.CATEGORIES_ALL,
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -51,7 +51,7 @@ export class GetRequest {
     static getProductOpinions(skuval: string): Promise<Opinion[]> {
         return axios({
             method: 'GET',
-            url: Global.BASE_URL + Get.OPINIONS_PRODUCT,
+            url: BaseUrl + Get.OPINIONS_PRODUCT,
             params: {
                 sku: skuval
             },
@@ -65,7 +65,7 @@ export class GetRequest {
     static getUserOpinions(): Promise<Opinion[]> {
         return axios({
             method: 'GET',
-            url: Global.BASE_URL + Get.OPINIONS_USER,
+            url: BaseUrl + Get.OPINIONS_USER,
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -83,7 +83,7 @@ export class GetRequest {
     static getProducts(page: number): Promise<Page> {
         return axios({
             method: 'GET',
-            url: Global.BASE_URL + Get.PRODUCTS + page,
+            url: BaseUrl + Get.PRODUCTS + page,
         }).then(function (response) {
             return response.data as Page;
         }).catch(function (error) {
@@ -94,7 +94,7 @@ export class GetRequest {
     static getAllProducts(page: number): Promise<Page> {
         return axios({
             method: 'GET',
-            url: Global.BASE_URL + Get.PRODUCTS_ALL + page,
+            url: BaseUrl + Get.PRODUCTS_ALL + page,
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -108,7 +108,7 @@ export class GetRequest {
     static getProductDetails(skuParam: string): Promise<Product> {
         return axios({
             method: 'GET',
-            url: Global.BASE_URL + Get.PRODUCTS_DETAILS,
+            url: BaseUrl + Get.PRODUCTS_DETAILS,
             params: {
                 sku: skuParam,
             },
@@ -122,7 +122,7 @@ export class GetRequest {
     static getSearchProduct(ctgName: string, opinionMin: number, opinionMax: number, srhPhrase: string): Promise<Product[]> {
         return axios({
             method: 'GET',
-            url: Global.BASE_URL + Get.PRODUCT_SEARCH,
+            url: BaseUrl + Get.PRODUCT_SEARCH,
             params: {
                 categoryName: ctgName,
                 opinionAvgMax: opinionMax,
@@ -143,7 +143,7 @@ export class GetRequest {
     static getAllSuggestions(): Promise<Suggestions[]> {
         return axios({
             method: 'GET',
-            url: Global.BASE_URL + Get.SUGGESTIONS_ALL,
+            url: BaseUrl + Get.SUGGESTIONS_ALL,
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -157,7 +157,7 @@ export class GetRequest {
     static getUserSuggestions(): Promise<Suggestions[]> {
         return axios({
             method: 'GET',
-            url: Global.BASE_URL + Get.SUGGESTIONS_USER,
+            url: BaseUrl + Get.SUGGESTIONS_USER,
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -175,7 +175,7 @@ export class GetRequest {
     static getAllUsers(): Promise<User[]> {
         return axios({
             method: 'GET',
-            url: Global.BASE_URL + Get.USERS_ALL,
+            url: BaseUrl + Get.USERS_ALL,
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -202,7 +202,7 @@ export class PostRequest {
 
     return axios({
         method: 'POST',
-        url: Global.BASE_URL + Post.CATEGORIES_ADD,
+        url: BaseUrl + Post.CATEGORIES_ADD,
         headers: {
            Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -236,7 +236,7 @@ export class PostRequest {
 
         return axios({
             method: 'POST',
-            url: Global.BASE_URL + Post.OPINIONS_ADD,
+            url: BaseUrl + Post.OPINIONS_ADD,
             headers: {
                Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -270,7 +270,7 @@ export class PostRequest {
 
         return axios({
             method: 'POST',
-            url: Global.BASE_URL + Post.PRODUCTS_ADD,
+            url: BaseUrl + Post.PRODUCTS_ADD,
             headers: {
                Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -300,7 +300,7 @@ export class PostRequest {
 
         return axios({
             method: 'POST',
-            url: Global.BASE_URL + Post.SUGGESTIONS_ADD,
+            url: BaseUrl + Post.SUGGESTIONS_ADD,
             headers: {
                Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -326,7 +326,7 @@ export class PostRequest {
 
         return axios({
             method: 'POST',
-            url: Global.BASE_URL + Post.USER_LOGIN,
+            url: BaseUrl + Post.USER_LOGIN,
             data: LoginUser,
         }).then(function (response) {
             localStorage.setItem("token", response.data["token"]);
@@ -354,7 +354,7 @@ export class PostRequest {
 
         return axios({
             method: 'POST',
-            url: Global.BASE_URL + Post.USER_REGISTER,
+            url: BaseUrl + Post.USER_REGISTER,
             data: RegisterUser,
         }).then(function (response) {
             return response.data as User;
@@ -373,7 +373,7 @@ export class DeleteRequest {
     static deleteCategory(categoryName: string): Promise<Category> {
     return axios({
         method: 'DELETE',
-        url: Global.BASE_URL + Delete.CATEGORIES_DELETE,
+        url: BaseUrl + Delete.CATEGORIES_DELETE,
         headers: {
            Authorization: "Bearer " + localStorage.getItem("token"),
         },
@@ -394,7 +394,7 @@ export class DeleteRequest {
     static deleteProduct(skuval: string): Promise<Product> {
         return axios({
             method: 'DELETE',
-            url: Global.BASE_URL + Delete.PRODUCTS_DELETE,
+            url: BaseUrl + Delete.PRODUCTS_DELETE,
             headers: {
                Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -424,7 +424,7 @@ export class PutRequest {
     
         return axios({
             method: 'PUT',
-            url: Global.BASE_URL + Put.CATEGORIES_EDIT,
+            url: BaseUrl + Put.CATEGORIES_EDIT,
             headers: {
                Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -458,7 +458,7 @@ export class PutRequest {
 
         return axios({
             method: 'PUT',
-            url: Global.BASE_URL + Put.PRODUCTS_EDIT,
+            url: BaseUrl + Put.PRODUCTS_EDIT,
             headers: {
                Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -486,7 +486,7 @@ export class PutRequest {
 
         return axios({
             method: 'PUT',
-            url: Global.BASE_URL + Put.SUGGESTIONS_REPLY,
+            url: BaseUrl + Put.SUGGESTIONS_REPLY,
             headers: {
                Authorization: "Bearer " + localStorage.getItem("token"),
             },
@@ -521,7 +521,7 @@ export class PutRequest {
 
         return axios({
             method: 'PUT',
-            url: Global.BASE_URL + Put.USER_EDIT,
+            url: BaseUrl + Put.USER_EDIT,
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },

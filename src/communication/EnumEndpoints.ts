@@ -1,6 +1,4 @@
-export enum Global {
-    BASE_URL = "http://localhost:8080",
-}
+export const BaseUrl = process.env.VUE_APP_BACKEND_URL;
 
 export enum Get {
     CATEGORIES = "/categories",

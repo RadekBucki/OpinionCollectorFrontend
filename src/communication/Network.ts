@@ -1,17 +1,17 @@
 import axios from "axios";
 import {Get, Post, Delete, Put, Global} from "./EnumEndpoints";
-import { ReplySuggestionType, 
-        TokenType,
-        UserType,
-        PageType,
-        SuggestionsReplyType,
-        SuggestionsType,
-        ProductType,
-        OpinionType,
-        CategoryType,
-        UserLoginType,
-        UserRegisterType,
-        UserEditType } from "./ObjectTypes";
+import { ReplySuggestion, 
+        Token,
+        User,
+        Page,
+        SuggestionsReply,
+        Suggestions,
+        Product,
+        Opinion,
+        Category,
+        UserLogin,
+        UserRegister,
+        UserEdit } from "./ObjectTypes";
 
 
 export class GetRequest {
@@ -20,18 +20,18 @@ export class GetRequest {
     //       category-controller      //
     //-------------------------------//
 
-    static getCategories(): Promise<CategoryType[]> {
+    static getCategories(): Promise<Category[]> {
         return axios({
             method: 'GET',
             url: Global.BASE_URL + Get.CATEGORIES,
         }).then(function (response) {
-            return response.data as CategoryType[];
+            return response.data as Category[];
         }).catch(function (error) {
             throw error;
         })
     }
 
-    static getAllCategories(): Promise<CategoryType[]> {
+    static getAllCategories(): Promise<Category[]> {
         return axios({
             method: 'GET',
             url: Global.BASE_URL + Get.CATEGORIES_ALL,
@@ -39,7 +39,7 @@ export class GetRequest {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
         }).then(function (response) {
-            return response.data as CategoryType[];
+            return response.data as Category[];
         }).catch(function (error) {
             throw error;
         })
@@ -49,7 +49,7 @@ export class GetRequest {
     //       opinion-controller       //
     //-------------------------------//
 
-    static getProductOpinions(skuval: string): Promise<OpinionType[]> {
+    static getProductOpinions(skuval: string): Promise<Opinion[]> {
         return axios({
             method: 'GET',
             url: Global.BASE_URL + Get.OPINIONS_PRODUCT,
@@ -57,13 +57,13 @@ export class GetRequest {
                 sku: skuval
             },
         }).then(function (response) {
-            return response.data as OpinionType[];
+            return response.data as Opinion[];
         }).catch(function (error) {
             throw error;
         })
     }
 
-    static getUserOpinions(): Promise<OpinionType[]> {
+    static getUserOpinions(): Promise<Opinion[]> {
         return axios({
             method: 'GET',
             url: Global.BASE_URL + Get.OPINIONS_USER,
@@ -71,7 +71,7 @@ export class GetRequest {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
         }).then(function (response) {
-            return response.data as OpinionType[];
+            return response.data as Opinion[];
         }).catch(function (error) {
             throw error;
         })
@@ -81,18 +81,18 @@ export class GetRequest {
     //       product-controller       //
     //-------------------------------//
 
-    static getProducts(page: number): Promise<PageType> {
+    static getProducts(page: number): Promise<Page> {
         return axios({
             method: 'GET',
             url: Global.BASE_URL + Get.PRODUCTS + page,
         }).then(function (response) {
-            return response.data as PageType;
+            return response.data as Page;
         }).catch(function (error) {
             throw error;
         })
     }
 
-    static getAllProducts(page: number): Promise<PageType> {
+    static getAllProducts(page: number): Promise<Page> {
         return axios({
             method: 'GET',
             url: Global.BASE_URL + Get.PRODUCTS_ALL + page,
@@ -100,13 +100,13 @@ export class GetRequest {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
         }).then(function (response) {
-            return response.data as PageType;
+            return response.data as Page;
         }).catch(function (error) {
             throw error;
         })
     }
 
-    static getProductDetails(skuParam: string): Promise<ProductType> {
+    static getProductDetails(skuParam: string): Promise<Product> {
         return axios({
             method: 'GET',
             url: Global.BASE_URL + Get.PRODUCTS_DETAILS,
@@ -114,13 +114,13 @@ export class GetRequest {
                 sku: skuParam,
             },
         }).then(function (response) {
-            return response.data as ProductType
+            return response.data as Product
         }).catch(function (error) {
             throw error;
         })
     }
 
-    static getSearchProduct(ctgName: string, opinionMin: number, opinionMax: number, srhPhrase: string): Promise<ProductType[]> {
+    static getSearchProduct(ctgName: string, opinionMin: number, opinionMax: number, srhPhrase: string): Promise<Product[]> {
         return axios({
             method: 'GET',
             url: Global.BASE_URL + Get.PRODUCT_SEARCH,
@@ -131,7 +131,7 @@ export class GetRequest {
                 searchPhrase: srhPhrase,
             },
         }).then(function (response) {
-            return response.data as ProductType[];
+            return response.data as Product[];
         }).catch(function (error) {
             throw error;
         })
@@ -141,7 +141,7 @@ export class GetRequest {
     //     suggestions-controller     //
     //-------------------------------//
 
-    static getAllSuggestions(): Promise<SuggestionsType[]> {
+    static getAllSuggestions(): Promise<Suggestions[]> {
         return axios({
             method: 'GET',
             url: Global.BASE_URL + Get.SUGGESTIONS_ALL,
@@ -149,13 +149,13 @@ export class GetRequest {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
         }).then(function (response) {
-            return response.data as SuggestionsType[];
+            return response.data as Suggestions[];
         }).catch(function (error) {
             throw error;
         })
     }
 
-    static getUserSuggestions(): Promise<SuggestionsType[]> {
+    static getUserSuggestions(): Promise<Suggestions[]> {
         return axios({
             method: 'GET',
             url: Global.BASE_URL + Get.SUGGESTIONS_USER,
@@ -163,7 +163,7 @@ export class GetRequest {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
         }).then(function (response) {
-            return response.data as SuggestionsType[];
+            return response.data as Suggestions[];
         }).catch(function (error) {
             throw error;
         })
@@ -173,7 +173,7 @@ export class GetRequest {
     //         user-controller        //
     //-------------------------------//
 
-    static getAllUsers(): Promise<UserType[]> {
+    static getAllUsers(): Promise<User[]> {
         return axios({
             method: 'GET',
             url: Global.BASE_URL + Get.USERS_ALL,
@@ -181,7 +181,7 @@ export class GetRequest {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
         }).then(function (response) {
-            return response.data as UserType[];
+            return response.data as User[];
         }).catch(function (error) {
             throw error;
         })
@@ -194,9 +194,9 @@ export class PostRequest {
     //       category-controller      //
     //-------------------------------//
 
-    static addCategory(categoryName: string, isVisible: boolean): Promise<CategoryType> {
+    static addCategory(categoryName: string, isVisible: boolean): Promise<Category> {
 
-    const newCategory: CategoryType = {
+    const newCategory: Category = {
         name: categoryName,
         visible: isVisible
     };
@@ -209,7 +209,7 @@ export class PostRequest {
         },
         data: newCategory,
     }).then(function (response) {
-        return response.data as CategoryType;
+        return response.data as Category;
     }).catch(function (error) {
         throw error;
     })
@@ -224,9 +224,9 @@ export class PostRequest {
                     disadv: string[], 
                     oval: number, 
                     picurl: string, 
-                    skuval: string): Promise<OpinionType> {
+                    skuval: string): Promise<Opinion> {
 
-        const newOpinion: OpinionType = {
+        const newOpinion: Opinion = {
             advantages: adv,
             description: desc,
             disadvantages: disadv,
@@ -243,7 +243,7 @@ export class PostRequest {
             },
             data: newOpinion,
         }).then(function (response) {
-            return response.data as OpinionType;
+            return response.data as Opinion;
         }).catch(function (error) {
             throw error;
         })
@@ -258,9 +258,9 @@ export class PostRequest {
                     prodname: string,
                     picurl:string, 
                     skuval: string, 
-                    isVisible: boolean): Promise<ProductType> {
+                    isVisible: boolean): Promise<Product> {
 
-        const newProduct: ProductType = {
+        const newProduct: Product = {
             categoryNames: ctgName,
             description: desc,
             name: prodname,
@@ -277,7 +277,7 @@ export class PostRequest {
             },
             data: newProduct,
         }).then(function (response) {
-            return response.data as ProductType;
+            return response.data as Product;
         }).catch(function (error) {
             throw error;
         })
@@ -287,9 +287,9 @@ export class PostRequest {
     //     suggestions-controller     //
     //-------------------------------//
 
-    static addSuggestion(desc: string, skuval: string): Promise<SuggestionsType> {
+    static addSuggestion(desc: string, skuval: string): Promise<Suggestions> {
 
-        const newSuggestion: SuggestionsType = {
+        const newSuggestion: Suggestions = {
             description: desc,
             sku: skuval
         };
@@ -302,7 +302,7 @@ export class PostRequest {
             },
             data: newSuggestion,
         }).then(function (response) {
-            return response.data as SuggestionsType;
+            return response.data as Suggestions;
         }).catch(function (error) {
             throw error;
         })
@@ -313,9 +313,9 @@ export class PostRequest {
     //-------------------------------//
 
 
-    static userLogin(mail: string, pass: string): Promise<TokenType> {
+    static userLogin(mail: string, pass: string): Promise<Token> {
 
-        const LoginUser: UserLoginType = {
+        const LoginUser: UserLogin = {
             email: mail,
             password: pass
         };
@@ -326,7 +326,7 @@ export class PostRequest {
             data: LoginUser,
         }).then(function (response) {
             localStorage.setItem("token", response.data["token"]);
-            return response.data as TokenType;
+            return response.data as Token;
         }).catch(function (error) {
             throw error;
         })
@@ -337,9 +337,9 @@ export class PostRequest {
                         lname: string, 
                         pass: string, 
                         admin:boolean, 
-                        picurl: string): Promise<UserType> {
+                        picurl: string): Promise<User> {
 
-        const RegisterUser: UserRegisterType = {
+        const RegisterUser: UserRegister = {
             email: mail,
             firstName: fname,
             isAdmin: admin,
@@ -353,7 +353,7 @@ export class PostRequest {
             url: Global.BASE_URL + Post.USER_REGISTER,
             data: RegisterUser,
         }).then(function (response) {
-            return response.data as UserType;
+            return response.data as User;
         }).catch(function (error) {
             throw error;
         })
@@ -366,7 +366,7 @@ export class DeleteRequest {
     //       category-controller      //
     //-------------------------------//
 
-    static deleteCategory(categoryName: string): Promise<CategoryType> {
+    static deleteCategory(categoryName: string): Promise<Category> {
     return axios({
         method: 'DELETE',
         url: Global.BASE_URL + Delete.CATEGORIES_DELETE,
@@ -377,7 +377,7 @@ export class DeleteRequest {
             name: categoryName,
         },
     }).then(function (res) {
-        return res.data as CategoryType;
+        return res.data as Category;
     }).catch(function (error) {
         throw error;
     })
@@ -387,7 +387,7 @@ export class DeleteRequest {
     //       product-controller       //
     //-------------------------------//
 
-    static deleteProduct(skuval: string): Promise<ProductType> {
+    static deleteProduct(skuval: string): Promise<Product> {
         return axios({
             method: 'DELETE',
             url: Global.BASE_URL + Delete.PRODUCTS_DELETE,
@@ -398,7 +398,7 @@ export class DeleteRequest {
                 sku: skuval,
             },
         }).then(function (res) {
-            return res.data as ProductType;
+            return res.data as Product;
         }).catch(function (error) {
             throw error;
         })
@@ -411,9 +411,9 @@ export class PutRequest {
     //       category-controller      //
     //-------------------------------//
     
-    static editCategory(categoryName: string, isVisible: boolean): Promise<CategoryType> {
+    static editCategory(categoryName: string, isVisible: boolean): Promise<Category> {
 
-        const modifyCategory: CategoryType = {
+        const modifyCategory: Category = {
             name: categoryName,
             visible: isVisible,
         };
@@ -426,7 +426,7 @@ export class PutRequest {
             },
             data: modifyCategory,
         }).then(function (response) {
-            return response.data as CategoryType;
+            return response.data as Category;
         }).catch(function (error) {
             throw error;
         })
@@ -441,9 +441,9 @@ export class PutRequest {
                         prodname: string, 
                         picurl:string, 
                         skuval: string, 
-                        isVisible: boolean): Promise<ProductType> {
+                        isVisible: boolean): Promise<Product> {
 
-        const modifyProduct: ProductType = {
+        const modifyProduct: Product = {
             categoryNames: ctgName,
             description: desc,
             name: prodname,
@@ -460,7 +460,7 @@ export class PutRequest {
             },
             data: modifyProduct,
         }).then(function (response) {
-            return response.data as ProductType;
+            return response.data as Product;
         }).catch(function (error) {
             throw error;
         })
@@ -472,9 +472,9 @@ export class PutRequest {
 
     static replySuggestion(sugId: number,
                         sugReply: string,
-                        sugStatus: string): Promise<ReplySuggestionType> {
+                        sugStatus: string): Promise<ReplySuggestion> {
 
-        const respondSuggestion: SuggestionsReplyType = {
+        const respondSuggestion: SuggestionsReply = {
             suggestionId: sugId,
             suggestionReply: sugReply,
             suggestionStatus: sugStatus
@@ -488,7 +488,7 @@ export class PutRequest {
             },
             data: respondSuggestion,
         }).then(function (response) {
-            return response.data as ReplySuggestionType;
+            return response.data as ReplySuggestion;
         }).catch(function (error) {
             throw error;
         })
@@ -504,9 +504,9 @@ export class PutRequest {
                     lname: string,
                     pass: string, 
                     admin:boolean, 
-                    picurl: string): Promise<UserType> {
+                    picurl: string): Promise<User> {
 
-        const modifyUser: UserEditType = {
+        const modifyUser: UserEdit = {
             email: mail,
             firstName: fname,
             isAdmin: admin,
@@ -526,7 +526,7 @@ export class PutRequest {
                 userId: uid,
             }
         }).then(function (response) {
-            return response.data as UserType;
+            return response.data as User;
         }).catch(function (error) {
             throw error;
         })

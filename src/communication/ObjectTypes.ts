@@ -2,12 +2,12 @@
 //         TYPE TEMPLATES         //
 //-------------------------------//
 
-export type CategoryType = {
+export type Category = {
     name: string,
     visible: boolean
 }
 
-export type OpinionType = {
+export type Opinion = {
     advantages: string[],
     description: string,
     disadvantages: string[],
@@ -16,7 +16,7 @@ export type OpinionType = {
     sku: string
 }
 
-export type ProductType = {
+export type Product = {
     categoryNames: string[],
     description: string,
     name: string,
@@ -25,29 +25,29 @@ export type ProductType = {
     visible:boolean
 }
 
-export type PageType = {
+export type Page = {
     actualPage: number,
     numberOfPages: number,
-    products: ProductType[]
+    products: Product[]
 }
 
-export type SuggestionsType = {
+export type Suggestions = {
     description: string,
     sku: string
 }
 
-export type SuggestionsReplyType = {
+export type SuggestionsReply = {
     suggestionId: number,
     suggestionReply: string,
     suggestionStatus: string
 }
 
-export type UserLoginType = {
+export type UserLogin = {
     email: string,
     password: string
 }
 
-export type UserRegisterType = {
+export type UserRegister = {
     email: string,
     firstName: string,
     isAdmin: boolean,
@@ -56,7 +56,7 @@ export type UserRegisterType = {
     pictureUrl:string
 }
 
-export type UserEditType = {
+export type UserEdit = {
     email: string,
     firstName: string,
     isAdmin: boolean,
@@ -65,7 +65,7 @@ export type UserEditType = {
     pictureUrl:string
 }
 
-export type UserType = {
+export type User = {
     email: string,
     firstName: string,
     id: number,
@@ -74,29 +74,29 @@ export type UserType = {
     pictureUrl:string
 }
 
-export type TokenType = {
+export type Token = {
     token: string,
     type: string,
-    user: UserType
+    user: User
 }
 
-export type ReviewType = {
+export type Review = {
     reply: string,
     status: string
 }
 
-export type ReviewerType = {
+export type Reviewer = {
     firstname: string,
     lastname: string,
     profilePictureUrl: string
 }
 
-export type ReplySuggestionType = {
+export type ReplySuggestion = {
     description: string,
-    product: ProductType,
-    review: ReviewType,
-    reviewer: ReviewerType,
+    product: Product,
+    review: Review,
+    reviewer: Reviewer,
     suggestionId: number,
-    user: UserType
+    user: User
 }
 

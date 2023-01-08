@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="container text-center">
+      <MobileBoard />
       <div class="row">
         <div class="col-4">
           <DashBoard />
@@ -15,11 +16,13 @@
 
 <script>
 import DashBoard from '@/components/layout/DashBoard.vue';
+import MobileBoard from '@/components/layout/MobileBoard.vue';
 
 export default {
   name: 'AdminView',
   components: {
     DashBoard,
+    MobileBoard,
   }
 }
 </script>

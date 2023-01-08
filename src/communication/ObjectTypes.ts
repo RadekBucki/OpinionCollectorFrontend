@@ -17,7 +17,7 @@ export type Opinion = {
 }
 
 export type Product = {
-    categoryNames: string[],
+    categoryNames: Category[],
     description: string,
     name: string,
     pictureUrl: string,
@@ -33,6 +33,11 @@ export type Page = {
 
 export type Suggestions = {
     description: string,
+    product: Product,
+    review: Review,
+    reviewer: Reviewer,
+    suggestionId: number,
+    user: User
     sku: string
 }
 
@@ -90,13 +95,3 @@ export type Reviewer = {
     lastname: string,
     profilePictureUrl: string
 }
-
-export type ReplySuggestion = {
-    description: string,
-    product: Product,
-    review: Review,
-    reviewer: Reviewer,
-    suggestionId: number,
-    user: User
-}
-

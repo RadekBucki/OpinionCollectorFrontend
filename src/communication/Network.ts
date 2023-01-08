@@ -1,7 +1,6 @@
 import axios from "axios";
 import {Get, Post, Delete, Put, Global} from "./EnumEndpoints";
-import { ReplySuggestion, 
-        Token,
+import { Token,
         User,
         Page,
         SuggestionsReply,
@@ -253,7 +252,7 @@ export class PostRequest {
     //       product-controller       //
     //-------------------------------//
 
-    static addProduct(ctgName: string[],
+    static addProduct(ctgName: Product[],
                     desc: string,
                     prodname: string,
                     picurl:string, 
@@ -291,6 +290,11 @@ export class PostRequest {
 
         const newSuggestion: Suggestions = {
             description: desc,
+            product: null,
+            review: null,
+            reviewer: null,
+            suggestionId: null,
+            user: null,
             sku: skuval
         };
 
@@ -436,7 +440,7 @@ export class PutRequest {
     //       product-controller       //
     //-------------------------------//
 
-    static editProduct(ctgName: string[],
+    static editProduct(ctgName: Product[],
                         desc: string, 
                         prodname: string, 
                         picurl:string, 
@@ -472,7 +476,7 @@ export class PutRequest {
 
     static replySuggestion(sugId: number,
                         sugReply: string,
-                        sugStatus: string): Promise<ReplySuggestion> {
+                        sugStatus: string): Promise<Suggestions> {
 
         const respondSuggestion: SuggestionsReply = {
             suggestionId: sugId,
@@ -488,7 +492,7 @@ export class PutRequest {
             },
             data: respondSuggestion,
         }).then(function (response) {
-            return response.data as ReplySuggestion;
+            return response.data as Suggestions;
         }).catch(function (error) {
             throw error;
         })

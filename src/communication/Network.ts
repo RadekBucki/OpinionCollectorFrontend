@@ -81,7 +81,7 @@ export class GetRequest {
     //       product-controller       //
     //-------------------------------//
 
-    static getProduct(page: number): Promise<PageType> {
+    static getProducts(page: number): Promise<PageType> {
         return axios({
             method: 'GET',
             url: Global.BASE_URL + Get.PRODUCTS + page,
@@ -92,7 +92,7 @@ export class GetRequest {
         })
     }
 
-    static getAllProduct(page: number): Promise<PageType> {
+    static getAllProducts(page: number): Promise<PageType> {
         return axios({
             method: 'GET',
             url: Global.BASE_URL + Get.PRODUCTS_ALL + page,
@@ -106,7 +106,7 @@ export class GetRequest {
         })
     }
 
-    static getProductsDetails(skuParam: string): Promise<ProductType[]> {
+    static getProductDetails(skuParam: string): Promise<ProductType> {
         return axios({
             method: 'GET',
             url: Global.BASE_URL + Get.PRODUCTS_DETAILS,
@@ -114,7 +114,7 @@ export class GetRequest {
                 sku: skuParam,
             },
         }).then(function (response) {
-            return response.data as ProductType[]
+            return response.data as ProductType
         }).catch(function (error) {
             throw error;
         })
@@ -247,7 +247,7 @@ export class PostRequest {
         }).catch(function (error) {
             throw error;
         })
-        }
+    }
 
     //---------------------------------//
     //       product-controller       //
@@ -281,7 +281,7 @@ export class PostRequest {
         }).catch(function (error) {
             throw error;
         })
-        }
+    }
 
     //---------------------------------//
     //     suggestions-controller     //
@@ -306,7 +306,7 @@ export class PostRequest {
         }).catch(function (error) {
             throw error;
         })
-        }
+    }
 
     //---------------------------------//
     //         user-controller        //
@@ -330,7 +330,7 @@ export class PostRequest {
         }).catch(function (error) {
             throw error;
         })
-        }
+    }
 
     static userRegister(mail: string,
                         fname:string, 
@@ -357,7 +357,7 @@ export class PostRequest {
         }).catch(function (error) {
             throw error;
         })
-        }
+    }
 }
 
 export class DeleteRequest {
@@ -402,7 +402,7 @@ export class DeleteRequest {
         }).catch(function (error) {
             throw error;
         })
-        }
+    }
 }
 
 export class PutRequest {
@@ -430,7 +430,7 @@ export class PutRequest {
         }).catch(function (error) {
             throw error;
         })
-        }
+    }
     
     //---------------------------------//
     //       product-controller       //
@@ -464,7 +464,7 @@ export class PutRequest {
         }).catch(function (error) {
             throw error;
         })
-        }
+    }
 
     //---------------------------------//
     //     suggestions-controller     //
@@ -492,7 +492,7 @@ export class PutRequest {
         }).catch(function (error) {
             throw error;
         })
-        }
+    }
 
     //---------------------------------//
     //         user-controller        //
@@ -530,6 +530,6 @@ export class PutRequest {
         }).catch(function (error) {
             throw error;
         })
-        }
+    }
 
 }

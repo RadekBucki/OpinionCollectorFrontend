@@ -453,14 +453,12 @@ export class PutRequest {
     //     suggestions-controller     //
     //-------------------------------//
 
-    static replySuggestion(sugId: number,
-                        sugReply: string,
-                        sugStatus: string): Promise<Suggestions> {
+    static replySuggestion(sugReply: SuggestionsReply): Promise<Suggestions> {
 
         const respondSuggestion: SuggestionsReply = {
-            suggestionId: sugId,
-            suggestionReply: sugReply,
-            suggestionStatus: sugStatus
+            suggestionId: sugReply.suggestionId,
+            suggestionReply: sugReply.suggestionReply,
+            suggestionStatus: sugReply.suggestionStatus
         }
 
         return axios({

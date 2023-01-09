@@ -23,7 +23,6 @@
       </div>
       <input type="text" class="form-control" v-model.trim="categoryName">
       <select v-model="visible">
-        <option selected>Open this select menu</option>
         <option value=true>True</option>
         <option value=false>False</option>
       </select>
@@ -47,12 +46,13 @@
         </tbody>
       </table>
     </div>
-    <button type="button" class="set btn btn-outline-dark">Set product edit</button>
+    <button type="button" class="set btn btn-outline-dark" @click="setProductDisplay">Set product edit</button>
   </div>
 </template>
 
 <script>
 export default {
+  emits: ['edit-data'],
   data() {
     return {
       name: '',
@@ -76,6 +76,15 @@ export default {
     },
     removeCategory(index) {
       this.categories.splice(index, 1);
+    },
+    setProductDisplay() {
+      this.$emit('edit-data', {
+        sku: this.sku,
+        name: this.name,
+        pictureUrl: this.url,
+        description: this.desc,
+        categories: this.categories,
+      });
     }
   },
   computed: {

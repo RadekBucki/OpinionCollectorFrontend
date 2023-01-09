@@ -6,6 +6,9 @@
           Back to browse
         </RouterLink>
       </div>
+      <div class="my-2 p-2 col-12">
+        <button type="button" class="btn btn-outline-dark">Save Edit</button>
+      </div>
       <div class="col">
         <DisplayEdit 
           :url="pictureUrl" 
@@ -14,7 +17,7 @@
           :description="description"
           :categories="categories"
           />
-        <EditForm />
+        <EditForm @edit-data="setEdit"/>
       </div>
     </div>
   </div>
@@ -56,6 +59,15 @@ export default {
           },
         ],
       }
+    }
+  },
+  methods: {
+    setEdit(payload) {
+      this.product.sku = payload.sku;
+      this.product.name = payload.name;
+      this.product.pictureUrl = payload.pictureUrl;
+      this.product.description = payload.description;
+      this.product.categories = payload.categories;
     }
   },
   computed: {

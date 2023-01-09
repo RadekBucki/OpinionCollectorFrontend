@@ -1,5 +1,5 @@
 <template>
-  <div class="sidepanel d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; height: 92vh">
+  <div class="sidepanel d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; height: 92vh"> 
     <a class="mb-3 mb-md-0 me-md-auto link-dark text-decoration-none mx-auto">
       <h1 class="fs-4">Dashboard</h1>
     </a>

@@ -32,7 +32,7 @@ const routes = [
                 props: true,
                 children: [
                     {
-                        path: '',
+                        path: 'adminProfile',
                         name: 'AdminProfile',
                         component: AdminProfile,
                         props: true,

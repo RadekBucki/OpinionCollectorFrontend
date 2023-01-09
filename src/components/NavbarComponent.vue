@@ -25,7 +25,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link v-if="!token" class="nav-link mx-3" :to="{ name: 'Admin' }">
+            <router-link v-if="!token" class="nav-link mx-3" :to="{ name: 'AdminProfile' }">
               Admin
             </router-link>
           </li>

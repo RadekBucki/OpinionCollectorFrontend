@@ -8,7 +8,8 @@ import { Token,
         Product,
         Opinion,
         Category,
-        UserLogin } from "./ObjectTypes";
+        UserLogin,
+        ProductSearch } from "./ObjectTypes";
 
 
 export class GetRequest {
@@ -29,11 +30,14 @@ export class GetRequest {
     }
 
     static getAllCategories(): Promise<Category[]> {
+
+        const token = localStorage.getItem("token");
+
         return axios({
             method: 'GET',
             url: BaseUrl + Get.CATEGORIES_ALL,
             headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: token == null ? "" : "Bearer " + token,
             },
         }).then(function (response) {
             return response.data as Category[];
@@ -61,11 +65,14 @@ export class GetRequest {
     }
 
     static getUserOpinions(): Promise<Opinion[]> {
+
+        const token = localStorage.getItem("token");
+
         return axios({
             method: 'GET',
             url: BaseUrl + Get.OPINIONS_USER,
             headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: token == null ? "" : "Bearer " + token,
             },
         }).then(function (response) {
             return response.data as Opinion[];
@@ -90,11 +97,14 @@ export class GetRequest {
     }
 
     static getAllProducts(page: number): Promise<Page> {
+
+        const token = localStorage.getItem("token");
+
         return axios({
             method: 'GET',
             url: BaseUrl + Get.PRODUCTS_ALL + page,
             headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: token == null ? "" : "Bearer " + token,
             },
         }).then(function (response) {
             return response.data as Page;
@@ -139,11 +149,14 @@ export class GetRequest {
     //-------------------------------//
 
     static getAllSuggestions(): Promise<Suggestions[]> {
+
+        const token = localStorage.getItem("token");
+
         return axios({
             method: 'GET',
             url: BaseUrl + Get.SUGGESTIONS_ALL,
             headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: token == null ? "" : "Bearer " + token,
             },
         }).then(function (response) {
             return response.data as Suggestions[];
@@ -153,11 +166,14 @@ export class GetRequest {
     }
 
     static getUserSuggestions(): Promise<Suggestions[]> {
+
+        const token = localStorage.getItem("token");
+
         return axios({
             method: 'GET',
             url: BaseUrl + Get.SUGGESTIONS_USER,
             headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: token == null ? "" : "Bearer " + token,
             },
         }).then(function (response) {
             return response.data as Suggestions[];
@@ -171,11 +187,14 @@ export class GetRequest {
     //-------------------------------//
 
     static getAllUsers(): Promise<User[]> {
+
+        const token = localStorage.getItem("token");
+        
         return axios({
             method: 'GET',
             url: BaseUrl + Get.USERS_ALL,
             headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: token == null ? "" : "Bearer " + token,
             },
         }).then(function (response) {
             return response.data as User[];
@@ -192,7 +211,8 @@ export class PostRequest {
     //-------------------------------//
 
     static addCategory(categoryName: string, isVisible: boolean): Promise<Category> {
-
+    
+    const token = localStorage.getItem("token");
     const newCategory: Category = {
         name: categoryName,
         visible: isVisible
@@ -202,7 +222,7 @@ export class PostRequest {
         method: 'POST',
         url: BaseUrl + Post.CATEGORIES_ADD,
         headers: {
-           Authorization: "Bearer " + localStorage.getItem("token"),
+            Authorization: token == null ? "" : "Bearer " + token,
         },
         data: newCategory,
     }).then(function (response) {
@@ -218,6 +238,7 @@ export class PostRequest {
 
     static addOpinion(opinion: Opinion): Promise<Opinion> {
 
+        const token = localStorage.getItem("token");
         const newOpinion: Opinion = {
             advantages: opinion.advantages,
             description: opinion.description,
@@ -233,7 +254,7 @@ export class PostRequest {
             method: 'POST',
             url: BaseUrl + Post.OPINIONS_ADD,
             headers: {
-               Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: token == null ? "" : "Bearer " + token,
             },
             data: newOpinion,
         }).then(function (response) {
@@ -249,6 +270,7 @@ export class PostRequest {
 
     static addProduct(product: Product): Promise<Product> {
 
+        const token = localStorage.getItem("token");
         const newProduct: Product = {
             categoryNames: product.categoryNames,
             description: product.description,
@@ -262,7 +284,7 @@ export class PostRequest {
             method: 'POST',
             url: BaseUrl + Post.PRODUCTS_ADD,
             headers: {
-               Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: token == null ? "" : "Bearer " + token,
             },
             data: newProduct,
         }).then(function (response) {
@@ -278,6 +300,7 @@ export class PostRequest {
 
     static addSuggestion(desc: string, skuval: string): Promise<Suggestions> {
 
+        const token = localStorage.getItem("token");
         const newSuggestion: Suggestions = {
             description: desc,
             product: null,
@@ -292,7 +315,7 @@ export class PostRequest {
             method: 'POST',
             url: BaseUrl + Post.SUGGESTIONS_ADD,
             headers: {
-               Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: token == null ? "" : "Bearer " + token,
             },
             data: newSuggestion,
         }).then(function (response) {
@@ -320,6 +343,7 @@ export class PostRequest {
             data: LoginUser,
         }).then(function (response) {
             localStorage.setItem("token", response.data["token"]);
+            localStorage.setItem("user", JSON.stringify(response.data.user));
             return response.data as Token;
         }).catch(function (error) {
             throw error;
@@ -357,20 +381,23 @@ export class DeleteRequest {
     //-------------------------------//
 
     static deleteCategory(categoryName: string): Promise<Category> {
-    return axios({
-        method: 'DELETE',
-        url: BaseUrl + Delete.CATEGORIES_DELETE,
-        headers: {
-           Authorization: "Bearer " + localStorage.getItem("token"),
-        },
-        params: {
-            name: categoryName,
-        },
-    }).then(function (res) {
-        return res.data as Category;
-    }).catch(function (error) {
-        throw error;
-    })
+
+        const token = localStorage.getItem("token");
+
+        return axios({
+            method: 'DELETE',
+            url: BaseUrl + Delete.CATEGORIES_DELETE,
+            headers: {
+            Authorization: token == null ? "" : "Bearer " + token,
+            },
+            params: {
+                name: categoryName,
+            },
+        }).then(function (res) {
+            return res.data as Category;
+        }).catch(function (error) {
+            throw error;
+        })
     }
 
     //---------------------------------//
@@ -378,11 +405,14 @@ export class DeleteRequest {
     //-------------------------------//
 
     static deleteProduct(skuval: string): Promise<Product> {
+
+        const token = localStorage.getItem("token");
+
         return axios({
             method: 'DELETE',
             url: BaseUrl + Delete.PRODUCTS_DELETE,
             headers: {
-               Authorization: "Bearer " + localStorage.getItem("token"),
+               Authorization: token == null ? "" : "Bearer " + token,
             },
             params: {
                 sku: skuval,
@@ -403,6 +433,7 @@ export class PutRequest {
     
     static editCategory(categoryName: string, isVisible: boolean): Promise<Category> {
 
+        const token = localStorage.getItem("token");
         const modifyCategory: Category = {
             name: categoryName,
             visible: isVisible,
@@ -412,7 +443,7 @@ export class PutRequest {
             method: 'PUT',
             url: BaseUrl + Put.CATEGORIES_EDIT,
             headers: {
-               Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: token == null ? "" : "Bearer " + token,
             },
             data: modifyCategory,
         }).then(function (response) {
@@ -428,6 +459,7 @@ export class PutRequest {
 
     static editProduct(product: Product): Promise<Product> {
 
+        const token = localStorage.getItem("token");
         const modifyProduct: Product = {
             categoryNames: product.categoryNames,
             description: product.description,
@@ -441,7 +473,7 @@ export class PutRequest {
             method: 'PUT',
             url: BaseUrl + Put.PRODUCTS_EDIT,
             headers: {
-               Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: token == null ? "" : "Bearer " + token,
             },
             data: modifyProduct,
         }).then(function (response) {
@@ -457,6 +489,7 @@ export class PutRequest {
 
     static replySuggestion(sugReply: SuggestionsReply): Promise<Suggestions> {
 
+        const token = localStorage.getItem("token");
         const respondSuggestion: SuggestionsReply = {
             suggestionId: sugReply.suggestionId,
             suggestionReply: sugReply.suggestionReply,
@@ -467,7 +500,7 @@ export class PutRequest {
             method: 'PUT',
             url: BaseUrl + Put.SUGGESTIONS_REPLY,
             headers: {
-               Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: token == null ? "" : "Bearer " + token,
             },
             data: respondSuggestion,
         }).then(function (response) {
@@ -483,6 +516,7 @@ export class PutRequest {
 
     static editUser(user: User): Promise<User> {
 
+        const token = localStorage.getItem("token");
         const modifyUser: User = {
             email: user.email,
             firstName: user.firstName,
@@ -497,7 +531,7 @@ export class PutRequest {
             method: 'PUT',
             url: BaseUrl + Put.USER_EDIT,
             headers: {
-                Authorization: "Bearer " + localStorage.getItem("token"),
+                Authorization: token == null ? "" : "Bearer " + token,
             },
             data: modifyUser,
             params: {
@@ -510,4 +544,16 @@ export class PutRequest {
         })
     }
 
+}
+
+export class MethodRequest {
+    static isTokenAvailable() {
+        const token = localStorage.getItem("token")
+        return token == null ? false : true;
+    }
+
+    static userLogout() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+    }
 }

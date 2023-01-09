@@ -41,6 +41,7 @@
 
 <script>
 import {Modal} from "bootstrap";
+import { PostRequest } from '@/communication/Network.ts';
 
 export default {
   emits: ['get-modal'],
@@ -55,6 +56,13 @@ export default {
   methods: {
     async loginUser(e) {
       e.preventDefault();
+      PostRequest.userLogin(this.email, this.password)
+        .then((result) => {
+          console.log(result);
+        })
+        .catch((err) => {
+          console.log("err", err.response.data);
+        });
     },
   },
   mounted() {

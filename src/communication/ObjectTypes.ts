@@ -46,7 +46,7 @@ export type Suggestions = {
     review: Review,
     reviewer: Reviewer,
     suggestionId: number,
-    user: User
+    user: User,
     sku: string
 }
 

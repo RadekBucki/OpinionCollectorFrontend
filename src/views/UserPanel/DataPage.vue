@@ -45,11 +45,27 @@
 <script>
 import PanelNavigation from "@/components/PanelNavigation.vue";
 import MobilePanelNavigation from "@/components/MobilePanelNavigation.vue";
+import { PostRequest } from '@/communication/Network.ts';
+//const test = {categoryName: "Smartfony", opinionAvgMax: 5, opinionAvgMin: 0, searchPhrase: "Sams"};
 export default {
   name: "DataPage",
   components: {
     MobilePanelNavigation,
     PanelNavigation,
+  },
+  methods: {
+    async testRequest() {
+      PostRequest.addCategory("testowy nowy", false)
+        .then((result) => {
+          console.log(result);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+    },
+  },
+  mounted() {
+    this.testRequest();
   },
   data() {
     return {

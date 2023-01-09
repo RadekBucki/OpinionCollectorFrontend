@@ -3,13 +3,14 @@ import {Get, Post, Delete, Put, BaseUrl} from "./EnumEndpoints.ts";
 import { Token,
         User,
         Page,
-        SuggestionsReply,
-        Suggestions,
+        SuggestionReply,
+        Suggestion,
         ProductSend,
         ProductGet,
         Opinion,
         Category,
         UserLogin,
+        UserEdit,
         ProductSearch } from "./ObjectTypes";
 
 
@@ -114,7 +115,7 @@ export class GetRequest {
         })
     }
 
-    static getProductDetails(skuParam: string): Promise<Product> {
+    static getProductDetails(skuParam: string): Promise<ProductGet> {
         return axios({
             method: 'GET',
             url: BaseUrl + Get.PRODUCTS_DETAILS,
@@ -122,13 +123,13 @@ export class GetRequest {
                 sku: skuParam,
             },
         }).then(function (response) {
-            return response.data as Product
+            return response.data as ProductGet
         }).catch(function (error) {
             throw error;
         })
     }
 
-    static getSearchProduct(searchInput: ProductSearch): Promise<Product[]> {
+    static getSearchProduct(searchInput: ProductSearch): Promise<ProductGet[]> {
         return axios({
             method: 'GET',
             url: BaseUrl + Get.PRODUCT_SEARCH,
@@ -139,7 +140,7 @@ export class GetRequest {
                 searchPhrase: searchInput.searchPhrase,
             },
         }).then(function (response) {
-            return response.data as Product[];
+            return response.data as ProductGet[];
         }).catch(function (error) {
             throw error;
         })
@@ -149,7 +150,7 @@ export class GetRequest {
     //     suggestions-controller     //
     //-------------------------------//
 
-    static getAllSuggestions(): Promise<Suggestions[]> {
+    static getAllSuggestions(): Promise<Suggestion[]> {
 
         const token = localStorage.getItem("token");
 
@@ -160,13 +161,13 @@ export class GetRequest {
                 Authorization: token == null ? "" : "Bearer " + token,
             },
         }).then(function (response) {
-            return response.data as Suggestions[];
+            return response.data as Suggestion[];
         }).catch(function (error) {
             throw error;
         })
     }
 
-    static getUserSuggestions(): Promise<Suggestions[]> {
+    static getUserSuggestions(): Promise<Suggestion[]> {
 
         const token = localStorage.getItem("token");
 
@@ -177,7 +178,7 @@ export class GetRequest {
                 Authorization: token == null ? "" : "Bearer " + token,
             },
         }).then(function (response) {
-            return response.data as Suggestions[];
+            return response.data as Suggestion[];
         }).catch(function (error) {
             throw error;
         })
@@ -299,10 +300,10 @@ export class PostRequest {
     //     suggestions-controller     //
     //-------------------------------//
 
-    static addSuggestion(desc: string, skuval: string): Promise<Suggestions> {
+    static addSuggestion(desc: string, skuval: string): Promise<Suggestion> {
 
         const token = localStorage.getItem("token");
-        const newSuggestion: Suggestions = {
+        const newSuggestion: Suggestion = {
             description: desc,
             product: null,
             review: null,
@@ -320,7 +321,7 @@ export class PostRequest {
             },
             data: newSuggestion,
         }).then(function (response) {
-            return response.data as Suggestions;
+            return response.data as Suggestion;
         }).catch(function (error) {
             throw error;
         })
@@ -351,9 +352,9 @@ export class PostRequest {
         })
     }
 
-    static userRegister(user: User): Promise<User> {
+    static userRegister(user: UserEdit): Promise<User> {
 
-        const RegisterUser: User = {
+        const RegisterUser: UserEdit = {
             email: user.email,
             firstName: user.firstName,
             isAdmin: user.isAdmin,
@@ -488,10 +489,10 @@ export class PutRequest {
     //     suggestions-controller     //
     //-------------------------------//
 
-    static replySuggestion(sugReply: SuggestionsReply): Promise<Suggestions> {
+    static replySuggestion(sugReply: SuggestionReply): Promise<Suggestion> {
 
         const token = localStorage.getItem("token");
-        const respondSuggestion: SuggestionsReply = {
+        const respondSuggestion: SuggestionReply = {
             suggestionId: sugReply.suggestionId,
             suggestionReply: sugReply.suggestionReply,
             suggestionStatus: sugReply.suggestionStatus
@@ -505,7 +506,7 @@ export class PutRequest {
             },
             data: respondSuggestion,
         }).then(function (response) {
-            return response.data as Suggestions;
+            return response.data as Suggestion;
         }).catch(function (error) {
             throw error;
         })
@@ -515,10 +516,10 @@ export class PutRequest {
     //         user-controller        //
     //-------------------------------//
 
-    static editUser(user: User): Promise<User> {
+    static userEdit(user: UserEdit): Promise<User> {
 
         const token = localStorage.getItem("token");
-        const modifyUser: User = {
+        const modifyUser: UserEdit = {
             email: user.email,
             firstName: user.firstName,
             isAdmin: user.isAdmin,

@@ -46,10 +46,10 @@ export type ProductSearch = {
 export type Page = {
     actualPage: number,
     numberOfPages: number,
-    products: Product[]
+    products: ProductGet[]
 }
 
-export type Suggestions = {
+export type Suggestion = {
     description: string,
     product: Product,
     review: Review,
@@ -59,7 +59,7 @@ export type Suggestions = {
     sku: string
 }
 
-export type SuggestionsReply = {
+export type SuggestionReply = {
     suggestionId: number,
     suggestionReply: string,
     suggestionStatus: string
@@ -71,6 +71,15 @@ export type UserLogin = {
 }
 
 export type User = {
+    email: string,
+    firstName: string,
+    id: number,
+    isAdmin: boolean,
+    lastName: string,
+    pictureUrl:string
+}
+
+export type UserEdit = {
     email: string,
     firstName: string,
     id: number,

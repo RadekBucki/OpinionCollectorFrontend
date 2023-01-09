@@ -5,7 +5,8 @@ import { Token,
         Page,
         SuggestionsReply,
         Suggestions,
-        Product,
+        ProductSend,
+        ProductGet,
         Opinion,
         Category,
         UserLogin,
@@ -189,7 +190,7 @@ export class GetRequest {
     static getAllUsers(): Promise<User[]> {
 
         const token = localStorage.getItem("token");
-        
+
         return axios({
             method: 'GET',
             url: BaseUrl + Get.USERS_ALL,
@@ -214,7 +215,7 @@ export class PostRequest {
     
     const token = localStorage.getItem("token");
     const newCategory: Category = {
-        name: categoryName,
+        categoryName: categoryName,
         visible: isVisible
     };
 
@@ -268,10 +269,10 @@ export class PostRequest {
     //       product-controller       //
     //-------------------------------//
 
-    static addProduct(product: Product): Promise<Product> {
+    static addProduct(product: ProductSend): Promise<ProductGet> {
 
         const token = localStorage.getItem("token");
-        const newProduct: Product = {
+        const newProduct: ProductSend = {
             categoryNames: product.categoryNames,
             description: product.description,
             name: product.name,
@@ -288,7 +289,7 @@ export class PostRequest {
             },
             data: newProduct,
         }).then(function (response) {
-            return response.data as Product;
+            return response.data as ProductGet;
         }).catch(function (error) {
             throw error;
         })
@@ -435,7 +436,7 @@ export class PutRequest {
 
         const token = localStorage.getItem("token");
         const modifyCategory: Category = {
-            name: categoryName,
+            categoryName: categoryName,
             visible: isVisible,
         };
     
@@ -457,10 +458,10 @@ export class PutRequest {
     //       product-controller       //
     //-------------------------------//
 
-    static editProduct(product: Product): Promise<Product> {
+    static editProduct(product: ProductSend): Promise<ProductGet> {
 
         const token = localStorage.getItem("token");
-        const modifyProduct: Product = {
+        const modifyProduct: ProductSend = {
             categoryNames: product.categoryNames,
             description: product.description,
             name: product.name,
@@ -477,7 +478,7 @@ export class PutRequest {
             },
             data: modifyProduct,
         }).then(function (response) {
-            return response.data as Product;
+            return response.data as ProductGet;
         }).catch(function (error) {
             throw error;
         })

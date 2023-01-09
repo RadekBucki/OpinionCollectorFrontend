@@ -3,7 +3,7 @@
 //-------------------------------//
 
 export type Category = {
-    name: string,
+    categoryName: string,
     visible: boolean
 }
 
@@ -18,8 +18,17 @@ export type Opinion = {
     sku: string
 }
 
-export type Product = {
+export type ProductGet = {
     categoryNames: Category[],
+    description: string,
+    name: string,
+    pictureUrl: string,
+    sku: string,
+    visible:boolean
+}
+
+export type ProductSend = {
+    categoryNames: string,
     description: string,
     name: string,
     pictureUrl: string,

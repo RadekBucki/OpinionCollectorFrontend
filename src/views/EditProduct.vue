@@ -17,7 +17,7 @@
           :description="description"
           :categories="categories"
           />
-        <EditForm @edit-data="setEdit"/>
+        <EditForm :categoriesOwned="categories" @edit-data="setEdit"/>
       </div>
     </div>
   </div>

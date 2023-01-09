@@ -53,6 +53,7 @@
 <script>
 export default {
   emits: ['edit-data'],
+  props: ['categoriesOwned'],
   data() {
     return {
       name: '',
@@ -91,6 +92,9 @@ export default {
     hasAddedCategories() {
       return this.categories && this.categories.length > 0;
     }
+  },
+  mounted() {
+    this.categories = this.$props.categoriesOwned;
   }
 }
 </script>

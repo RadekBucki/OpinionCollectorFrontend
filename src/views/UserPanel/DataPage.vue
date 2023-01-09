@@ -45,12 +45,21 @@
 <script>
 import PanelNavigation from "@/components/PanelNavigation.vue";
 import MobilePanelNavigation from "@/components/MobilePanelNavigation.vue";
+import { MethodRequest } from "@/communication/Network.ts";
 
 export default {
   name: "DataPage",
   components: {
     MobilePanelNavigation,
     PanelNavigation,
+  },
+  methods: {
+    testRequest() {
+      console.log(MethodRequest.isTokenAvailable());
+  }
+  },
+  mounted() {
+    this.testRequest();
   },
   data() {
     return {

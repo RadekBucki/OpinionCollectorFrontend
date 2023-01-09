@@ -34,7 +34,7 @@
           <tr>
             <th scope="col">Category</th>
             <th scope="col">Visible</th>
-            <th scope="col">Remove</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -62,7 +62,7 @@ export default {
       sku: '',
       categories: [],
       visible: null,
-      categoryName: ''
+      categoryName: '',
     }
   },
   methods: {
@@ -86,6 +86,9 @@ export default {
         description: this.desc,
         categories: this.categories,
       });
+    },
+    setCategories() {
+      this.categories = this.$props.categoriesOwned;
     }
   },
   computed: {
@@ -94,7 +97,7 @@ export default {
     }
   },
   mounted() {
-    this.categories = this.$props.categoriesOwned;
+    this.setCategories();
   }
 }
 </script>

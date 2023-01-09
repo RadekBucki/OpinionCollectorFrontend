@@ -7,7 +7,13 @@
         </RouterLink>
       </div>
       <div class="col">
-        <DisplayEdit :url="product.pictureUrl" />
+        <DisplayEdit 
+          :url="pictureUrl" 
+          :name="productName" 
+          :sku="sku"
+          :description="description"
+          :categories="categories"
+          />
         <EditForm />
       </div>
     </div>
@@ -65,6 +71,9 @@ export default {
     sku() {
       return this.product.sku;
     },
+    categories() {
+      return this.product.categories;
+    }
   },
 }
 </script>

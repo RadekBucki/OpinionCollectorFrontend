@@ -1,10 +1,6 @@
 <template>
-  <!-- <div>
-    <DashBoard />
-    <router-view />
-  </div> -->
   <div>
-    <div class="container text-center">
+    <div class="text-center">
       <MobileBoard /> 
       <div class="row">
         <div class="col-4">

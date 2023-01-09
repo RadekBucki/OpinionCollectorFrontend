@@ -8,9 +8,7 @@ import { Token,
         Product,
         Opinion,
         Category,
-        UserLogin,
-        UserRegister,
-        UserEdit } from "./ObjectTypes";
+        UserLogin } from "./ObjectTypes";
 
 
 export class GetRequest {
@@ -218,20 +216,15 @@ export class PostRequest {
     //       opinion-controller       //
     //-------------------------------//
 
-    static addOpinion(adv: string[],
-                     desc: string,
-                    disadv: string[], 
-                    oval: number, 
-                    picurl: string, 
-                    skuval: string): Promise<Opinion> {
+    static addOpinion(opinion: Opinion): Promise<Opinion> {
 
         const newOpinion: Opinion = {
-            advantages: adv,
-            description: desc,
-            disadvantages: disadv,
-            opinionValue: oval,
-            pictureUrl: picurl,
-            sku: skuval
+            advantages: opinion.advantages,
+            description: opinion.description,
+            disadvantages: opinion.disadvantages,
+            opinionValue: opinion.opinionValue,
+            pictureUrl: opinion.pictureUrl,
+            sku: opinion.sku
         };
 
         return axios({
@@ -252,20 +245,15 @@ export class PostRequest {
     //       product-controller       //
     //-------------------------------//
 
-    static addProduct(ctgName: Product[],
-                    desc: string,
-                    prodname: string,
-                    picurl:string, 
-                    skuval: string, 
-                    isVisible: boolean): Promise<Product> {
+    static addProduct(product: Product): Promise<Product> {
 
         const newProduct: Product = {
-            categoryNames: ctgName,
-            description: desc,
-            name: prodname,
-            pictureUrl: picurl,
-            sku: skuval,
-            visible: isVisible
+            categoryNames: product.categoryNames,
+            description: product.description,
+            name: product.name,
+            pictureUrl: product.pictureUrl,
+            sku: product.sku,
+            visible: product.visible
         };
 
         return axios({
@@ -336,20 +324,16 @@ export class PostRequest {
         })
     }
 
-    static userRegister(mail: string,
-                        fname:string, 
-                        lname: string, 
-                        pass: string, 
-                        admin:boolean, 
-                        picurl: string): Promise<User> {
+    static userRegister(user: User): Promise<User> {
 
-        const RegisterUser: UserRegister = {
-            email: mail,
-            firstName: fname,
-            isAdmin: admin,
-            lastName: lname,
-            password: pass,
-            pictureUrl:picurl
+        const RegisterUser: User = {
+            email: user.email,
+            firstName: user.firstName,
+            isAdmin: user.isAdmin,
+            id: null,
+            lastName: user.lastName,
+            password: user.password,
+            pictureUrl: user.pictureUrl
         };
 
         return axios({
@@ -440,20 +424,15 @@ export class PutRequest {
     //       product-controller       //
     //-------------------------------//
 
-    static editProduct(ctgName: Product[],
-                        desc: string, 
-                        prodname: string, 
-                        picurl:string, 
-                        skuval: string, 
-                        isVisible: boolean): Promise<Product> {
+    static editProduct(product: Product): Promise<Product> {
 
         const modifyProduct: Product = {
-            categoryNames: ctgName,
-            description: desc,
-            name: prodname,
-            pictureUrl: picurl,
-            sku: skuval,
-            visible:isVisible
+            categoryNames: product.categoryNames,
+            description: product.description,
+            name: product.name,
+            pictureUrl: product.pictureUrl,
+            sku: product.sku,
+            visible: product.visible
         }
 
         return axios({
@@ -502,21 +481,16 @@ export class PutRequest {
     //         user-controller        //
     //-------------------------------//
 
-    static editUser(uid: number,
-                    mail: string,
-                    fname:string, 
-                    lname: string,
-                    pass: string, 
-                    admin:boolean, 
-                    picurl: string): Promise<User> {
+    static editUser(user: User): Promise<User> {
 
-        const modifyUser: UserEdit = {
-            email: mail,
-            firstName: fname,
-            isAdmin: admin,
-            lastName: lname,
-            password: pass,
-            pictureUrl:picurl
+        const modifyUser: User = {
+            email: user.email,
+            firstName: user.firstName,
+            isAdmin: user.isAdmin,
+            id: user.id,
+            lastName: user.lastName,
+            password: user.password,
+            pictureUrl: user.pictureUrl
         };
 
         return axios({
@@ -527,7 +501,7 @@ export class PutRequest {
             },
             data: modifyUser,
             params: {
-                userId: uid,
+                userId: modifyUser.id,
             }
         }).then(function (response) {
             return response.data as User;

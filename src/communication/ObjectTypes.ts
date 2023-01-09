@@ -52,30 +52,13 @@ export type UserLogin = {
     password: string
 }
 
-export type UserRegister = {
-    email: string,
-    firstName: string,
-    isAdmin: boolean,
-    lastName: string,
-    password: string,
-    pictureUrl:string
-}
-
-export type UserEdit = {
-    email: string,
-    firstName: string,
-    isAdmin: boolean,
-    lastName: string,
-    password: string,
-    pictureUrl:string
-}
-
 export type User = {
     email: string,
     firstName: string,
     id: number,
     isAdmin: boolean,
     lastName: string,
+    password: string,
     pictureUrl:string
 }
 

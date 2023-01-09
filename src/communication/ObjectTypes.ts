@@ -11,7 +11,9 @@ export type Opinion = {
     advantages: string[],
     description: string,
     disadvantages: string[],
+    firstName: string,
     opinionValue: number,
+    opinionAvg: number,
     pictureUrl: string,
     sku: string
 }
@@ -23,6 +25,13 @@ export type Product = {
     pictureUrl: string,
     sku: string,
     visible:boolean
+}
+
+export type ProductSearch = {
+    categoryName: string,
+    opinionAvgMax: number,
+    opinionAvgMin: number,
+    searchPhrase: string,
 }
 
 export type Page = {

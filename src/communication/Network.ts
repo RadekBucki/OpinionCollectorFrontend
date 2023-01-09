@@ -117,15 +117,15 @@ export class GetRequest {
         })
     }
 
-    static getSearchProduct(ctgName: string, opinionMin: number, opinionMax: number, srhPhrase: string): Promise<Product[]> {
+    static getSearchProduct(searchInput: ProductSearch): Promise<Product[]> {
         return axios({
             method: 'GET',
             url: BaseUrl + Get.PRODUCT_SEARCH,
             params: {
-                categoryName: ctgName,
-                opinionAvgMax: opinionMax,
-                opinionAvgMin: opinionMin,
-                searchPhrase: srhPhrase,
+                categoryName: searchInput.categoryName,
+                opinionAvgMax: searchInput.opinionAvgMax,
+                opinionAvgMin: searchInput.opinionAvgMin,
+                searchPhrase: searchInput.searchPhrase,
             },
         }).then(function (response) {
             return response.data as Product[];
@@ -222,7 +222,9 @@ export class PostRequest {
             advantages: opinion.advantages,
             description: opinion.description,
             disadvantages: opinion.disadvantages,
+            firstName: null,
             opinionValue: opinion.opinionValue,
+            opinionAvg: null,
             pictureUrl: opinion.pictureUrl,
             sku: opinion.sku
         };

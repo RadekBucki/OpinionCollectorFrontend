@@ -406,7 +406,7 @@ export class DeleteRequest {
     //       product-controller       //
     //-------------------------------//
 
-    static deleteProduct(skuval: string): Promise<Product> {
+    static deleteProduct(skuval: string): Promise<ProductGet> {
 
         const token = localStorage.getItem("token");
 
@@ -420,7 +420,7 @@ export class DeleteRequest {
                 sku: skuval,
             },
         }).then(function (res) {
-            return res.data as Product;
+            return res.data as ProductGet;
         }).catch(function (error) {
             throw error;
         })

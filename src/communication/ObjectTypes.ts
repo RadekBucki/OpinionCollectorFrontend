@@ -51,7 +51,7 @@ export type Page = {
 
 export type Suggestion = {
     description: string,
-    product: Product,
+    product: ProductGet,
     review: Review,
     reviewer: Reviewer,
     suggestionId: number,

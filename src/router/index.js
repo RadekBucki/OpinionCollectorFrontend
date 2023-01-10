@@ -9,7 +9,7 @@ import ProductsListPage from "@/views/ProductsListPage";
 
 import EditProduct from '@/views/EditProduct.vue';
 import ProductsList from '@/views/ProductsList.vue';
-import AddProduct from '@/views/AddProduct.vue';
+import CategoriesPanel from '@/views/CategoriesPanel.vue';
 import AdminProfile from '@/views/AdminProfile.vue';
 
 const routes = [
@@ -50,9 +50,9 @@ const routes = [
                         props: true
                     },
                     {
-                        path: '/addProduct',
-                        name: 'AddProduct',
-                        component: AddProduct,
+                        path: '/categories',
+                        name: 'CategoriesPanel',
+                        component: CategoriesPanel,
                         props: true
                     }
                 ]

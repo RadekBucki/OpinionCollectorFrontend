@@ -8,7 +8,7 @@
         <RouterLink class="list-group-item" :class="itemClasses('listadmin')" :to="{ name: 'ListAdmin' }">Browse Products</RouterLink>
       </li>
       <li class="nav-item">
-        <RouterLink class="list-group-item" :class="itemClasses('addproduct')" :to="{ name: 'AddProduct' }">Add Product</RouterLink>
+        <RouterLink class="list-group-item" :class="itemClasses('categoriespanel')" :to="{ name: 'CategoriesPanel' }">Add Product</RouterLink>
       </li>
     </ul>
   </div>

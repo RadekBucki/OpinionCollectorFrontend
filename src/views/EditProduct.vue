@@ -5,19 +5,44 @@
         <RouterLink :to="{ name: 'ListAdmin' }" class="btn btn-outline-dark">
           Back to browse
         </RouterLink>
+        <div class="mt-4">
+          <button 
+            type="button" 
+            class="btn btn-outline-dark" 
+            @click="setSelectedView('editProduct')"
+            :disabled="disableButtonEdit
+            ">
+            Edit Product
+          </button>
+          <button 
+            type="button" 
+            class="btn btn-outline-dark" 
+            @click="setSelectedView('addProduct')"
+            :disabled="disableButtonAdd
+            ">
+            Add Product
+          </button>
+          <button 
+            type="button" 
+            class="btn btn-outline-danger" 
+            @click="removeProduct()
+            ">
+            Remove Product
+          </button>
+        </div>
       </div>
-      <div class="my-2 p-2 col-12">
-        <button type="button" class="btn btn-outline-dark">Save Edit</button>
+      <div v-if="selectedView === 'editProduct'">
+        <div class="my-2 p-2 col-12">
+          <button @click="saveProduct()" type="button" class="btn btn-outline-dark">Save Edit</button>
+        </div>
+        <div class="col">
+          <DisplayEdit :url="pictureUrl" :name="productName" :sku="sku" :description="description"
+            :categories="categories" />
+          <EditForm :categoriesOwned="categories" @edit-data="setEdit" />
+        </div>
       </div>
-      <div class="col">
-        <DisplayEdit 
-          :url="pictureUrl" 
-          :name="productName" 
-          :sku="sku"
-          :description="description"
-          :categories="categories"
-          />
-        <EditForm :categoriesOwned="categories" @edit-data="setEdit"/>
+      <div v-else>
+        <AddProduct />
       </div>
     </div>
   </div>
@@ -26,14 +51,17 @@
 <script>
 import EditForm from '@/components/product/EditForm.vue';
 import DisplayEdit from '@/components/product/DisplayEdit.vue';
+import AddProduct from './AddProduct.vue';
 
 export default {
   components: {
     EditForm,
     DisplayEdit,
+    AddProduct,
   },
   data() {
     return {
+      selectedView: 'editProduct',
       product: {
         sku: "skusku",
         name: "Samsung Galaxy S20",
@@ -68,7 +96,16 @@ export default {
       this.product.pictureUrl = payload.pictureUrl;
       this.product.description = payload.description;
       this.product.categories = payload.categories;
-    }
+    },
+    setSelectedView(cmp) {
+      this.selectedView = cmp;
+    },
+    removeProduct() {
+      //DELETE
+    },
+    saveProduct() {
+      //PUT
+    },
   },
   computed: {
     productName() {
@@ -85,6 +122,18 @@ export default {
     },
     categories() {
       return this.product.categories;
+    },
+    disableButtonEdit() {
+      if (this.selectedView === 'editProduct') {
+        return true;
+      }
+      return false;
+    },
+    disableButtonAdd() {
+      if (this.selectedView === 'addProduct') {
+        return true;
+      }
+      return false;
     }
   },
 }

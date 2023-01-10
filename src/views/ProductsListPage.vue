@@ -100,7 +100,7 @@ export default {
           .then((res) => {
             this.actualPage = res.actualPage;
             this.numberOfPages = res.numberOfPages;
-            this.products = res.products;
+            this.products = this.products.concat(res.products);
           })
     },
     filterProducts() {

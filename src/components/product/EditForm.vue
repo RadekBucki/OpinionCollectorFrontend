@@ -19,7 +19,7 @@
     </div>
     <div class="input-group mt-4">
       <div class="input-group-prepend">
-        <span class="input-group-text" id="">Category and visibility</span>
+        <span class="input-group-text" id="">Category</span>
       </div>
       <input type="text" class="form-control" v-model.trim="categoryName">
       <select v-model="visible">

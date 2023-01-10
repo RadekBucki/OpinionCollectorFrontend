@@ -46,6 +46,7 @@
 <script>
 import PanelNavigation from "@/components/PanelNavigation.vue";
 import MobilePanelNavigation from "@/components/MobilePanelNavigation.vue";
+
 export default {
   name: "DataPage",
   components: {

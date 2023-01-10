@@ -1,6 +1,7 @@
 <template>
   <div>
-    <button type="button" class="btn btn-dark mt-2" :disabled="editPanel" @click="visibleChange">Add New Category</button>
+    <button type="button" class="btn btn-dark mt-2" :disabled="editPanel" @click="visibleChange">Add New
+      Category</button>
     <div v-if="visibleAddPanel" class="input-group mt-4">
       <div class="input-group-prepend">
         <span class="input-group-text" id="">Category and visibility</span>
@@ -26,31 +27,45 @@
           <tr v-for="category, index in categories" :key="category.categoryName">
             <td>{{ category.categoryName }}</td>
             <td>{{ category.visible }}</td>
-            <td><button type="button" class="btn btn-danger" :disabled="editPanel" @click="removeCategory(index)">Remove</button></td>
-            <td><button type="button" class="btn btn-dark" :disabled="editPanel" @click=editToggle(index)>Edit Category</button></td>
+            <td><button type="button" class="btn btn-danger" :disabled="editPanel"
+                @click="removeCategory(index)">Remove</button></td>
+            <td><button type="button" class="btn btn-dark" :disabled="editPanel" @click=editToggle(index)>Edit
+                Category</button></td>
           </tr>
         </tbody>
       </table>
     </div>
     <div v-if="editPanel">
-      <CategoryEdit v-model="pickedCategory.categoryName"/>
-      <button type="button" class="btn btn-dark mt-3" @click=saveEdit()>Save Edit</button>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="inputGroup-sizing-lg">Category</span>
+        </div>
+        <input 
+          type="text" 
+          class="form-control" 
+          aria-label="Large" 
+          aria-describedby="inputGroup-sizing-sm"
+          v-model="this.pickedCategory.categoryName" 
+          />
+        <select :value="this.pickedCategory.visible">
+          <option value=true>True</option>
+          <option value=false>False</option>
+        </select>
+      </div>
+      <button type="button" class="btn btn-dark mt-3" @click="saveEdit()">Save Edit</button>
     </div>
   </div>
 </template>
 
 <script>
-import CategoryEdit from '@/components/category/CategoryEdit.vue';
 
 export default {
-  components: {
-    CategoryEdit,
-  },
   data() {
     return {
       visibleAddPanel: false,
       editPanel: false,
-      pickedCategory: '',
+      pickedCategory: null,
+      index: null,
       categories: [
         {
           categoryName: "Smartfony",
@@ -84,15 +99,16 @@ export default {
   methods: {
     addCategory() {
       const toBool = (this.visible === 'true');
-      this.categories.push({
+      this.categories.push({  //checking if it works
         categoryName: this.categoryName,
         visible: toBool,
       });
       this.categoryName = '';
       this.visible = null;
+      //post
     },
     removeCategory(index) {
-      this.categories.splice(index, 1);
+      this.categories.splice(index, 1); //checking if it works
       //delete
     },
     visibleChange() {
@@ -100,10 +116,16 @@ export default {
     },
     editToggle(index) {
       this.editPanel = !this.editPanel;
-      this.pickedCategory= this.categories[index];
+      this.pickedCategory = this.categories[index];
+      this.index = index;
     },
     saveEdit() {
       this.editPanel = !this.editPanel;
+      const toBool = (this.pickedCategory.visible === 'true');
+      this.categories[this.index] = {
+        categoryName: this.pickedCategory.categoryName,
+        visible: toBool,
+      }
     }
   },
   computed: {

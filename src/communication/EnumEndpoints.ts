@@ -8,7 +8,7 @@ export enum Get {
     PRODUCTS = "/products/",
     PRODUCTS_ALL = "/products/all/",
     PRODUCTS_DETAILS = "/products/details",
-    PRODUCT_SEARCH = "/products/search",
+    PRODUCT_SEARCH = "/products/search?",
     SUGGESTIONS_ALL = "/suggestions/get",
     SUGGESTIONS_USER = "/suggestions/user",
     USERS_ALL = "/users"

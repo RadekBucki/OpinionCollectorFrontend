@@ -42,13 +42,19 @@
 
   <div v-if="this.products" class="container">
     <div v-if="this.products" class="row products">
-      <div v-for="item in this.products" :key="item" class="col-lg-10">
-        <div class="p-2 mt-3 border rounded item row">
-          <div class="fw-semibold fs-5 col-2">{{ item.name }}</div>
+      <div v-for="item in this.products" :key="item" class="col-lg-6 col-md-12 gx-5">
+        <div class="p-2 mt-3 border rounded item row text-start">
+          <div class="fw-semibold fs-5 col-12">{{ item.name }}</div>
           <div class="row">
             <img :src="item.pictureUrl" class="img-fluid" alt="productImage" />
-            <p class="col-3">{{ item.name }}</p>
-            <p class="col-2">{{ item.opinionAvg ?? 'No opinions' }}</p>
+            <star-rating
+              read-only
+              :show-rating="false"
+              star-size="25"
+              v-if="item.opinionAvg"
+              class="col-5 d-flex align-items-start"
+              v-model:rating="item.opinionAvg" />
+            <p v-if="!item.opinionAvg" class="col-5">{{ 'No opinions' }}</p>
           </div>
         </div>
       </div>
@@ -62,10 +68,13 @@
 <script>
 
 import {GetRequest} from "@/communication/Network.ts";
+import StarRating from 'vue-star-rating'
 
 export default {
   name: "ProductsListPage",
-  components: {},
+  components: {
+    StarRating
+  },
   data() {
     return {
       products: null,

@@ -48,7 +48,7 @@
           <div class="row">
             <img :src="item.pictureUrl" class="img-fluid" alt="productImage" />
             <p class="col-3">{{ item.name }}</p>
-            <p class="col-2">{{ item.opinionAvg ?? 'Brak opinii' }}</p>
+            <p class="col-2">{{ item.opinionAvg ?? 'No opinions' }}</p>
           </div>
         </div>
       </div>

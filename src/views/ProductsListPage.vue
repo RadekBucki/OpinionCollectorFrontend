@@ -47,10 +47,8 @@
           <div class="fw-semibold fs-5 col-2">{{ item.name }}</div>
           <div class="row">
             <img :src="item.pictureUrl" class="img-fluid" alt="productImage" />
-            <div class="col-3">{{ item.description }}</div>
-            <div class="col-2" v-for="opinion in item.opinions" :key="opinion">
-              <div>{{ opinion.advantages[0] }}</div>
-            </div>
+            <p class="col-3">{{ item.name }}</p>
+            <p class="col-2">{{ item.opinionAvg ?? 'Brak opinii' }}</p>
           </div>
         </div>
       </div>
@@ -85,15 +83,15 @@ export default {
   methods: {
     fetchInitData() {
       Promise.all([GetRequest.getProducts(this.actualPage), GetRequest.getCategories()]).then((res) => {
-        this.actualPage = res[0].actualPage
-        this.numberOfPages = res[0].numberOfPages
-        this.products = res[0].products
-        this.categories = res[1]
+        this.actualPage = res[0].actualPage;
+        this.numberOfPages = res[0].numberOfPages;
+        this.products = res[0].products;
+        this.categories = res[1];
       })
     },
     loadMoreProducts() {
       if (this.actualPage === this.numberOfPages) {
-        return
+        return;
       }
 
       GetRequest.getProducts(++this.actualPage)
@@ -105,25 +103,25 @@ export default {
     },
     filterProducts() {
       if (!this.filters.categoryName && !this.filters.opinionAvgMin && !this.filters.opinionAvgMax && !this.filters.searchPhrase) {
-        return
+        return;
       }
 
       GetRequest.getSearchProduct(this.filters).then((res) => {
-        this.products = res
+        this.products = res;
       })
     },
     scroll () {
       window.onscroll = () => {
-        let bottomOfWindow = Math.max(window.pageYOffset, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight
+        const bottomOfWindow = Math.max(window.scrollY, document.documentElement.scrollTop, document.body.scrollTop) + window.innerHeight === document.documentElement.offsetHeight
         if (bottomOfWindow) {
-          this.loadMoreProducts()
+          this.loadMoreProducts();
         }
       }
     }
   },
   mounted() {
-    this.fetchInitData()
-    this.scroll()
+    this.fetchInitData();
+    this.scroll();
   },
 };
 </script>

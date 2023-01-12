@@ -91,7 +91,8 @@ export default {
       this.errors.passwordError = false;
 
       if (!this.credentials.pictureUrl) {
-        this.credentials.pictureUrl = (await fetch("https://source.unsplash.com/random/300x300/")).url;
+        this.credentials.pictureUrl = (await fetch("https://source.unsplash.com/random/300x300/"))?.url ??
+            "https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png";
       }
 
       const registerUser = {

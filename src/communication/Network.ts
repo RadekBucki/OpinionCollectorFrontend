@@ -551,6 +551,10 @@ export class PutRequest {
 }
 
 export class MethodRequest {
+    static getUser(): User | null {
+        return JSON.parse(localStorage.getItem("user")) as User
+    }
+
     static isTokenAvailable() {
         const token = localStorage.getItem("token")
         return token == null ? false : true;

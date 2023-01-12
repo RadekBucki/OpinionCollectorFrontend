@@ -11,21 +11,20 @@
       <div class="navbar-collapse collapse justify-content-between align-items-center w-100" id="collapsingNavbar2">
         <ul class="navbar-nav mx-auto text-md-center text-left">
           <li class="nav-item">
-            <router-link v-if="!token" class="nav-link mx-3" :to="{ name: 'Panel' }">
+            <router-link v-if="isLoggedIn" class="nav-link mx-3" :to="{ name: 'Panel' }">
               Panel
             </router-link>
           </li>
 
           <li class="nav-item my-auto">
             <router-link
-              v-if="!token"
               class="nav-link navbar-brand fs-3 fw-bold mx-0 d-none d-md-inline"
               :to="{ name: 'Products' }">
               Opinion Collector
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link v-if="!token" class="nav-link mx-3" :to="{ name: 'Admin' }">
+            <router-link v-if="isLoggedIn" class="nav-link mx-3" :to="{ name: 'Admin' }">
               Admin
             </router-link>
           </li>
@@ -34,19 +33,19 @@
           class="nav navbar-nav flex-row justify-content-md-center align-items-center justify-content-center flex-nowrap"
         >
           <li class="nav-item">
-            <div v-if="token" class="text-light mx-1">{{ this.username }}</div>
+            <div v-if="isLoggedIn" class="text-light mx-1">Hi {{ this.user.firstName }}!</div>
           </li>
           <li class="nav-item dropdown mx-auto">
             <div class="nav-item" @click="toggleDropdown()">
               <img src="@/assets/avatarprofile.svg" alt="Dropdown trigger" />
             </div>
             <div class="dropdown-menu" v-bind:class="{ show: isDropdownVisible }">
-              <router-link v-if="token" class="dropdown-item" :to="{ name: 'Panel' }">
+              <router-link v-if="isLoggedIn" class="dropdown-item" :to="{ name: 'Panel' }">
                 Panel
               </router-link>
-              <a class="dropdown-item" @click="this.loginModal.show()">Log in</a>
-              <a class="dropdown-item" @click="this.registerModal.show()">Register</a>
-              <a class="dropdown-item" @click.prevent="signOut">Sign out</a>
+              <a v-if="!isLoggedIn" class="dropdown-item" @click="this.loginModal.show()">Log in</a>
+              <a v-if="!isLoggedIn" class="dropdown-item" @click="this.registerModal.show()">Register</a>
+              <a v-if="isLoggedIn" class="dropdown-item" @click.prevent="signOut">Sign out</a>
             </div>
           </li>
         </ul>
@@ -61,6 +60,7 @@
 <script>
 import LoginModal from "@/components/modals/LoginModal";
 import RegisterModal from "@/components/modals/RegisterModal";
+import {MethodRequest} from "@/communication/Network.ts";
 
 export default {
   components: {
@@ -70,8 +70,8 @@ export default {
   data() {
     return {
       isDropdownVisible: false,
-      token: null,
-      username: "User1",
+      isLoggedIn: MethodRequest.isTokenAvailable(),
+      user: MethodRequest.getUser(),
       loginModal: null,
       registerModal: null,
     };
@@ -81,14 +81,10 @@ export default {
       this.isDropdownVisible = !this.isDropdownVisible;
     },
     signOut() {
-      localStorage.removeItem("token");
-      this.token = null;
+      MethodRequest.userLogout();
       window.location.reload();
     },
-  },
-  mounted() {
-    this.token = localStorage.getItem("token");
-  },
+  }
 };
 </script>
 

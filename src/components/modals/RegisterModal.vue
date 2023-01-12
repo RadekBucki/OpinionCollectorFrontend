@@ -22,9 +22,8 @@
               <input v-model="this.credentials.lastName" type="text" class="form-control" placeholder="Enter last name" required>
             </div>
             <div class="text-start form-group mb-3">
-              <label>URL to profile image</label>
-              <input v-model="this.credentials.pictureUrl" type="text" class="form-control" placeholder="Enter URL to profile image" required>
-              <small class="text-start text-muted">Generator: https://source.unsplash.com/random/300x300</small>
+              <label>URL to profile image (optional)</label>
+              <input v-model="this.credentials.pictureUrl" type="text" class="form-control" placeholder="Enter URL to profile image">
             </div>
             <div class="text-start form-group mb-3">
               <label>Password</label>
@@ -90,6 +89,10 @@ export default {
         return;
       }
       this.errors.passwordError = false;
+
+      if (!this.credentials.pictureUrl) {
+        this.credentials.pictureUrl = (await fetch("https://source.unsplash.com/random/300x300/")).url;
+      }
 
       const registerUser = {
         email: this.credentials.email,

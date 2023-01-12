@@ -42,7 +42,7 @@
 
   <div class="container">
     <div class="row products">
-      <div v-for="item in this.products" :key="item" class="col-lg-6 col-md-12 gx-5">
+      <div @mouseover="changeCursorToPointer" @mouseleave="changeCursorToDefault" @click="openDetails(item.sku)" v-for="item in this.products" :key="item" class="col-lg-6 col-md-12 gx-5">
         <div class="p-2 mt-3 border rounded item row text-start">
           <div class="fw-semibold fs-5 col-12">{{ item.name }}</div>
           <div class="row">
@@ -122,7 +122,16 @@ export default {
           this.loadMoreProducts();
         }
       }
-    }
+    },
+    openProductDetails(sku) {
+      this.$router.push({ name: 'Product', params: { sku: sku } })
+    },
+    changeCursorToPointer() {
+      document.body.style.cursor = 'pointer';
+    },
+    changeCursorToDefault() {
+      document.body.style.cursor = 'default';
+    },
   },
   mounted() {
     this.fetchInitData();

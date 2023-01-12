@@ -6,10 +6,6 @@
       <label for="name">Product Name</label>
     </div>
     <div class="form-floating mb-3">
-      <input type="text" class="form-control" id="sku" placeholder="Sku" v-model.number="sku" />
-      <label for="sku">Product Sku</label>
-    </div>
-    <div class="form-floating mb-3">
       <input type="text" class="form-control" id="avgMin" placeholder="Average minimum value" v-model.number="avgMin" />
       <label for="avgMin">Average minimum</label>
     </div>
@@ -32,53 +28,47 @@
 </template>
 
 <script>
+import {GetRequest} from "@/communication/Network.ts";
+
 export default {
   emits: ['passData'],
   data() {
     return {
       name: '',
-      sku: '',
       avgMax: '',
       avgMin: '',
       pickedCategory: null,
-      categories: [
-        {
-          categoryName: "Smartfony",
-          visible: true,
-        },
-        {
-          categoryName: "Laptopy",
-          visible: true,
-        },
-        {
-          categoryName: "Klawiatury",
-          visible: true,
-        },
-      ],
+      categories: [],
     }
   },
   methods: {
     submitFilters() {
       const submitData = {
         name: this.name,
-        sku: this.sku,
         avgMin: this.avgMin,
         avgMax: this.avgMax,
         pickedCategory: this.pickedCategory,
       }
       this.$emit('passData', submitData);
       this.name = '';
-      this.sku = '';
       this.avgMin = '';
       this.avgMax = '';
       this.pickedCategory = null;
-    }
+    },
+    fetchCategories() {
+      GetRequest.getCategories().then((res) => {
+        this.categories = res;
+      })
+    },
   },
   computed: {
     getCategories() {
       return this.categories;
     }
   },
+  mounted() {
+    this.fetchCategories();
+  }
 }
 </script>
 

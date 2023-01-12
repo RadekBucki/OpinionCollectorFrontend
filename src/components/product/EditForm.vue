@@ -17,17 +17,6 @@
       <label for="desc">Description</label>
       <textarea class="form-control" id="desc" rows="3" v-model.trim="desc"></textarea>
     </div>
-    <div class="input-group mt-4">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="">Category</span>
-      </div>
-      <input type="text" class="form-control" v-model.trim="categoryName">
-      <select v-model="visible">
-        <option value=true>True</option>
-        <option value=false>False</option>
-      </select>
-      <button type="button" class="btn btn-outline-dark" @click="addCategory()">Add category</button>
-    </div>
     <div v-if="hasAddedCategories">
       <table class="table">
         <thead class="thead-dark">
@@ -38,10 +27,29 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="category, index in categories" :key="category.categoryName">
+          <tr v-for="category in categories" :key="category.categoryName">
             <td>{{ category.categoryName }}</td>
             <td>{{ category.visible }}</td>
-            <td><button type="button" class="btn btn-danger" @click="removeCategory(index)">Remove</button></td>
+            <td class="buttons-control">
+              <button 
+                v-if="category"
+                :disabled="hasCategory(category.categoryName)" 
+                type="button" 
+                class="btn btn-danger" 
+                @click="addCategory(category)
+                ">
+                Add category to product
+                </button>
+              <button
+                v-if="category"
+                :disabled="!hasCategory(category.categoryName)" 
+                type="button" 
+                class="btn btn-danger" 
+                @click="removeCategory(category)
+                ">
+                Remove category
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -51,6 +59,8 @@
 </template>
 
 <script>
+import { GetRequest } from "@/communication/Network.ts";
+
 export default {
   emits: ['edit-data'],
   props: ['categoriesOwned'],
@@ -61,22 +71,22 @@ export default {
       desc: '',
       sku: '',
       categories: [],
-      visible: null,
       categoryName: '',
+      emitsCategories: [],
     }
   },
   methods: {
-    addCategory() {
-      const toBool = (this.visible === 'true');
-      this.categories.push({
-        categoryName: this.categoryName,
-        visible: toBool,
-      });
-      this.categoryName = '';
-      this.visible = null;
+    addCategory(category) {
+      this.emitsCategories.push(category);
     },
-    removeCategory(index) {
-      this.categories.splice(index, 1);
+    removeCategory(category) {
+      this.emitsCategories = this.emitsCategories.filter(cat => {
+        if (cat.categoryName === category.categoryName) {
+          return false;
+        } else {
+          return true;
+        }
+      }) 
     },
     setProductDisplay() {
       this.$emit('edit-data', {
@@ -87,17 +97,33 @@ export default {
         categories: this.categories,
       });
     },
-    setCategories() {
-      this.categories = this.$props.categoriesOwned;
-    }
+    loadCategories() {
+      GetRequest.getAllCategories().then(res => {
+        this.categories = res;
+        this.emitsCategories = [...this.$props.categoriesOwned];
+      });
+    },
+    hasCategory(catName) {
+      const owned = this.emitsCategories.filter(cat => {
+        return cat.categoryName === catName;
+      });
+      let flag = false;
+      owned.forEach(element => {
+        if (element.categoryName === catName) {
+          flag = true;
+          return;
+        }
+      });
+      return flag;
+    },
   },
   computed: {
     hasAddedCategories() {
       return this.categories && this.categories.length > 0;
-    }
+    },
   },
   mounted() {
-    this.setCategories();
+    this.loadCategories();
   }
 }
 </script>
@@ -105,5 +131,11 @@ export default {
 <style scoped>
 .set {
   margin-top: 2%;
+}
+
+.buttons-control {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 </style>

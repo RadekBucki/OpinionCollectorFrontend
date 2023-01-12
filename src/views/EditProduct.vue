@@ -36,7 +36,12 @@
           <button @click="saveProduct()" type="button" class="btn btn-outline-dark">Save Edit</button>
         </div>
         <div class="col">
-          <DisplayEdit :url="pictureUrl" :name="productName" :sku="sku" :description="description"
+          <DisplayEdit 
+            v-if="!isLoading"
+            :url="pictureUrl" 
+            :name="productName" 
+            :sku="sku" 
+            :description="description"
             :categories="categories" />
           <EditForm :categoriesOwned="categories" @edit-data="setEdit" />
         </div>
@@ -49,6 +54,8 @@
 </template>
 
 <script>
+import { GetRequest, DeleteRequest } from "@/communication/Network.ts";
+
 import EditForm from '@/components/product/EditForm.vue';
 import DisplayEdit from '@/components/product/DisplayEdit.vue';
 import AddProduct from './AddProduct.vue';
@@ -62,30 +69,25 @@ export default {
   data() {
     return {
       selectedView: 'editProduct',
+      isLoading: false,
       product: {
-        sku: "skusku",
-        name: "Samsung Galaxy S20",
-        pictureUrl:
-          "https://image-us.samsung.com/SamsungUS/home/mobile/phones/galaxy-s/galaxy-s20-fe-5g-images/cloud-navy/PDP-GALLERY-S20-FE-cloud-Navy-Lockup-01-1600x1200.jpg?$product-details-jpg$",
-        description: 'Ekran "6,5cala 6/128GB"',
+        sku: '',
+        name: '',
+        pictureUrl: '',
+        description: '',
         opinionAvg: null,
-        firstName: "Uzytkownik",
+        firstName: '',
         opinions: [
           {
-            opinionValue: 1,
-            description: "5",
-            pictureUrl: "1",
-            advantages: ["Super jest"],
+            opinionValue: null,
+            description: '',
+            pictureUrl: '',
+            advantages: [],
             disadvantages: null,
-            firstName: "Uzytkownik",
+            firstName: '',
           },
         ],
-        categories: [
-          {
-            categoryName: "Smartfony",
-            visible: true,
-          },
-        ],
+        categories: [],
       }
     }
   },
@@ -101,11 +103,36 @@ export default {
       this.selectedView = cmp;
     },
     removeProduct() {
-      //DELETE
+      DeleteRequest.deleteProduct(this.$route.params.sku).then(res => {
+        this.product = res;
+      });
     },
     saveProduct() {
-      //PUT
+      // this.product.categories.forEach(category => {
+      //   PutRequest.editCategory(category)
+      // })
+      const payload = {
+        description: this.product.description,
+        name: this.product.name,
+        pictureUrl: this.product.pictureUrl,
+        sku: this.product.sku,
+      }
+      console.log(payload);
+      const test = [
+        ...this.product.categories,
+      ]
+      console.log(test);
+      // PutRequest.editProduct(payload).then(res => {
+      //   this.product = res;
+      // });
     },
+    loadProduct() {
+      this.isLoading = true;
+      GetRequest.getProductDetails(this.$route.params.sku).then(res => {
+        this.product = res;
+        this.isLoading = false;
+      })
+    }
   },
   computed: {
     productName() {
@@ -134,7 +161,10 @@ export default {
         return true;
       }
       return false;
-    }
+    },
   },
+  created() {
+    this.loadProduct();
+  }
 }
 </script>

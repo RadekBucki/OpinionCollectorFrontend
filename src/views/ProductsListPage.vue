@@ -40,8 +40,8 @@
     </form>
   </div>
 
-  <div v-if="this.products" class="container">
-    <div v-if="this.products" class="row products">
+  <div class="container">
+    <div class="row products">
       <div v-for="item in this.products" :key="item" class="col-lg-6 col-md-12 gx-5">
         <div class="p-2 mt-3 border rounded item row text-start">
           <div class="fw-semibold fs-5 col-12">{{ item.name }}</div>
@@ -50,7 +50,7 @@
             <star-rating
               read-only
               :show-rating="false"
-              star-size="25"
+              v-bind:star-size="25"
               v-if="item.opinionAvg"
               class="col-5 d-flex align-items-start"
               v-model:rating="item.opinionAvg" />
@@ -59,7 +59,7 @@
         </div>
       </div>
     </div>
-    <div v-if="this.products.length === 0" class="row">
+    <div v-if="this.products?.length === 0" class="row">
       <p class="mt-5 fw-semibold fs-5">No products found.</p>
     </div>
   </div>

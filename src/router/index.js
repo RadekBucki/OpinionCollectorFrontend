@@ -14,6 +14,7 @@ const routes = [
         name: 'Home',
         component: HomeView,
         props: true,
+        inheritAttrs: false,
         children: [
             {
                 path: '/',
@@ -25,7 +26,7 @@ const routes = [
                 path: '/product/:sku',
                 name: 'Product',
                 component: ProductDetailPage,
-                props: true
+                props: true,
             },
             {
                 path: 'admin',

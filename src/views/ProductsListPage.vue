@@ -42,14 +42,14 @@
 
   <div class="container">
     <div class="row products">
-      <div @mouseover="changeCursorToPointer" @mouseleave="changeCursorToDefault" @click="openDetails(item.sku)" v-for="item in this.products" :key="item" class="col-lg-6 col-md-12 gx-5">
+      <div @mouseover="changeCursorToPointer" @mouseleave="changeCursorToDefault" @click="openProductDetails(item.sku)" v-for="item in this.products" :key="item" class="col-lg-6 col-md-12 gx-5">
         <div class="p-2 mt-3 border rounded item row text-start">
           <div class="fw-semibold fs-5 col-12">{{ item.name }}</div>
           <div class="row">
-            <img :src="item.pictureUrl" class="img-fluid" alt="productImage" />
+            <img :src="item.pictureUrl" class="rounded img-fluid" alt="productImage" />
             <star-rating
               read-only
-              :show-rating="false"
+              :show-rating="true"
               v-bind:star-size="25"
               v-if="item.opinionAvg"
               class="col-5 d-flex align-items-start"

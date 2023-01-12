@@ -130,15 +130,17 @@ export class GetRequest {
     }
 
     static getSearchProduct(searchInput: ProductSearch): Promise<ProductGet[]> {
+
+        const params = new URLSearchParams({});
+
+        if (searchInput.categoryName) params.append("categoryName", searchInput.categoryName);
+        if (searchInput.opinionAvgMax != null) params.append("opinionAvgMax", searchInput.opinionAvgMax.toString());
+        if (searchInput.opinionAvgMin != null) params.append("opinionAvgMin", searchInput.opinionAvgMin.toString());
+        if (searchInput.searchPhrase != null) params.append("searchPhrase", searchInput.searchPhrase);
+
         return axios({
             method: 'GET',
-            url: BaseUrl + Get.PRODUCT_SEARCH,
-            params: {
-                categoryName: searchInput.categoryName,
-                opinionAvgMax: searchInput.opinionAvgMax,
-                opinionAvgMin: searchInput.opinionAvgMin,
-                searchPhrase: searchInput.searchPhrase,
-            },
+            url: BaseUrl + Get.PRODUCT_SEARCH + params.toString(),
         }).then(function (response) {
             return response.data as ProductGet[];
         }).catch(function (error) {
@@ -213,7 +215,7 @@ export class PostRequest {
     //-------------------------------//
 
     static addCategory(categoryName: string, isVisible: boolean): Promise<Category> {
-    
+
     const token = localStorage.getItem("token");
     const newCategory: Category = {
         categoryName: categoryName,
@@ -432,7 +434,7 @@ export class PutRequest {
     //---------------------------------//
     //       category-controller      //
     //-------------------------------//
-    
+
     static editCategory(categoryName: string, isVisible: boolean): Promise<Category> {
 
         const token = localStorage.getItem("token");
@@ -440,7 +442,7 @@ export class PutRequest {
             categoryName: categoryName,
             visible: isVisible,
         };
-    
+
         return axios({
             method: 'PUT',
             url: BaseUrl + Put.CATEGORIES_EDIT,
@@ -454,7 +456,7 @@ export class PutRequest {
             throw error;
         })
     }
-    
+
     //---------------------------------//
     //       product-controller       //
     //-------------------------------//

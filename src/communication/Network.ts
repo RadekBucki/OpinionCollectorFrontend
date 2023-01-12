@@ -133,7 +133,7 @@ export class GetRequest {
 
         const params = new URLSearchParams({});
 
-        if (searchInput.categoryName != null && searchInput.categoryName != "") params.append("categoryName", searchInput.categoryName);
+        if (searchInput.categoryName) params.append("categoryName", searchInput.categoryName);
         if (searchInput.opinionAvgMax != null) params.append("opinionAvgMax", searchInput.opinionAvgMax.toString());
         if (searchInput.opinionAvgMin != null) params.append("opinionAvgMin", searchInput.opinionAvgMin.toString());
         if (searchInput.searchPhrase != null) params.append("searchPhrase", searchInput.searchPhrase);

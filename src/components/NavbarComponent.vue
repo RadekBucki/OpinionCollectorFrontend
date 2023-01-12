@@ -43,9 +43,9 @@
               <router-link v-if="isLoggedIn" class="dropdown-item" :to="{ name: 'Panel' }">
                 Panel
               </router-link>
-              <a v-if="!isLoggedIn" class="dropdown-item" @click="this.loginModal.show()">Log in</a>
-              <a v-if="!isLoggedIn" class="dropdown-item" @click="this.registerModal.show()">Register</a>
-              <a v-if="isLoggedIn" class="dropdown-item" @click.prevent="signOut">Sign out</a>
+              <a v-if="!isLoggedIn" role="button" class="dropdown-item" @click="this.loginModal.show()">Log in</a>
+              <a v-if="!isLoggedIn" role="button" class="dropdown-item" @click="this.registerModal.show()">Register</a>
+              <a v-if="isLoggedIn" role="button" class="dropdown-item" @click.prevent="signOut">Sign out</a>
             </div>
           </li>
         </ul>

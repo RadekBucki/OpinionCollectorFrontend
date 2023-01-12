@@ -552,7 +552,7 @@ export class PutRequest {
 
 export class MethodRequest {
     static getUser(): User | null {
-        return JSON.parse(localStorage.getItem("user")) as User
+        return JSON.parse(localStorage.getItem("user")) as User;
     }
 
     static isTokenAvailable() {

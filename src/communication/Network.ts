@@ -130,15 +130,17 @@ export class GetRequest {
     }
 
     static getSearchProduct(searchInput: ProductSearch): Promise<ProductGet[]> {
+
+        const params = new URLSearchParams({});
+
+        if (searchInput.categoryName != null) params.append("categoryName", searchInput.categoryName);
+        if (searchInput.opinionAvgMax != null) params.append("opinionAvgMax", searchInput.opinionAvgMax.toString());
+        if (searchInput.opinionAvgMin != null) params.append("opinionAvgMin", searchInput.opinionAvgMin.toString());
+        if (searchInput.searchPhrase != null) params.append("searchPhrase", searchInput.searchPhrase);
+
         return axios({
             method: 'GET',
-            url: BaseUrl + Get.PRODUCT_SEARCH,
-            params: {
-                categoryName: searchInput.categoryName,
-                opinionAvgMax: searchInput.opinionAvgMax,
-                opinionAvgMin: searchInput.opinionAvgMin,
-                searchPhrase: searchInput.searchPhrase,
-            },
+            url: BaseUrl + Get.PRODUCT_SEARCH + params.toString(),
         }).then(function (response) {
             return response.data as ProductGet[];
         }).catch(function (error) {

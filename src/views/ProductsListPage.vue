@@ -3,7 +3,7 @@
     <form @submit.prevent="filterProducts()">
       <div class="row justify-content-center">
         <div class="col-3">
-          <input v-model="this.filters.categoryName" type="text" class="form-control" placeholder="Product name" />
+          <input v-model="this.filters.searchPhrase" type="text" class="form-control" placeholder="Product name" />
         </div>
         <div class="col-2">
           <input
@@ -28,7 +28,7 @@
           />
         </div>
         <div class="col-2">
-          <select class="form-select" v-model="this.filters.searchPhrase">
+          <select class="form-select" v-model="this.filters.categoryName">
             <option value="">Select category</option>
             <option v-for="category in this.categories" :key="category" :value="category.categoryName">{{ category.categoryName }}</option>
           </select>
@@ -111,10 +111,6 @@ export default {
           })
     },
     filterProducts() {
-      if (!this.filters.categoryName && !this.filters.opinionAvgMin && !this.filters.opinionAvgMax && !this.filters.searchPhrase) {
-        return;
-      }
-
       GetRequest.getSearchProduct(this.filters).then((res) => {
         this.products = res;
       })

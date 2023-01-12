@@ -133,7 +133,7 @@ export class GetRequest {
 
         const params = new URLSearchParams({});
 
-        if (searchInput.categoryName != null) params.append("categoryName", searchInput.categoryName);
+        if (searchInput.categoryName != null && searchInput.categoryName != "") params.append("categoryName", searchInput.categoryName);
         if (searchInput.opinionAvgMax != null) params.append("opinionAvgMax", searchInput.opinionAvgMax.toString());
         if (searchInput.opinionAvgMin != null) params.append("opinionAvgMin", searchInput.opinionAvgMin.toString());
         if (searchInput.searchPhrase != null) params.append("searchPhrase", searchInput.searchPhrase);
@@ -215,7 +215,7 @@ export class PostRequest {
     //-------------------------------//
 
     static addCategory(categoryName: string, isVisible: boolean): Promise<Category> {
-    
+
     const token = localStorage.getItem("token");
     const newCategory: Category = {
         categoryName: categoryName,
@@ -434,7 +434,7 @@ export class PutRequest {
     //---------------------------------//
     //       category-controller      //
     //-------------------------------//
-    
+
     static editCategory(categoryName: string, isVisible: boolean): Promise<Category> {
 
         const token = localStorage.getItem("token");
@@ -442,7 +442,7 @@ export class PutRequest {
             categoryName: categoryName,
             visible: isVisible,
         };
-    
+
         return axios({
             method: 'PUT',
             url: BaseUrl + Put.CATEGORIES_EDIT,
@@ -456,7 +456,7 @@ export class PutRequest {
             throw error;
         })
     }
-    
+
     //---------------------------------//
     //       product-controller       //
     //-------------------------------//

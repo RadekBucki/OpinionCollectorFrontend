@@ -22,6 +22,11 @@
               <input v-model="this.credentials.lastName" type="text" class="form-control" placeholder="Enter last name" required>
             </div>
             <div class="text-start form-group mb-3">
+              <label>URL to profile image</label>
+              <input v-model="this.credentials.pictureUrl" type="text" class="form-control" placeholder="Enter URL to profile image" required>
+              <small class="text-start text-muted">Generator: https://source.unsplash.com/random/300x300</small>
+            </div>
+            <div class="text-start form-group mb-3">
               <label>Password</label>
               <input v-model="this.credentials.password" type="password" class="form-control" placeholder="Enter password" required>
               <small v-if="this.errors.passwordError" class="text-start" style="color: red;">Passwords don't match!</small>
@@ -68,6 +73,7 @@ export default {
         confirmPassword: null,
         firstName: null,
         lastName: null,
+        pictureUrl: null,
         imageUrl: null,
       },
       errors: {
@@ -82,38 +88,37 @@ export default {
       if(this.credentials.password !== this.credentials.confirmPassword) {
         this.errors.passwordError = true;
         return;
-      } else {
-        this.errors.passwordError = false;
       }
+      this.errors.passwordError = false;
 
       const registerUser = {
         email: this.credentials.email,
         firstName: this.credentials.firstName,
         lastName: this.credentials.lastName,
         password: this.credentials.password,
-        pictureUrl: "https://www.url-to-picture.com",
+        pictureUrl: this.credentials.pictureUrl,
         isAdmin: false,
         id: null
       };
 
       PostRequest.userRegister(registerUser).then(() => {
-        this.errors.accountError = false
-        this.modal.hide()
-        this.messageModal.show()
+        this.errors.accountError = false;
+        this.modal.hide();
+        this.messageModal.show();
       }).catch((err) => {
         if (err.response.status === 406) {
-          this.errors.errorMessage = `This email is already taken!`
+          this.errors.errorMessage = `This email is already taken!`;
         } else {
-          this.errors.errorMessage = `Sorry! We couldn't register your account!`
+          this.errors.errorMessage = `Sorry! We couldn't register your account!`;
         }
-        this.errors.accountError = true
+        this.errors.accountError = true;
       })
     },
   },
   mounted() {
-    this.modal = new Modal(this.$refs.staticBackdropForRegister)
-    this.messageModal = new Modal(this.$refs.staticBackdropForMessage)
-    this.$emit('get-modal', this.modal)
+    this.modal = new Modal(this.$refs.staticBackdropForRegister);
+    this.messageModal = new Modal(this.$refs.staticBackdropForMessage);
+    this.$emit('get-modal', this.modal);
   }
 };
 </script>

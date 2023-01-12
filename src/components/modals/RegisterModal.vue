@@ -28,12 +28,12 @@
             </div>
             <div class="text-start form-group mb-3">
               <label>Password</label>
-              <input v-model="this.credentials.password" type="password" class="form-control" placeholder="Enter password" required>
+              <input v-model="this.credentials.password" min="6" max="40" type="password" class="form-control" placeholder="Enter password" required>
               <small v-if="this.errors.passwordError" class="text-start" style="color: red;">Passwords don't match!</small>
             </div>
             <div class="text-start form-group mb-3">
               <label>Confirm password</label>
-              <input v-model="this.credentials.confirmPassword" type="password" class="form-control" placeholder="Enter password again" required>
+              <input v-model="this.credentials.confirmPassword" min="6" max="40" type="password" class="form-control" placeholder="Enter password again" required>
             </div>
             <button type="submit" class="btn btn-primary m-auto w-100">Register</button>
           </form>

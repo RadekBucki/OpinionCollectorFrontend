@@ -98,14 +98,13 @@
         </div>
       </div>
     </div>
-    <button v-if="!this.$props.admin"
+    <button
       type="button" 
       class="btn btn-outline-dark m-2" 
       @click="editUser()
       ">
       {{ buttonText }}
     </button>
-    <span v-else class="status">AdminUser</span>
     <button v-if="isEditable" 
       type="button" 
       class="btn btn-outline-dark m-2" 
@@ -117,7 +116,7 @@
 </template>
 
 <script>
-import { PostRequest } from "@/communication/Network.ts";
+import { PutRequest } from "@/communication/Network.ts";
 
 export default {
   props: ['first', 'last', 'email', 'admin', 'img', 'userId'],
@@ -141,15 +140,15 @@ export default {
         email: this.emailNew,
         firstName: this.firstName,
         isAdmin: this.adminStatus,
-        id: this.$props.userId,
         lastName: this.lastName,
         password: this.password,
         pictureUrl: this.profilePictureUrl,
       };
       console.log(userData);
-      PostRequest.userEdit(userData).then(res => {
+      PutRequest.userEdit(this.$props.userId, userData).then(res => {
         console.log(res);
-      })
+      });
+      this.password = '';
       this.editToggle = !this.editToggle;
     }
   },
@@ -184,14 +183,6 @@ export default {
 
 .group-info label {
   font-weight: bold;
-}
-
-.status {
-  color: white; 
-  font-size: 16px; 
-  background-color: Crimson; 
-  border: 4px solid Crimson; 
-  border-radius: 18px;  
 }
 
 .radio {

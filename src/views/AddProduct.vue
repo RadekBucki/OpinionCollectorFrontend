@@ -17,16 +17,33 @@
       <label for="desc">Description</label>
       <textarea class="form-control" id="desc" rows="3" v-model.trim="desc"></textarea>
     </div>
-    <div class="input-group mt-4">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="">Category and visibility</span>
+    <div class="radio m-4">
+      <div class="form-check">
+        <label class="form-check-label" for="flexRadioDefault1">
+          Visible
+        </label>
+        <input 
+          class="form-check-input" 
+          type="radio" 
+          name="Visible" 
+          id="radio1"
+          value="true" 
+          v-model="visible"
+          >
       </div>
-      <input type="text" class="form-control" v-model.trim="categoryName">
-      <select v-model="visible">
-        <option value=true>True</option>
-        <option value=false>False</option>
-      </select>
-      <button type="button" class="btn btn-outline-dark" @click="addCategory()">Add category</button>
+      <div class="form-check">
+        <label class="form-check-label" for="flexRadioDefault2">
+          Invisible
+        </label>
+        <input 
+          class="form-check-input" 
+          type="radio" 
+          name="Invisible" 
+          id="radio2"
+          value="false" 
+          v-model="visible"
+          >
+      </div>
     </div>
     <div v-if="hasAddedCategories">
       <table class="table">
@@ -38,19 +55,40 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="category, index in categories" :key="category.categoryName">
+          <tr v-for="category in categories" :key="category.categoryName">
             <td>{{ category.categoryName }}</td>
             <td>{{ category.visible }}</td>
-            <td><button type="button" class="btn btn-danger" @click="removeCategory(index)">Remove</button></td>
+            <td class="buttons-control">
+              <button 
+                v-if="category"
+                :disabled="hasCategory(category.categoryName)" 
+                type="button" 
+                class="btn btn-danger" 
+                @click="addCategory(category)
+                ">
+                Add category to product
+                </button>
+              <button
+                v-if="category"
+                :disabled="!hasCategory(category.categoryName)" 
+                type="button" 
+                class="btn btn-danger" 
+                @click="removeCategory(category)
+                ">
+                Remove category
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <button type="button" class="set btn btn-outline-dark" @click="addProduct">Add product</button>
+    <button type="button" class="set btn btn-outline-dark" @click="addProduct()">Add product</button>
   </div>
 </template>
 
 <script>
+import { GetRequest, PostRequest } from "@/communication/Network.ts";
+
 export default {
   data() {
     return {
@@ -59,25 +97,55 @@ export default {
       desc: '',
       sku: '',
       categories: [],
-      visible: null,
-      categoryName: '',
+      visible: true,
+      checkedCategories: [],
     }
   },
   methods: {
-    addCategory() {
-      const toBool = (this.visible === 'true');
-      this.categories.push({
-        categoryName: this.categoryName,
-        visible: toBool,
+    loadCategories() {
+      GetRequest.getAllCategories().then(res => {
+        this.categories = res;
       });
-      this.categoryName = '';
-      this.visible = null;
     },
-    removeCategory(index) {
-      this.categories.splice(index, 1);
+    hasCategory(catName) {
+      const owned = this.checkedCategories.filter(cat => {
+        return cat.categoryName === catName;
+      });
+      let flag = false;
+      owned.forEach(element => {
+        if (element.categoryName === catName) {
+          flag = true;
+          return;
+        }
+      });
+      return flag;
+    },
+    addCategory(category) {
+      this.checkedCategories.push(category);
+    },
+    removeCategory(category) {
+      this.checkedCategories = this.checkedCategories.filter(cat => {
+        if (cat.categoryName === category.categoryName) {
+          return false;
+        } else {
+          return true;
+        }
+      }); 
     },
     addProduct() {
-      //POST
+      const product = {
+        categoryNames: this.checkedCategories.map(element => element.categoryName),
+        description: this.desc,
+        name: this.name,
+        pictureUrl: this.url,
+        sku: this.sku,
+        visible: this.visible,
+      };
+      console.log(product);
+      PostRequest.addProduct(product).then(res => {
+        console.log(res);
+        this.$router.push({ name: 'ListAdmin' });
+      })
     }
   },
   computed: {
@@ -85,11 +153,24 @@ export default {
       return this.categories && this.categories.length > 0;
     }
   },
+  mounted() {
+    this.loadCategories();
+  }
 }
 </script>
 
 <style scoped>
 .set {
   margin-top: 2%;
+}
+
+.radio {
+  display: flex;
+  justify-content: space-around;
+}
+.buttons-control {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 </style>

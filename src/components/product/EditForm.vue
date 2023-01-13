@@ -137,7 +137,7 @@ export default {
         } else {
           return true;
         }
-      }) 
+      }); 
     },
     setProductDisplay() {
       this.$emit('edit-data', {

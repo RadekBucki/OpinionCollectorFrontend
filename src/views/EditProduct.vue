@@ -110,6 +110,7 @@ export default {
       DeleteRequest.deleteProduct(this.$route.params.sku).then(res => {
         this.product = res;
       });
+      this.$router.push({ name: 'ListAdmin' });
     },
     saveProduct() {
       const payload = {
@@ -121,8 +122,8 @@ export default {
         visible: this.visible,
       }
       PutRequest.editProduct(payload).then(res => {
-        this.product = res;
-        this.$router.push({ name: 'ListAdmin' })
+        console.log(res);
+        this.$router.push({ name: 'ListAdmin' });
       });
     },
     loadProduct() {

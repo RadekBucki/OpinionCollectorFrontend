@@ -63,7 +63,7 @@
                 v-if="category"
                 :disabled="hasCategory(category.categoryName)" 
                 type="button" 
-                class="btn btn-outline-success" 
+                class="btn btn-success" 
                 @click="addCategory(category)
                 ">
                 Add category to product
@@ -125,11 +125,7 @@ export default {
     },
     removeCategory(category) {
       this.checkedCategories = this.checkedCategories.filter(cat => {
-        if (cat.categoryName === category.categoryName) {
-          return false;
-        } else {
-          return true;
-        }
+        return cat.categoryName === category.categoryName ? false : true;
       }); 
     },
     addProduct() {

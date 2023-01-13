@@ -3,14 +3,12 @@
     <div class="mt-5">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">First Name</span>
+          <span class="input-group-text">First Name</span>
         </div>
         <input 
           type="text" 
           class="form-control" 
           placeholder="FirstName" 
-          aria-label="FirstName"
-          aria-describedby="basic-addon1"
           v-model="newUser.firstName"
           >
       </div>
@@ -18,14 +16,12 @@
     <div class="mt-5">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Last Name</span>
+          <span class="input-group-text">Last Name</span>
         </div>
         <input 
           type="text" 
           class="form-control" 
           placeholder="LastName" 
-          aria-label="LastName"
-          aria-describedby="basic-addon1"
           v-model="newUser.lastName"
           >
       </div>
@@ -33,14 +29,12 @@
     <div class="mt-5">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Email</span>
+          <span class="input-group-text">Email</span>
         </div>
         <input 
           type="text" 
           class="form-control" 
           placeholder="Email" 
-          aria-label="Email"
-          aria-describedby="basic-addon1"
           v-model="newUser.email"
           >
       </div>
@@ -48,14 +42,12 @@
     <div class="mt-5">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">Password</span>
+          <span class="input-group-text">Password</span>
         </div>
         <input 
-          type="text" 
+          type="password" 
           class="form-control" 
           placeholder="Password" 
-          aria-label="Password"
-          aria-describedby="basic-addon1"
           v-model="newUser.password"
           >
       </div>
@@ -63,14 +55,12 @@
     <div class="mt-5">
       <div class="input-group mb-3">
         <div class="input-group-prepend">
-          <span class="input-group-text" id="basic-addon1">PictureUrl</span>
+          <span class="input-group-text">PictureUrl</span>
         </div>
         <input 
           type="text" 
           class="form-control" 
           placeholder="PictureUrl" 
-          aria-label="PictureUrl"
-          aria-describedby="basic-addon1"
           v-model="newUser.pictureUrl"
           >
       </div>
@@ -84,7 +74,6 @@
           class="form-check-input" 
           type="radio" 
           name="Visible" 
-          id="radio1"
           value="true" 
           v-model="newUser.isAdmin"
           >
@@ -97,7 +86,6 @@
           class="form-check-input" 
           type="radio" 
           name="Invisible" 
-          id="radio2"
           value="false" 
           v-model="newUser.isAdmin"
           >

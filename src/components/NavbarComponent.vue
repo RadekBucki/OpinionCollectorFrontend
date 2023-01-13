@@ -24,7 +24,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link v-if="!token" class="nav-link mx-3" :to="{ name: 'UsersPanel' }">
+            <router-link v-if="isLoggedIn && this.user.isAdmin" class="nav-link mx-3" :to="{ name: 'UsersPanel' }">
               Admin
             </router-link>
           </li>
@@ -74,6 +74,7 @@ export default {
       user: MethodRequest.getUser(),
       loginModal: null,
       registerModal: null,
+      token: false,
     };
   },
   methods: {

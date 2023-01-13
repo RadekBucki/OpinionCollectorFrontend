@@ -56,10 +56,6 @@
               v-model:rating="item.opinionAvg" />
             <p v-if="!item.opinionAvg" class="col-5">{{ 'No opinions' }}</p>
           </div>
-          <div class="col-3">{{ item.description }}</div>
-          <div class="col-2" v-for="opinion in item.opinions" :key="opinion">
-            <div>{{ opinion.advantages[0] }}</div>
-          </div>
         </div>
       </div>
     </div>

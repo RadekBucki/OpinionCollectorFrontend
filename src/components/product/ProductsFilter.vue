@@ -15,14 +15,20 @@
     </div>
     <div class="form-floating">
       <select class="form-select" id="Category" aria-label="Category" v-model="pickedCategory">
-        <option v-for="category in getCategories" :key="category.categoryName" :value="category.categoryName">{{
-          category.categoryName
-        }}</option>
+        <option v-for="category in getCategories" 
+          :key="category.categoryName" 
+          :value="category.categoryName"
+          >
+          {{ category.categoryName }}
+        </option>
       </select>
       <label for="Category">Category</label>
     </div>
     <div class="button-control">
-      <button type="button" class="btn btn-outline-dark" @click="submitFilters">Search</button>
+      <button 
+        type="button" 
+        class="btn btn-outline-dark" 
+        @click="submitFilters">Search</button>
     </div>
   </div>
 </template>

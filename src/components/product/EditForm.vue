@@ -5,8 +5,7 @@
       <input 
         type="text" 
         name="name" 
-        class="form-control" 
-        id="name" 
+        class="form-control"  
         placeholder="Type new name..." 
         v-model.trim="name">
     </div>
@@ -15,8 +14,7 @@
       <input 
         type="text" 
         name="name" 
-        class="form-control" 
-        id="sku" 
+        class="form-control"  
         placeholder="Type new SKU..." 
         v-model.trim="sku">
     </div>
@@ -26,7 +24,6 @@
         type="url" 
         name="url" 
         class="form-control" 
-        id="url" 
         placeholder="https://example.com" 
         pattern="https://.*"
         v-model.trim="url">
@@ -34,8 +31,7 @@
     <div class="form-group">
       <label for="desc">Description</label>
       <textarea 
-        class="form-control" 
-        id="desc" 
+        class="form-control"  
         rows="3" 
         v-model.trim="desc"></textarea>
     </div>
@@ -48,7 +44,6 @@
           class="form-check-input" 
           type="radio" 
           name="Visible" 
-          id="radio1"
           value="true" 
           v-model="visible"
           >
@@ -61,13 +56,12 @@
           class="form-check-input" 
           type="radio" 
           name="Invisible" 
-          id="radio2"
           value="false" 
           v-model="visible"
           >
       </div>
     </div>
-    <div v-if="hasAddedCategories">
+    <div>
       <table class="table">
         <thead class="thead-dark">
           <tr>
@@ -82,16 +76,16 @@
             <td>{{ category.visible }}</td>
             <td class="buttons-control">
               <button 
-                v-if="category"
+                v-if="hasAddedCategories"
                 :disabled="hasCategory(category.categoryName)" 
                 type="button" 
-                class="btn btn-outline-success" 
+                class="btn btn-success" 
                 @click="addCategory(category)
                 ">
                 Add category to product
                 </button>
               <button
-                v-if="category"
+                v-if="hasAddedCategories"
                 :disabled="!hasCategory(category.categoryName)" 
                 type="button" 
                 class="btn btn-danger" 

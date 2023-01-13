@@ -7,8 +7,6 @@
           type="text" 
           class="form-control m-3" 
           placeholder="URL" 
-          aria-label="URL" 
-          aria-describedby="basic-addon1" 
           v-model="profilePictureUrl"
           />
       </div>
@@ -21,8 +19,6 @@
               type="text" 
               class="form-control m-2" 
               placeholder="First Name" 
-              aria-label="First Name" 
-              aria-describedby="basic-addon1" 
               v-model="firstName"
               />
           </div>
@@ -33,8 +29,6 @@
               type="text" 
               class="form-control m-2" 
               placeholder="Last Name" 
-              aria-label="Last Name" 
-              aria-describedby="basic-addon1" 
               v-model="lastName"
               />
           </div>
@@ -45,19 +39,15 @@
               type="email" 
               class="form-control m-2" 
               placeholder="Email" 
-              aria-label="Email" 
-              aria-describedby="basic-addon1"
               v-model="emailNew" 
               />
           </div>
           <div class="group-info">
             <label v-if="isEditable">Password:</label>
             <input v-if="isEditable"
-              type="text" 
+              type="password" 
               class="form-control m-2" 
               placeholder="Password" 
-              aria-label="Password" 
-              aria-describedby="basic-addon1" 
               v-model="password"
               />
           </div>
@@ -68,27 +58,23 @@
           <div v-if="isEditable">
             <div class="radio m-4">
               <div class="form-check">
-                <label class="form-check-label" for="flexRadioDefault1">
+                <label class="form-check-label">
                     Admin
                 </label>
                 <input 
                   class="form-check-input" 
-                  type="radio" 
-                  name="Visible" 
-                  id="radio1"
+                  type="radio"  
                   value="true" 
                   v-model="adminStatus"
                   />
                 </div>
                 <div class="form-check">
-                  <label class="form-check-label" for="flexRadioDefault2">
+                  <label class="form-check-label">
                     User
                   </label>
                 <input 
                   class="form-check-input" 
                   type="radio" 
-                  name="Invisible" 
-                  id="radio2"
                   value="false" 
                   v-model="adminStatus"
                 />

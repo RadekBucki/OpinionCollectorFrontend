@@ -91,6 +91,7 @@ export default {
         categories: [],
       },
       productInfo: {},
+      visible: true,
     }
   },
   methods: {
@@ -100,6 +101,7 @@ export default {
       this.product.pictureUrl = payload.pictureUrl;
       this.product.description = payload.description;
       this.product.categories = payload.categories;
+      this.visible = payload.visible;
     },
     setSelectedView(cmp) {
       this.selectedView = cmp;
@@ -116,7 +118,7 @@ export default {
         name: this.product.name,
         pictureUrl: this.product.pictureUrl,
         sku: this.product.sku,
-        visible: true,
+        visible: this.visible,
       }
       PutRequest.editProduct(payload).then(res => {
         this.product = res;

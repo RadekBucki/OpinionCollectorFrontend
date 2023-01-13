@@ -39,6 +39,34 @@
         rows="3" 
         v-model.trim="desc"></textarea>
     </div>
+    <div class="radio m-4">
+      <div class="form-check">
+        <label class="form-check-label" for="flexRadioDefault1">
+          Visible
+        </label>
+        <input 
+          class="form-check-input" 
+          type="radio" 
+          name="Visible" 
+          id="radio1"
+          value="true" 
+          v-model="visible"
+          >
+      </div>
+      <div class="form-check">
+        <label class="form-check-label" for="flexRadioDefault2">
+          Invisible
+        </label>
+        <input 
+          class="form-check-input" 
+          type="radio" 
+          name="Invisible" 
+          id="radio2"
+          value="false" 
+          v-model="visible"
+          >
+      </div>
+    </div>
     <div v-if="hasAddedCategories">
       <table class="table">
         <thead class="thead-dark">
@@ -92,6 +120,7 @@ export default {
       url: '',
       desc: '',
       sku: '',
+      visible: true,
       categories: [],
       categoryName: '',
       emitsCategories: [],
@@ -117,6 +146,7 @@ export default {
         pictureUrl: this.url,
         description: this.desc,
         categories: this.emitsCategories,
+        visible: this.visible,
       });
     },
     loadCategories() {
@@ -162,6 +192,10 @@ export default {
   margin-top: 2%;
 }
 
+.radio {
+  display: flex;
+  justify-content: space-around;
+}
 .buttons-control {
   display: flex;
   justify-content: center;

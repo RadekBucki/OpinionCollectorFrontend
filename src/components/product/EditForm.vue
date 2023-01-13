@@ -2,20 +2,42 @@
   <div class="form-group">
     <div class="form-group">
       <label for="name">Product Name:</label>
-      <input type="text" name="name" class="form-control" id="name" placeholder="Type new name..." v-model.trim="name">
+      <input 
+        type="text" 
+        name="name" 
+        class="form-control" 
+        id="name" 
+        placeholder="Type new name..." 
+        v-model.trim="name">
     </div>
     <div class="form-group">
       <label for="name">Product SKU:</label>
-      <input type="text" name="name" class="form-control" id="sku" placeholder="Type new SKU..." v-model.trim="sku">
+      <input 
+        type="text" 
+        name="name" 
+        class="form-control" 
+        id="sku" 
+        placeholder="Type new SKU..." 
+        v-model.trim="sku">
     </div>
     <div class="form-group">
       <label for="url">URL:</label>
-      <input type="url" name="url" class="form-control" id="url" placeholder="https://example.com" pattern="https://.*"
+      <input 
+        type="url" 
+        name="url" 
+        class="form-control" 
+        id="url" 
+        placeholder="https://example.com" 
+        pattern="https://.*"
         v-model.trim="url">
     </div>
     <div class="form-group">
       <label for="desc">Description</label>
-      <textarea class="form-control" id="desc" rows="3" v-model.trim="desc"></textarea>
+      <textarea 
+        class="form-control" 
+        id="desc" 
+        rows="3" 
+        v-model.trim="desc"></textarea>
     </div>
     <div v-if="hasAddedCategories">
       <table class="table">
@@ -63,7 +85,7 @@ import { GetRequest } from "@/communication/Network.ts";
 
 export default {
   emits: ['edit-data'],
-  props: ['categoriesOwned'],
+  props: ['categoriesOwned', 'info'],
   data() {
     return {
       name: '',
@@ -94,13 +116,14 @@ export default {
         name: this.name,
         pictureUrl: this.url,
         description: this.desc,
-        categories: this.categories,
+        categories: this.emitsCategories,
       });
     },
     loadCategories() {
       GetRequest.getAllCategories().then(res => {
         this.categories = res;
         this.emitsCategories = [...this.$props.categoriesOwned];
+        this.prepareProductValues();
       });
     },
     hasCategory(catName) {
@@ -116,6 +139,12 @@ export default {
       });
       return flag;
     },
+    prepareProductValues() {
+      this.sku = this.$props.info.sku;
+      this.name = this.$props.info.name;
+      this.url = this.$props.info.pictureUrl;
+      this.desc = this.$props.info.description;
+    }
   },
   computed: {
     hasAddedCategories() {

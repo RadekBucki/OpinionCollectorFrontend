@@ -37,13 +37,15 @@
         </div>
         <div class="col">
           <DisplayEdit 
-            v-if="!isLoading"
             :url="pictureUrl" 
             :name="productName" 
             :sku="sku" 
             :description="description"
             :categories="categories" />
-          <EditForm :categoriesOwned="categories" @edit-data="setEdit" />
+          <EditForm 
+            :categoriesOwned="categories" 
+            :info="infoProduct"
+            @edit-data="setEdit" />
         </div>
       </div>
       <div v-else>
@@ -54,7 +56,7 @@
 </template>
 
 <script>
-import { GetRequest, DeleteRequest } from "@/communication/Network.ts";
+import { GetRequest, DeleteRequest, PutRequest } from "@/communication/Network.ts";
 
 import EditForm from '@/components/product/EditForm.vue';
 import DisplayEdit from '@/components/product/DisplayEdit.vue';
@@ -69,7 +71,6 @@ export default {
   data() {
     return {
       selectedView: 'editProduct',
-      isLoading: false,
       product: {
         sku: '',
         name: '',
@@ -88,7 +89,8 @@ export default {
           },
         ],
         categories: [],
-      }
+      },
+      productInfo: {},
     }
   },
   methods: {
@@ -108,29 +110,28 @@ export default {
       });
     },
     saveProduct() {
-      // this.product.categories.forEach(category => {
-      //   PutRequest.editCategory(category)
-      // })
       const payload = {
+        categoryNames: this.product.categories.map(element => element.categoryName),
         description: this.product.description,
         name: this.product.name,
         pictureUrl: this.product.pictureUrl,
         sku: this.product.sku,
+        visible: true,
       }
-      console.log(payload);
-      const test = [
-        ...this.product.categories,
-      ]
-      console.log(test);
-      // PutRequest.editProduct(payload).then(res => {
-      //   this.product = res;
-      // });
+      PutRequest.editProduct(payload).then(res => {
+        this.product = res;
+        this.$router.push({ name: 'ListAdmin' })
+      });
     },
     loadProduct() {
-      this.isLoading = true;
       GetRequest.getProductDetails(this.$route.params.sku).then(res => {
         this.product = res;
-        this.isLoading = false;
+        this.productInfo = {
+          sku: this.product.sku,
+          name: this.product.name,
+          pictureUrl: this.product.pictureUrl,
+          description: this.product.description,
+        }
       })
     }
   },
@@ -162,6 +163,9 @@ export default {
       }
       return false;
     },
+    infoProduct() {
+      return this.productInfo;
+    }
   },
   created() {
     this.loadProduct();

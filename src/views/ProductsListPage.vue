@@ -124,6 +124,7 @@ export default {
       }
     },
     openProductDetails(sku) {
+      document.body.style.cursor = 'default';
       this.$router.push({ name: 'Product', params: { sku: sku } })
     },
     changeCursorToPointer() {

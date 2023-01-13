@@ -360,7 +360,6 @@ export class PostRequest {
             email: user.email,
             firstName: user.firstName,
             isAdmin: user.isAdmin,
-            id: null,
             lastName: user.lastName,
             password: user.password,
             pictureUrl: user.pictureUrl
@@ -518,18 +517,17 @@ export class PutRequest {
     //         user-controller        //
     //-------------------------------//
 
-    static userEdit(user: UserEdit): Promise<User> {
+    static userEdit(userId: number, user: UserEdit): Promise<User> {
 
         const token = localStorage.getItem("token");
-        const modifyUser: UserEdit = {
-            email: user.email,
-            firstName: user.firstName,
-            isAdmin: user.isAdmin,
-            id: user.id,
-            lastName: user.lastName,
-            password: user.password,
-            pictureUrl: user.pictureUrl
-        };
+        let modifyUser = {};
+
+        if (user.email != null) modifyUser['email'] = user.email;
+        if (user.firstName != null) modifyUser['firstName'] = user.firstName;
+        if (user.isAdmin != null) modifyUser['isAdmin'] = user.isAdmin;
+        if (user.lastName != null) modifyUser['lastName'] = user.lastName;
+        if (user.password != null) modifyUser['password'] = user.password;
+        if (user.pictureUrl != null) modifyUser['pictureUrl'] = user.pictureUrl;
 
         return axios({
             method: 'PUT',
@@ -539,7 +537,7 @@ export class PutRequest {
             },
             data: modifyUser,
             params: {
-                userId: modifyUser.id,
+                userId: userId,
             }
         }).then(function (response) {
             return response.data as User;

@@ -82,7 +82,6 @@ export type User = {
 export type UserEdit = {
     email: string,
     firstName: string,
-    id: number,
     isAdmin: boolean,
     lastName: string,
     password: string,

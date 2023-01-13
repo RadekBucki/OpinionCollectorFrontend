@@ -33,18 +33,26 @@
             class="col-6 d-flex align-items-start"
             v-model:rating="opinion.opinionValue" />
 
-          <div class="mt-3">
+          <div v-if="!opinion.advantages" class="mt-3">
+            <b class="text-start fw-semibold fs-6" style="color:green;"> Advantages </b>
             <div class="d-flex align-items-center" v-for="adv in opinion.advantages" :key="adv">
-              <b class="text-start fw-semibold fs-5" style="color:green;"> + </b>
+              <b class="d-flex text-start fw-semibold fs-5" style="color:green;"> + </b>
               <div class="text-start ms-1" style="color:green;">{{ adv }}</div>
             </div>
           </div>
+          <div v-if="opinion.advantages" class="mt-3 text-start">
+            <b class="text-start fw-semibold fs-6" style="color:green;"> No advantages. </b>
+          </div>
 
-          <div class="mt-3">
-            <div class="d-flex align-items-center" v-for="adv in opinion.advantages" :key="adv">
+          <div v-if="opinion.disadvantages" class="mt-3">
+            <b class="d-flex text-start fw-semibold fs-6" style="color:red;"> Disadvantages </b>
+            <div class="d-flex align-items-center" v-for="disadvantage in opinion.disadvantages" :key="disadvantage">
               <b class="text-start fw-semibold fs-5" style="color:red;"> - </b>
-              <div class="text-start ms-1" style="color:red;">{{ adv }}</div>
+              <div class="text-start ms-1" style="color:red;">{{ disadvantage }}</div>
             </div>
+          </div>
+          <div v-if="!opinion.disadvantages" class="mt-3 text-start">
+            <b class="text-start fw-semibold fs-6" style="color:red;"> No disadvantages. </b>
           </div>
 
         </div>

@@ -520,7 +520,7 @@ export class PutRequest {
     static userEdit(userId: number, user: UserEdit): Promise<User> {
 
         const token = localStorage.getItem("token");
-        var modifyUser = {};
+        let modifyUser = {};
 
         if (user.email != null) modifyUser['email'] = user.email;
         if (user.firstName != null) modifyUser['firstName'] = user.firstName;

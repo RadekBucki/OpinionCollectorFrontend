@@ -1,5 +1,5 @@
 <template>
-  <div class="container border">
+  <div class="container border m-2">
     <div class="row">
       <div class="col-4">
         <img :src="img" class="img-fluid rounded m-3" alt="Responsive image">
@@ -9,6 +9,7 @@
           placeholder="URL" 
           aria-label="URL" 
           aria-describedby="basic-addon1" 
+          v-model="profilePictureUrl"
           />
       </div>
       <div class="d-flex col align-items-center">
@@ -22,6 +23,7 @@
               placeholder="First Name" 
               aria-label="First Name" 
               aria-describedby="basic-addon1" 
+              v-model="firstName"
               />
           </div>
           <div class="group-info">
@@ -33,6 +35,7 @@
               placeholder="Last Name" 
               aria-label="Last Name" 
               aria-describedby="basic-addon1" 
+              v-model="lastName"
               />
           </div>
           <div class="group-info">
@@ -43,7 +46,8 @@
               class="form-control m-2" 
               placeholder="Email" 
               aria-label="Email" 
-              aria-describedby="basic-addon1" 
+              aria-describedby="basic-addon1"
+              v-model="emailNew" 
               />
           </div>
           <div class="group-info">
@@ -53,7 +57,21 @@
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-outline-dark m-2" @click="editUser()">Edit User</button>
+    <button v-if="!this.$props.admin"
+      type="button" 
+      class="btn btn-outline-dark m-2" 
+      @click="editUser()
+      ">
+      Edit User
+    </button>
+    <span v-else class="status">AdminUser</span>
+    <button v-if="isEditable" 
+      type="button" 
+      class="btn btn-outline-dark m-2" 
+      @click="saveUserData()
+      ">
+      Save Edit
+    </button>
   </div>
 </template>
 
@@ -62,17 +80,20 @@ export default {
   props: ['first', 'last', 'email', 'admin', 'img', 'userId'],
   data() {
     return {
-      firstName: "Uzytkownik",
-      lastName: "Nr1",
-      emailNew: "123@123.pl",
-      adminStatus: true,
-      profilePictureUrl: "https://images.gram.pl/news/cokj20221214120429192wnjw.jpg",
+      firstName: '',
+      lastName: '',
+      emailNew: '',
+      profilePictureUrl: '',
       editToggle: false,
     }
   },
   methods: {
     editUser() {
       this.editToggle = !this.editToggle;
+    },
+    saveUserData() {
+      //put
+      console.log('elo');
     }
   },
   computed: {
@@ -82,6 +103,13 @@ export default {
     isEditable() {
       return this.editToggle;
     }
+  },
+  mounted() {
+    this.firstName = this.$props.first;
+    this.lastName = this.$props.last;
+    this.emailNew = this.$props.email;
+    this.adminStatus = this.$props.admin;
+    this.profilePictureUrl = this.$props.img;
   }
 }
 </script>
@@ -95,5 +123,13 @@ export default {
 
 .group-info label {
   font-weight: bold;
+}
+
+.status {
+  color: white; 
+  font-size: 16px; 
+  background-color: Crimson; 
+  border: 4px solid Crimson; 
+  border-radius: 18px;  
 }
 </style>

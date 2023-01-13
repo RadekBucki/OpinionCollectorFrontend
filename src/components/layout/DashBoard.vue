@@ -14,6 +14,9 @@
       <li class="nav-item">
         <RouterLink class="nav-link" :class="itemClasses('categoriespanel')" :to="{ name: 'CategoriesPanel' }">Categories Panel</RouterLink>
       </li>
+      <li class="nav-item">
+        <RouterLink class="nav-link" :class="itemClasses('suggestionspanel')" :to="{ name: 'SuggestionsPanel' }">Suggestions Panel</RouterLink>
+      </li>
     </ul>
     <hr />
   </div>

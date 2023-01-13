@@ -10,6 +10,9 @@
       <li class="nav-item">
         <RouterLink class="list-group-item" :class="itemClasses('categoriespanel')" :to="{ name: 'CategoriesPanel' }">Add Product</RouterLink>
       </li>
+      <li class="nav-item">
+        <RouterLink class="list-group-item" :class="itemClasses('suggestionspanel')" :to="{ name: 'SuggestionsPanel' }">Suggestions Panel</RouterLink>
+      </li>
     </ul>
   </div>
 </template>

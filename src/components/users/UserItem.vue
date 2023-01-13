@@ -62,7 +62,7 @@
       class="btn btn-outline-dark m-2" 
       @click="editUser()
       ">
-      Edit User
+      {{ buttonText }}
     </button>
     <span v-else class="status">AdminUser</span>
     <button v-if="isEditable" 
@@ -76,6 +76,8 @@
 </template>
 
 <script>
+import { PostRequest } from "@/communication/Network.ts";
+
 export default {
   props: ['first', 'last', 'email', 'admin', 'img', 'userId'],
   data() {
@@ -92,8 +94,20 @@ export default {
       this.editToggle = !this.editToggle;
     },
     saveUserData() {
-      //put
-      console.log('elo');
+      const userData = {
+        email: this.emailNew,
+        firstName: this.firstName,
+        isAdmin: false,
+        id: this.$props.userId,
+        lastName: this.lastName,
+        password: '123456xd#',
+        pictureUrl: this.profilePictureUrl,
+      };
+      console.log(userData);
+      PostRequest.userEdit(userData).then(res => {
+        console.log(res);
+      })
+      this.editToggle = !this.editToggle;
     }
   },
   computed: {
@@ -102,6 +116,9 @@ export default {
     },
     isEditable() {
       return this.editToggle;
+    },
+    buttonText() {
+      return this.editToggle ? 'Back' : 'Edit User';
     }
   },
   mounted() {

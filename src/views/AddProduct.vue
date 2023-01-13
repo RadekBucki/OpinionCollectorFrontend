@@ -63,7 +63,7 @@
                 v-if="category"
                 :disabled="hasCategory(category.categoryName)" 
                 type="button" 
-                class="btn btn-danger" 
+                class="btn btn-outline-success" 
                 @click="addCategory(category)
                 ">
                 Add category to product

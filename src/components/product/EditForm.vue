@@ -1,5 +1,5 @@
 <template>
-  <div class="form-group">
+  <div class="form-group" v-if="hasAddedCategories">
     <div class="form-group">
       <label for="name">Product Name:</label>
       <input 
@@ -85,7 +85,7 @@
                 v-if="category"
                 :disabled="hasCategory(category.categoryName)" 
                 type="button" 
-                class="btn btn-danger" 
+                class="btn btn-outline-success" 
                 @click="addCategory(category)
                 ">
                 Add category to product

@@ -11,6 +11,7 @@ import EditProduct from '@/views/EditProduct.vue';
 import ProductsList from '@/views/ProductsList.vue';
 import CategoriesPanel from '@/views/CategoriesPanel.vue';
 import UsersList from '@/views/UsersList.vue';
+import SuggestionsPanel from '@/views/SuggestionsPanel.vue'
 
 const routes = [
     {
@@ -53,6 +54,12 @@ const routes = [
                         path: '/categories',
                         name: 'CategoriesPanel',
                         component: CategoriesPanel,
+                        props: true
+                    },
+                    {
+                        path: '/suggestions',
+                        name: 'SuggestionsPanel',
+                        component: SuggestionsPanel,
                         props: true
                     }
                 ]

@@ -27,10 +27,26 @@
           <tr v-for="category, index in categories" :key="category.categoryName">
             <td>{{ category.categoryName }}</td>
             <td>{{ category.visible }}</td>
-            <td><button type="button" class="btn btn-danger" :disabled="editPanel"
-                @click="removeCategory(index)">Remove</button></td>
-            <td><button type="button" class="btn btn-dark" :disabled="editPanel" @click=editToggle(index)>Edit
-                Category</button></td>
+            <td>
+              <button 
+                type="button" 
+                class="btn btn-danger" 
+                :disabled="editPanel"
+                @click="removeCategory(index)"
+                >
+                Remove
+              </button>
+            </td>
+            <td>
+              <button 
+                type="button" 
+                class="btn btn-dark" 
+                :disabled="editPanel" 
+                @click=editToggle(index)
+                >
+                Edit Category
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -40,25 +56,34 @@
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroup-sizing-lg">Category</span>
         </div>
-        <input 
-          type="text" 
-          class="form-control" 
-          aria-label="Large" 
-          aria-describedby="inputGroup-sizing-sm"
-          v-model="this.pickedCategory.categoryName" 
-          />
-        <select :value="this.pickedCategory.visible">
+        <label class="form-control">{{ pickedCategory.categoryName }}</label>
+        <select v-model="this.pickedCategory.visible">
           <option value=true>True</option>
           <option value=false>False</option>
         </select>
       </div>
-      <button type="button" class="btn btn-dark mt-3" @click="saveEdit()">Save Edit</button>
+      <div class="button-control">
+        <button 
+          type="button" 
+          class="btn btn-dark mt-3" 
+          @click="saveEdit()"
+          >
+          Save Edit
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-dark mt-3" 
+          @click="back()"
+          >
+          Back
+        </button>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import { GetRequest, PostRequest } from "@/communication/Network.ts";
+import { GetRequest, PostRequest, PutRequest, DeleteRequest } from "@/communication/Network.ts";
 
 export default {
   data() {
@@ -68,7 +93,7 @@ export default {
       pickedCategory: null,
       index: null,
       categories: [],
-      visible: null,
+      visible: true,
       categoryName: '',
     }
   },
@@ -86,9 +111,11 @@ export default {
       this.categoryName = '';
       this.visible = null;
     },
-    removeCategory(index) {
-      this.categories.splice(index, 1); 
-      //delete
+    removeCategory(index) { 
+      DeleteRequest.deleteCategory(this.categories[index].categoryName).then(res => {
+        console.log(res);
+        this.loadCategories();
+      });
     },
     visibleChange() {
       this.visibleAddPanel = !this.visibleAddPanel;
@@ -99,12 +126,18 @@ export default {
       this.index = index;
     },
     saveEdit() {
-      this.editPanel = !this.editPanel;
       const toBool = (this.pickedCategory.visible === 'true');
-      this.categories[this.index] = {
+      const edit = {
         categoryName: this.pickedCategory.categoryName,
-        visible: toBool,
-      }
+        isVisible: toBool,
+      };
+      PutRequest.editCategory(edit.categoryName, edit.isVisible).then(res => {
+        this.categories[this.index] = res;
+      });
+      this.editPanel = !this.editPanel;
+    },
+    back() {
+      this.editPanel = !this.editPanel;
     }
   },
   computed: {
@@ -123,3 +156,12 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+.button-control {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+</style>

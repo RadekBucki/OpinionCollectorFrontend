@@ -145,10 +145,7 @@ export default {
       return this.categories && this.categories.length > 0;
     },
     disableButton() {
-      if (this.selectedView === 'editProduct') {
-        return true;
-      }
-      return false;
+      return this.selectedView === 'editProduct';
     },
   },
   mounted() {

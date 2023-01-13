@@ -2,45 +2,71 @@
   <div class="container border">
     <div class="row">
       <div class="col-4">
-        <img :src="user.profilePictureUrl" class="img-fluid rounded m-3" alt="Responsive image">
+        <img :src="img" class="img-fluid rounded m-3" alt="Responsive image">
+        <input v-if="isEditable"
+          type="text" 
+          class="form-control m-3" 
+          placeholder="URL" 
+          aria-label="URL" 
+          aria-describedby="basic-addon1" 
+          />
       </div>
       <div class="d-flex col align-items-center">
         <div class="row">
           <div class="group-info">
             <label>First Name:</label>
-            <p>{{ user.firstName }}</p>
+            <p v-if="!isEditable"> {{ first }}</p>
+            <input v-if="isEditable"
+              type="text" 
+              class="form-control m-2" 
+              placeholder="First Name" 
+              aria-label="First Name" 
+              aria-describedby="basic-addon1" 
+              />
           </div>
           <div class="group-info">
             <label>Last Name:</label>
-            <p>{{ user.lastName }}</p>
+            <p v-if="!isEditable">{{ last }}</p>
+            <input v-if="isEditable"
+              type="text" 
+              class="form-control m-2" 
+              placeholder="Last Name" 
+              aria-label="Last Name" 
+              aria-describedby="basic-addon1" 
+              />
           </div>
           <div class="group-info">
             <label>Email:</label>
-            <p>{{ user.email }}</p>
+            <p v-if="!isEditable">{{ email }}</p>
+            <input v-if="isEditable"
+              type="email" 
+              class="form-control m-2" 
+              placeholder="Email" 
+              aria-label="Email" 
+              aria-describedby="basic-addon1" 
+              />
           </div>
           <div class="group-info">
             <label>Admin Status:</label>
-            <p>{{ isAdmin }}</p>
+            <p>{{ admin }}</p>
           </div>
         </div>
       </div>
     </div>
-    <button type="button" class="btn btn-outline-dark">Edit User</button>
+    <button type="button" class="btn btn-outline-dark m-2" @click="editUser()">Edit User</button>
   </div>
 </template>
 
 <script>
 export default {
+  props: ['first', 'last', 'email', 'admin', 'img', 'userId'],
   data() {
     return {
-      user: {
-        "firstName": "Uzytkownik",
-        "lastName": "Nr1",
-        "email": "123@123.pl",
-        "isAdmin": true,
-        "profilePictureUrl": "https://images.gram.pl/news/cokj20221214120429192wnjw.jpg",
-        "id": 1
-      },
+      firstName: "Uzytkownik",
+      lastName: "Nr1",
+      emailNew: "123@123.pl",
+      adminStatus: true,
+      profilePictureUrl: "https://images.gram.pl/news/cokj20221214120429192wnjw.jpg",
       editToggle: false,
     }
   },
@@ -52,6 +78,9 @@ export default {
   computed: {
     isAdmin() {
       return this.user.isAdmin ? 'Active' : 'Disabled';
+    },
+    isEditable() {
+      return this.editToggle;
     }
   }
 }

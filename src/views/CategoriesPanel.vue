@@ -58,6 +58,7 @@
 </template>
 
 <script>
+import { GetRequest, PostRequest } from "@/communication/Network.ts";
 
 export default {
   data() {
@@ -66,49 +67,27 @@ export default {
       editPanel: false,
       pickedCategory: null,
       index: null,
-      categories: [
-        {
-          categoryName: "Smartfony",
-          visible: true,
-        },
-        {
-          categoryName: "Klawiatury",
-          visible: true,
-        },
-        {
-          categoryName: "Laptopy",
-          visible: true,
-        },
-        {
-          categoryName: "SmartWatch",
-          visible: false,
-        },
-        {
-          categoryName: "Myszki",
-          visible: true,
-        },
-        {
-          categoryName: "Slochawki",
-          visible: true,
-        },
-      ],
+      categories: [],
       visible: null,
       categoryName: '',
     }
   },
   methods: {
+    loadCategories() {
+      GetRequest.getAllCategories().then(res => {
+        this.categories = res;
+      });
+    },
     addCategory() {
       const toBool = (this.visible === 'true');
-      this.categories.push({  //checking if it works
-        categoryName: this.categoryName,
-        visible: toBool,
-      });
+      PostRequest.addCategory(this.categoryName, toBool).then(res=> {
+        this.categories.push(res);
+      })
       this.categoryName = '';
       this.visible = null;
-      //post
     },
     removeCategory(index) {
-      this.categories.splice(index, 1); //checking if it works
+      this.categories.splice(index, 1); 
       //delete
     },
     visibleChange() {
@@ -138,6 +117,9 @@ export default {
       }
       return false;
     },
+  },
+  mounted() {
+    this.loadCategories();
   },
 }
 </script>

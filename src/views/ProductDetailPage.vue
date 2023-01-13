@@ -7,7 +7,7 @@
         <div class="text-start col-md-9 col-12">
           <div class="d-flex align-items-center">
             <b class=" fs-5">{{ this.product?.name }} ({{ this.product?.sku }})</b>
-            <button type="button" class="btn btn-outline-dark ms-3">Add suggestion</button>
+            <button v-if="this.isLoggedIn" @click="this.suggestionModal.show()" type="button" class="btn btn-outline-dark ms-3">Add suggestion</button>
           </div>
           <p class="fw-lighter">{{ getProductCategoriesForDisplay() }}</p>
           <star-rating
@@ -28,16 +28,24 @@
         <hr>
         <div class="d-flex align-items-center">
           <b class="text-start fs-5">Opinions</b>
-          <button type="button" class="btn btn-outline-dark ms-3">Add opinion</button>
+          <button v-if="this.isLoggedIn" @click="this.opinionModal.show()" type="button" class="btn btn-outline-dark ms-3">Add opinion</button>
         </div>
         <div class="mb-5 mt-4" v-for="opinion in this.opinions" :key="opinion">
 
-        <star-rating
-            read-only
-            :show-rating="true"
-            v-bind:star-size="25"
-            class="col-6 d-flex align-items-start"
-            v-model:rating="opinion.opinionValue" />
+
+          <div class="d-flex align-items-center">
+            <b>{{ opinion.firstName ?? `Anonymous` }}</b>
+            <star-rating
+                read-only
+                :show-rating="true"
+                v-bind:star-size="25"
+                class="col-6 d-flex align-items-start ms-2"
+                v-model:rating="opinion.opinionValue" />
+          </div>
+
+          <div class="mt-3">
+            <p class="text-start fs-6"> {{ opinion.description }} </p>
+          </div>
 
           <div v-if="!opinion.advantages" class="mt-3">
             <b class="text-start fs-6" style="color:green;"> Advantages </b>
@@ -64,23 +72,33 @@
         </div>
       </div>
   </div>
+
+  <opinion-modal :sku="this.product?.sku" @get-modal="(modal) => { this.opinionModal = modal }"/>
+  <SuggestionModal :sku="this.product?.sku" @get-modal="(modal) => { this.suggestionModal = modal }"/>
 </template>
 
 <script>
-import {GetRequest} from "@/communication/Network.ts";
+import {GetRequest, MethodRequest} from "@/communication/Network.ts";
 import StarRating from "vue-star-rating";
+import OpinionModal from "@/components/modals/OpinionModal";
+import SuggestionModal from "@/components/modals/SuggestionModal";
 
 export default {
   name: "ProductDetailPage",
   components: {
-    StarRating
+    StarRating,
+    OpinionModal,
+    SuggestionModal
   },
   props: {
     sku: null
   },
   data: () => ({
+    isLoggedIn: MethodRequest.isTokenAvailable(),
     product: null,
-    opinions: null
+    opinions: null,
+    opinionModal: null,
+    suggestionModal: null
   }),
   methods: {
     getProductCategoriesForDisplay() {

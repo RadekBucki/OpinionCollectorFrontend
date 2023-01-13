@@ -108,7 +108,7 @@ export default {
     },
     removeProduct() {
       DeleteRequest.deleteProduct(this.$route.params.sku).then(res => {
-        this.product = res;
+        console.log(res);
       });
       this.$router.push({ name: 'ListAdmin' });
     },
@@ -135,7 +135,7 @@ export default {
           pictureUrl: this.product.pictureUrl,
           description: this.product.description,
         }
-      })
+      });
     }
   },
   computed: {

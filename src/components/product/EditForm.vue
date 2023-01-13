@@ -151,8 +151,8 @@ export default {
     },
     loadCategories() {
       GetRequest.getAllCategories().then(res => {
-        this.categories = res;
         this.emitsCategories = [...this.$props.categoriesOwned];
+        this.categories = res;
         this.prepareProductValues();
       });
     },

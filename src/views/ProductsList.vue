@@ -5,7 +5,8 @@
       :key="product.sku" 
       :name="product.name" 
       :url="product.pictureUrl"
-      :sku="product.sku" />
+      :sku="product.sku" 
+      />
   </div>
 </template>
 

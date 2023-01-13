@@ -51,8 +51,49 @@
               />
           </div>
           <div class="group-info">
+            <label v-if="isEditable">Password:</label>
+            <input v-if="isEditable"
+              type="text" 
+              class="form-control m-2" 
+              placeholder="Password" 
+              aria-label="Password" 
+              aria-describedby="basic-addon1" 
+              v-model="password"
+              />
+          </div>
+          <div class="group-info">
             <label>Admin Status:</label>
-            <p>{{ admin }}</p>
+            <p v-if="!isEditable">{{ admin }}</p>
+          </div>
+          <div v-if="isEditable">
+            <div class="radio m-4">
+              <div class="form-check">
+                <label class="form-check-label" for="flexRadioDefault1">
+                    Admin
+                </label>
+                <input 
+                  class="form-check-input" 
+                  type="radio" 
+                  name="Visible" 
+                  id="radio1"
+                  value="true" 
+                  v-model="adminStatus"
+                  />
+                </div>
+                <div class="form-check">
+                  <label class="form-check-label" for="flexRadioDefault2">
+                    User
+                  </label>
+                <input 
+                  class="form-check-input" 
+                  type="radio" 
+                  name="Invisible" 
+                  id="radio2"
+                  value="false" 
+                  v-model="adminStatus"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -87,6 +128,8 @@ export default {
       emailNew: '',
       profilePictureUrl: '',
       editToggle: false,
+      password: '',
+      adminStatus: false,
     }
   },
   methods: {
@@ -97,10 +140,10 @@ export default {
       const userData = {
         email: this.emailNew,
         firstName: this.firstName,
-        isAdmin: false,
+        isAdmin: this.adminStatus,
         id: this.$props.userId,
         lastName: this.lastName,
-        password: '123456xd#',
+        password: this.password,
         pictureUrl: this.profilePictureUrl,
       };
       console.log(userData);
@@ -127,6 +170,7 @@ export default {
     this.emailNew = this.$props.email;
     this.adminStatus = this.$props.admin;
     this.profilePictureUrl = this.$props.img;
+    this.adminStatus = this.$props.admin;
   }
 }
 </script>
@@ -148,5 +192,10 @@ export default {
   background-color: Crimson; 
   border: 4px solid Crimson; 
   border-radius: 18px;  
+}
+
+.radio {
+  display: flex;
+  justify-content: space-around;
 }
 </style>

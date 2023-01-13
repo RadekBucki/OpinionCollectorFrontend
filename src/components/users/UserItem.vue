@@ -1,11 +1,10 @@
 <template>
-  <div class="container">
-    <h1 class="mt-3">Admin Profile</h1>
-    <div class="row mt-5">
+  <div class="container border">
+    <div class="row">
       <div class="col-4">
-        <img :src="user.pictureUrl" class="img-fluid rounded-circle" alt="Responsive image">
+        <img :src="user.profilePictureUrl" class="img-fluid rounded m-3" alt="Responsive image">
       </div>
-      <div class="col">
+      <div class="d-flex col align-items-center">
         <div class="row">
           <div class="group-info">
             <label>First Name:</label>
@@ -26,6 +25,7 @@
         </div>
       </div>
     </div>
+    <button type="button" class="btn btn-outline-dark">Edit User</button>
   </div>
 </template>
 
@@ -34,13 +34,19 @@ export default {
   data() {
     return {
       user: {
-        email: 'basic@gmail.com',
-        firstName: 'Rafal',
-        id: '5',
-        isAdmin: true,
-        lastName: 'Komorowski',
-        pictureUrl: 'https://i.kym-cdn.com/photos/images/newsfeed/001/471/100/0e5.jpg',
-      }
+        "firstName": "Uzytkownik",
+        "lastName": "Nr1",
+        "email": "123@123.pl",
+        "isAdmin": true,
+        "profilePictureUrl": "https://images.gram.pl/news/cokj20221214120429192wnjw.jpg",
+        "id": 1
+      },
+      editToggle: false,
+    }
+  },
+  methods: {
+    editUser() {
+      this.editToggle = !this.editToggle;
     }
   },
   computed: {

@@ -6,7 +6,7 @@
     <hr />
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <RouterLink class="nav-link" :class="itemClasses('adminprofile')" :to="{ name: 'AdminProfile' }">Admin profile</RouterLink>
+        <RouterLink class="nav-link" :class="itemClasses('userspanel')" :to="{ name: 'UsersPanel' }">Manage users</RouterLink>
       </li>
       <li class="nav-item">
         <RouterLink class="nav-link" :class="itemClasses('listadmin')" :to="{ name: 'ListAdmin' }">Browse Products</RouterLink>

@@ -10,7 +10,7 @@ import ProductsListPage from "@/views/ProductsListPage";
 import EditProduct from '@/views/EditProduct.vue';
 import ProductsList from '@/views/ProductsList.vue';
 import CategoriesPanel from '@/views/CategoriesPanel.vue';
-import AdminProfile from '@/views/AdminProfile.vue';
+import UsersList from '@/views/UsersList.vue';
 
 const routes = [
     {
@@ -32,9 +32,9 @@ const routes = [
                 props: true,
                 children: [
                     {
-                        path: 'adminProfile',
-                        name: 'AdminProfile',
-                        component: AdminProfile,
+                        path: 'usersPanel',
+                        name: 'UsersPanel',
+                        component: UsersList,
                         props: true,
                     },
                     {

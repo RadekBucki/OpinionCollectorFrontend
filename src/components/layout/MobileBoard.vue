@@ -2,7 +2,7 @@
   <div class="mobile">
     <ul class="d-xl-none list-group list-group-horizontal justify-content-center">
       <li class="nav-item">
-        <RouterLink class="list-group-item" :class="itemClasses('adminprofile')" :to="{ name: 'AdminProfile' }">Admin profile</RouterLink>
+        <RouterLink class="list-group-item" :class="itemClasses('userspanel')" :to="{ name: 'UsersPanel' }">Manage users</RouterLink>
       </li>
       <li class="nav-item">
         <RouterLink class="list-group-item" :class="itemClasses('listadmin')" :to="{ name: 'ListAdmin' }">Browse Products</RouterLink>

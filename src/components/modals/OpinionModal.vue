@@ -76,6 +76,7 @@
 <script>
 import {Modal} from "bootstrap";
 import StarRating from "vue-star-rating";
+import {PostRequest} from "@/communication/Network.ts";
 
 export default {
   name: "OpinionModal",

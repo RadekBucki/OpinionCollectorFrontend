@@ -19,11 +19,12 @@ export type Opinion = {
 }
 
 export type ProductGet = {
-    categoryNames: Category[],
+    categories: Category[],
     description: string,
     name: string,
     pictureUrl: string,
     sku: string,
+    opinionAvg: number,
     visible:boolean
 }
 

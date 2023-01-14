@@ -6,6 +6,7 @@ import DataPage from '@/views/UserPanel/DataPage.vue'
 import OpinionsPage from '@/views/UserPanel/OpinionsPage.vue'
 import SuggestionsPage from '@/views/UserPanel/SuggestionsPage.vue'
 import ProductsListPage from "@/views/ProductsListPage";
+import ProductDetailPage from "@/views/ProductDetailPage";
 
 const routes = [
     {
@@ -13,12 +14,19 @@ const routes = [
         name: 'Home',
         component: HomeView,
         props: true,
+        inheritAttrs: false,
         children: [
             {
                 path: '/',
                 name: 'Products',
                 component: ProductsListPage,
-                props: true
+                props: true,
+            },
+            {
+                path: '/product/:sku',
+                name: 'Product',
+                component: ProductDetailPage,
+                props: true,
             },
             {
                 path: 'admin',

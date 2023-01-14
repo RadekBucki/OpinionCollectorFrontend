@@ -37,6 +37,7 @@
 <script>
 import {Modal} from "bootstrap";
 import {PostRequest} from "@/communication/Network.ts";
+import {SweetAlert} from "@/communication/SweetAlerts.ts";
 
 export default {
   name: "SuggestionModal",
@@ -55,6 +56,11 @@ export default {
         this.suggestionDescription = null;
         this.modal.hide();
         this.messageModal.show();
+      }).catch((err) => {
+        SweetAlert.error(this.$swal, err.response.data.message).then(() => {
+          this.suggestionDescription = null;
+          this.modal.hide();
+        }).bind(this);
       })
     }
   },

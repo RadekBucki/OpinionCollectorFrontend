@@ -9,7 +9,7 @@
 
       <div class="avatarCircle col-4 mt-4 mx-auto">
         <label class="form-label text-dark mx-4">Avatar Image</label>
-        <img :src="userData.pictureUrl" alt="Avatar Profile" />
+        <img :src="userData.profilePictureUrl" alt="Avatar Profile" />
       </div>
       <div class="mt-5 d-flex justify-content-center align-items-center">
         <form class="col-7">
@@ -39,6 +39,7 @@
 import PanelNavigation from "@/components/PanelNavigation.vue";
 import MobilePanelNavigation from "@/components/MobilePanelNavigation.vue";
 import { MethodRequest } from "@/communication/Network.ts";
+import { SweetAlert } from "@/communication/SweetAlerts.ts";
 
 export default {
   name: "DataPage",
@@ -48,16 +49,19 @@ export default {
   },
   data() {
     return {
-      userData: {
-        firstName: MethodRequest.getUser().firstName,
-        lastName: MethodRequest.getUser().lastName,
-        email: MethodRequest.getUser().email,
-        pictureUrl: MethodRequest.getUser().profilePictureUrl,
-        isAdmin: MethodRequest.getUser().isAdmin,
-        id: MethodRequest.getUser().id,
-        password: MethodRequest.getUser().password,
-      },
+      userData: {},
     };
+  },
+  mounted() {
+    this.userData = MethodRequest.getUser();
+    if (this.userData === null) {
+      SweetAlert.error(this.$swal, "Please login again to see content").then(
+        function () {
+          MethodRequest.userLogout();
+          this.$router.push({ name: "Products" });
+        }.bind(this)
+      );
+    }
   },
 };
 </script>

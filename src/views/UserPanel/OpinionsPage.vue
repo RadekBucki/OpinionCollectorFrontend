@@ -64,6 +64,7 @@ import MobilePanelNavigation from "@/components/MobilePanelNavigation.vue";
 import { GetRequest } from "@/communication/Network.ts";
 import { MethodRequest } from "@/communication/Network.ts";
 import StarRating from "vue-star-rating";
+import { SweetAlert } from "@/communication/SweetAlerts.ts";
 
 export default {
   name: "OpinionsPage",
@@ -84,10 +85,12 @@ export default {
           this.userOpinions = result;
         })
         .catch((err) => {
-          if (err.response.status === 401) {
-            MethodRequest.userLogout();
-            window.location.reload();
-          }
+          SweetAlert.error(this.$swal, err.response.data.message).then(
+            function () {
+              MethodRequest.userLogout();
+              this.$router.push({ name: "Products" });
+            }.bind(this)
+          );
         });
     },
   },

@@ -83,6 +83,7 @@ export default {
     signOut() {
       MethodRequest.userLogout();
       this.$router.push({ name: 'Products' });
+      window.location.reload()
     },
   }
 };

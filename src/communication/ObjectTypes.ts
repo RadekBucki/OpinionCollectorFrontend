@@ -19,11 +19,12 @@ export type Opinion = {
 }
 
 export type ProductGet = {
-    categoryNames: Category[],
+    categories: Category[],
     description: string,
     name: string,
     pictureUrl: string,
     sku: string,
+    opinionAvg: number,
     visible:boolean
 }
 
@@ -82,7 +83,6 @@ export type User = {
 export type UserEdit = {
     email: string,
     firstName: string,
-    id: number,
     isAdmin: boolean,
     lastName: string,
     password: string,

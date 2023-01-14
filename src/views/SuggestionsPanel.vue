@@ -1,46 +1,46 @@
 <template>
-  <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
-    aria-expanded="false" aria-controls="collapseExample">
-    Test Me
-  </button>
-  <div class="collapse" id="collapseExample">
-    <div class="card card-body">
-      Testy test test text that was collapsed.
-    </div>
+  <div v-if="hasSuggestions">
+    <h1 class="container mt-3">Suggestions</h1>
+    <suggestion-item v-for="suggestion in suggestions" 
+      :key="suggestion.suggestionId"
+      :id="suggestion.suggestionId"
+      :sku="suggestion.product.sku"
+      :description="suggestion.description"
+      :user="suggestion.user"
+      class="mt-3"
+      >
+    </suggestion-item>
   </div>
 </template>
 
 <script>
+import { GetRequest } from "@/communication/Network.ts";
+
+import SuggestionItem from '@/components/suggestion/SuggestionItem.vue';
+
 export default {
+  components: {
+    SuggestionItem,
+  },
   data() {
     return {
-      suggestions: [
-        {
-          "suggestionId": 1,
-          "description": "Change the colors!",
-          "product": {
-            "sku": "skusku4",
-            "name": "Mac",
-            "pictureUrl": "https://cdn.samsung.com/etc/designs/smg/global/imgs/logo-square-letter.png",
-            "description": "descriptiomdescriptiomdescriptiomdescriptiom"
-          },
-          "reviewer": {
-            "firstName": "John",
-            "lastName": "Smith",
-            "profilePictureUrl": "https://pl.pinterest.com/pin/327848047887112192/"
-          },
-          "review": {
-            "status": "DECLINED",
-            "reply": "Thx for your suggestion"
-          },
-          "user": {
-            "firstName": "John",
-            "lastName": "Smith",
-            "profilePictureUrl": "https://pl.pinterest.com/pin/327848047887112192/"
-          }
-        }
-      ]
+      suggestions: [],
     }
+  },
+  computed: {
+    hasSuggestions() {
+      return this.suggestions && this.suggestions.length > 0;
+    },
+  },
+  methods: {
+    loadSuggestions() {
+      GetRequest.getAllSuggestions().then(res => {
+        this.suggestions = res;
+      });
+    },
+  },
+  mounted() {
+    this.loadSuggestions();
   }
 }
 </script>

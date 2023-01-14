@@ -32,12 +32,19 @@ export default {
   methods: {
     setFilter(payload) {
       this.filter = payload;
+      //this.filterProducts();
     },
     fetchInitData() {
       GetRequest.getProducts(this.actualPage).then((res) => {
         this.actualPage = res.actualPage;
         this.numberOfPages = res.numberOfPages;
         this.products = res.products;
+      })
+    },
+    filterProducts() {
+      GetRequest.getSearchProduct(this.filters).then((res) => {
+        this.products = res;
+        console.log(res);
       })
     },
     loadMoreProducts() {

@@ -50,16 +50,16 @@ export default {
   methods: {
     submitFilters() {
       const submitData = {
-        name: this.name,
-        avgMin: this.avgMin,
-        avgMax: this.avgMax,
-        pickedCategory: this.pickedCategory,
+        searchPhrase: this.name,
+        opinionAvgMin: this.avgMin,
+        opinionAvgMax: this.avgMax,
+        categoryName: this.pickedCategory,
       }
       this.$emit('passData', submitData);
       this.name = '';
-      this.avgMin = '';
-      this.avgMax = '';
-      this.pickedCategory = null;
+      this.avgMin = null;
+      this.avgMax = null;
+      this.pickedCategory = '';
     },
     fetchCategories() {
       GetRequest.getCategories().then((res) => {

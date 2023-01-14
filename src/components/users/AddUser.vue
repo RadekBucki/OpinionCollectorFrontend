@@ -148,7 +148,7 @@ export default {
         lastName: this.newUser.lastName.val,
         password: this.newUser.password.val,
         pictureUrl: this.newUser.pictureUrl.val,
-      }
+      };
       PostRequest.userRegister(userData).then(() => {
         alert('You added new user');
         const bool = this.modelValue;

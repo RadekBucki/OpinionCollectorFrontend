@@ -6,7 +6,7 @@
       <h1>User Opinions</h1>
       <div v-for="opinion in userOpinions" :key="opinion">
         <div class="mt-5 mx-auto border rounded item row text-start">
-          <div class="fw-semibold fs-5 mx-2 mt-1">Nazwa produktu</div>
+          <div class="fw-semibold fs-5 mx-2 mt-1">{{ opinion.productName }}</div>
           <div class="row px-3 box d-flex justify-content-center align-items-center">
             <div class="col-3 image d-flex justify-content-center align-items-center">
               <img :src="opinion.pictureUrl" class="img-fluid" alt="productImage" />

@@ -2,16 +2,24 @@
   <div>
     <button type="button" class="btn btn-dark mt-2" :disabled="editPanel" @click="visibleChange">Add New
       Category</button>
-    <div v-if="visibleAddPanel" class="input-group mt-4">
+    <div v-if="visibleAddPanel" 
+      class="input-group mt-4" 
+      :class="{ invalid: !categoryName.isValid }">
       <div class="input-group-prepend">
         <span class="input-group-text" id="">Category and visibility</span>
       </div>
-      <input type="text" class="form-control" v-model.trim="categoryName">
+      <label v-if="!categoryName.isValid">Category must not be empty.</label>
+      <input 
+        type="text" 
+        class="form-control" 
+        v-model.trim="categoryName.val"
+        @blur="clearValidity('categoryName')"
+        >
       <select v-model="visible">
         <option value=true>True</option>
         <option value=false>False</option>
       </select>
-      <button type="button" class="btn btn-outline-dark" @click="addCategory()">Add category</button>
+      <button type="button" class="btn btn-outline-dark" @click="submitForm()">Add category</button>
     </div>
     <div v-if="hasAddedCategories">
       <table class="table">
@@ -94,7 +102,11 @@ export default {
       index: null,
       categories: [],
       visible: true,
-      categoryName: '',
+      categoryName: {
+        val: '',
+        isValid: true,
+      },
+      formIsValid: true,
     }
   },
   methods: {
@@ -103,12 +115,32 @@ export default {
         this.categories = res;
       });
     },
+    clearValidity(input) {
+      this[input].isValid = true;
+    },
+    validateForm() {
+      this.formIsValid = true;
+      if (this.categoryName.val === '') {
+        this.categoryName.isValid = false;
+        this.formIsValid = false;
+      }
+    },
+    submitForm() {
+      this.validateForm();
+
+      if (!this.formIsValid) {
+        return;
+      } 
+
+      this.addCategory();
+    },
     addCategory() {
       const toBool = (this.visible === 'true');
-      PostRequest.addCategory(this.categoryName, toBool).then(res=> {
+      PostRequest.addCategory(this.categoryName.val, toBool).then(res=> {
         this.categories.push(res);
       })
-      this.categoryName = '';
+      this.categoryName.val = '';
+      this.categoryName.isValid = true;
       this.visible = null;
     },
     removeCategory(index) { 
@@ -159,6 +191,14 @@ export default {
   display: flex;
   justify-content: center;
   gap: 10px;
+}
+
+.invalid label {
+  color: red;
+}
+
+.invalid input {
+  border: 1px solid red;
 }
 
 </style>

@@ -169,12 +169,10 @@ export default {
         pictureUrl: this.profilePictureUrl.val,
       };
       if (userData.password.length === 0) {
-        console.log('test');
         delete userData.password;
       }
       PutRequest.userEdit(this.$props.userId, userData).then(() => {
         alert('Succes');
-        // this.editToggle = !this.editToggle;
         this.$router.push( { name: 'UsersPanel' } ).then(() => { this.$router.go() });
       });
       this.editToggle = !this.editToggle;

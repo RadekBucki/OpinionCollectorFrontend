@@ -44,7 +44,7 @@ export default {
   data() {
     return {
       suggestionReply: '',
-      suggestionStatus: ['DECLINED', 'test'],  //nie wiem jakie sa statusy 
+      suggestionStatus: ['DECLINED', 'PENDING', 'DONE'], 
       replyToggle: false,
       pickedStatus: null,
     };

@@ -27,7 +27,6 @@ const routes = [
                 name: 'Products',
                 component: ProductsListPage,
                 props: true,
-                props: true,
             },
             {
                 path: '/product/:sku',

@@ -63,7 +63,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h1 class="modal-title fs-5" id="staticBackdropLabel">Success!</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <button @click="reloadWindow" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <p>You have successfully added your opinion!</p>
@@ -142,6 +142,9 @@ export default {
       this.opinion.pictureURL = null;
       this.opinion.advantages = [];
       this.opinion.disadvantages = [];
+    },
+    reloadWindow() {
+      window.location.reload();
     }
   },
   mounted() {

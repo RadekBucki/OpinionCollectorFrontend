@@ -52,16 +52,16 @@ export default {
   methods: {
     sendSuggestion() {
       PostRequest.addSuggestion(this.suggestionDescription, this.sku).then(() => {
-        this.suggestionDescription = null
-        this.modal.hide()
-        this.messageModal.show()
+        this.suggestionDescription = null;
+        this.modal.hide();
+        this.messageModal.show();
       })
     }
   },
   mounted() {
-    this.modal = new Modal(this.$refs.staticBackdropForSuggestion)
-    this.messageModal = new Modal(this.$refs.staticBackdropForMessage)
-    this.$emit('get-modal', this.modal)
+    this.modal = new Modal(this.$refs.staticBackdropForSuggestion);
+    this.messageModal = new Modal(this.$refs.staticBackdropForMessage);
+    this.$emit('get-modal', this.modal);
   }
 }
 </script>

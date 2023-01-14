@@ -84,7 +84,7 @@
           class="form-check-input" 
           type="radio" 
           name="Visible" 
-          value="true" 
+          value=true 
           v-model="newUser.isAdmin"
           >
       </div>
@@ -96,7 +96,7 @@
           class="form-check-input" 
           type="radio" 
           name="Invisible" 
-          value="false" 
+          value=false
           v-model="newUser.isAdmin"
           >
       </div>
@@ -141,10 +141,12 @@ export default {
   },
   methods: {
     addNewUser() {
+      const toBool = this.convertToBool();
+      console.log(toBool);
       const userData = {
         email: this.newUser.email.val,
         firstName: this.newUser.firstName.val,
-        isAdmin: this.newUser.isAdmin,
+        isAdmin: toBool,
         lastName: this.newUser.lastName.val,
         password: this.newUser.password.val,
         pictureUrl: this.newUser.pictureUrl.val,
@@ -193,6 +195,9 @@ export default {
 
       this.addNewUser();
     },
+    convertToBool() {
+      return this.newUser.isAdmin === 'true' ? true : false;
+    }
   },
 }
 </script>

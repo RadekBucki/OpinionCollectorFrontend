@@ -9,11 +9,11 @@
     <div v-if="!addUserToggle">
       <UserItem v-for="user in users"
         :key="user.id"
-        :first="user.firstName"
-        :last="user.lastName"
-        :email="user.email"
-        :admin="user.isAdmin"
-        :img="user.profilePictureUrl"
+        v-model:first="user.firstName"
+        v-model:last="user.lastName"
+        v-model:email="user.email"
+        v-model:admin="user.isAdmin"
+        v-model:img="user.profilePictureUrl"
         :userId="user.id"
       />
     </div>

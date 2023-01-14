@@ -1,7 +1,7 @@
 <template>
-  <div class="container border m-2">
+  <div v-if="prepareData" class="container border m-2">
     <div class="row">
-      <div class="col-4">
+      <div class="col-4" :class="{ invalid: !profilePictureUrl.isValid }">
         <img :src="img" class="img-fluid rounded m-3" alt="Responsive image">
         <label v-if="!profilePictureUrl.isValid">URL must not be empty.</label>
         <input v-if="isEditable"
@@ -9,11 +9,12 @@
           class="form-control m-3" 
           placeholder="URL" 
           v-model.trim="profilePictureUrl.val"
+          @blur="clearValidity('profilePictureUrl')"
           />
       </div>
       <div class="d-flex col align-items-center">
         <div class="row">
-          <div class="group-info">
+          <div class="group-info" :class="{ invalid: !firstName.isValid }">
             <label>First Name:</label>
             <p v-if="!isEditable"> {{ first }}</p>
             <label v-if="!firstName.isValid">First Name must not be empty.</label>
@@ -25,7 +26,7 @@
               @blur="clearValidity('firstName')"
               />
           </div>
-          <div class="group-info">
+          <div class="group-info" :class="{ invalid: !lastName.isValid }">
             <label>Last Name:</label>
             <p v-if="!isEditable">{{ last }}</p>
             <label v-if="!lastName.isValid">Last Name must not be empty.</label>
@@ -37,10 +38,10 @@
               @blur="clearValidity('lastName')"
               />
           </div>
-          <div class="group-info">
+          <div class="group-info" :class="{ invalid: !emailNew.isValid }">
             <label>Email:</label>
             <p v-if="!isEditable">{{ email }}</p>
-            <label v-if="!emailNew.isValid">Email must not be empty.</label>
+            <label v-if="!emailNew.isValid">Email must not be empty and email format.</label>
             <input v-if="isEditable"
               type="email" 
               class="form-control m-2" 
@@ -51,13 +52,11 @@
           </div>
           <div class="group-info">
             <label v-if="isEditable && editPassword">Password:</label>
-            <label v-if="!password.isValid">Password must not be empty.</label>
             <input v-if="isEditable && editPassword"
               type="password" 
               class="form-control m-2" 
               placeholder="Password" 
-              v-model.trim="password.val"
-              @blur="clearValidity('password')"
+              v-model.trim="password"
               />
               <button
               v-if="editToggle && !editPassword"
@@ -111,7 +110,7 @@
     <button v-if="isEditable" 
       type="button" 
       class="btn btn-outline-dark m-2" 
-      @click="saveUserData()
+      @click="submitForm()
       ">
       Save Edit
     </button>
@@ -123,6 +122,7 @@ import { PutRequest } from "@/communication/Network.ts";
 
 export default {
   props: ['first', 'last', 'email', 'admin', 'img', 'userId'],
+  emits: ['update:first', 'update:last', 'update:email', 'update:admin','update:img'],
   data() {
     return {
       firstName: {
@@ -142,13 +142,11 @@ export default {
         isValid: true,
       },
       editToggle: false,
-      password: {
-        val: '',
-        isValid: true,
-      },
+      password: '',
       adminStatus: false,
       editPassword: false,
-      formIsValid: true
+      formIsValid: true,
+      prepareData: false,
     }
   },
   methods: {
@@ -167,15 +165,17 @@ export default {
         firstName: this.firstName.val,
         isAdmin: this.adminStatus,
         lastName: this.lastName.val,
-        password: this.password.val,
+        password: this.password,
         pictureUrl: this.profilePictureUrl.val,
       };
-      if (userData.password.val.length === 0) {
+      if (userData.password.length === 0) {
+        console.log('test');
         delete userData.password;
       }
       PutRequest.userEdit(this.$props.userId, userData).then(() => {
         alert('Succes');
-        this.$router.push( { name: 'usersPanel' } )
+        // this.editToggle = !this.editToggle;
+        this.$router.push( { name: 'UsersPanel' } ).then(() => { this.$router.go() });
       });
       this.editToggle = !this.editToggle;
     },
@@ -193,12 +193,8 @@ export default {
         this.emailNew.isValid = false;
         this.formIsValid = false;
       }
-      if ((this.password.val === '' || this.password.val < 6) && this.passwordEdit) {
-        this.newUser.password.isValid = false;
-        this.formIsValid = false;
-      }
-      if (this.pictureUrl.val === '') {
-        this.pictureUrl.isValid = false;
+      if (this.profilePictureUrl.val === '') {
+        this.profilePictureUrl.isValid = false;
         this.formIsValid = false;
       }
     },
@@ -229,6 +225,7 @@ export default {
     this.emailNew.val = this.$props.email;
     this.profilePictureUrl.val = this.$props.img;
     this.adminStatus = this.$props.admin;
+    this.prepareData = true;
   }
 }
 </script>

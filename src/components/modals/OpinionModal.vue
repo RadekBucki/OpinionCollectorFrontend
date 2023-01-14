@@ -19,26 +19,34 @@
 
             <div class="form-group text-start mb-3">
               <label>Advantages</label>
-              <button type="button" @click="this.addAdvantage()" class="ms-2 btn btn-outline-dark">+</button>
+              <button type="button" @click="this.addAdvantage()" class="ms-2 btn btn-outline-dark">
+                <i class="bi bi-plus"/>
+              </button>
               <div class="row mt-2 mb-2" v-for="adv in this.opinion.advantages" :key="adv">
                 <div class="col-10">
                   <input  v-model="adv.advantageDescription" type="text" class="form-control" placeholder="Enter advantage" required>
                 </div>
                 <div class="col-2">
-                  <button type="button" @click="this.removeAdvantage(adv.id)" class="form-control btn btn-outline-danger">-</button>
+                  <button type="button" @click="this.removeAdvantage(adv.id)" class="form-control btn btn-outline-danger">
+                    <i class="bi bi-trash-fill"/>
+                  </button>
                 </div>
               </div>
             </div>
 
             <div class="form-group text-start mb-3">
               <label>Disadvantages</label>
-              <button type="button" @click="this.addDisadvantage()" class="ms-2 btn btn-outline-dark">+</button>
+              <button type="button" @click="this.addDisadvantage()" class="ms-2 btn btn-outline-dark">
+                <i class="bi bi-plus"/>
+              </button>
               <div class="row mt-2 mb-2" v-for="adv in this.opinion.disadvantages" :key="adv">
                 <div class="col-10">
                   <input  v-model="adv.disadvantageDescription" type="text" class="form-control" placeholder="Enter disadvantage" required>
                 </div>
                 <div class="col-2">
-                  <button type="button" @click="this.removeDisadvantage(adv.id)" class="form-control btn btn-outline-danger">-</button>
+                  <button type="button" @click="this.removeDisadvantage(adv.id)" class="form-control btn btn-outline-danger">
+                    <i class="bi bi-trash-fill"/>
+                  </button>
                 </div>
               </div>
             </div>

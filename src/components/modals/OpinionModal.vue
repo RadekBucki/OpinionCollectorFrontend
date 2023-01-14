@@ -9,10 +9,6 @@
         <div class="modal-body">
           <form @submit.prevent="addOpinion">
             <div class="form-group text-start mb-3">
-              <label>First name</label>
-              <input v-model="this.opinion.firstName" type="text" class="form-control" placeholder="Enter first name" required>
-            </div>
-            <div class="form-group text-start mb-3">
               <label>Description</label>
               <textarea v-model="this.opinion.description" class="form-control" rows="3" placeholder="Tell us about this product." required/>
             </div>
@@ -80,7 +76,7 @@
 <script>
 import {Modal} from "bootstrap";
 import StarRating from "vue-star-rating";
-import {PostRequest} from "@/communication/Network.ts";
+import {MethodRequest, PostRequest} from "@/communication/Network.ts";
 
 export default {
   name: "OpinionModal",
@@ -95,7 +91,6 @@ export default {
     modal: null,
     messageModal: null,
     opinion: {
-      firstName: null,
       description: null,
       pictureURL: null,
       advantages: [],
@@ -109,7 +104,7 @@ export default {
         advantages: this.opinion.advantages.map((adv) => { return adv.advantageDescription }),
         description: this.opinion.description,
         disadvantages: this.opinion.disadvantages.map((adv) => { return adv.disadvantageDescription }),
-        firstName: this.opinion.firstName,
+        firstName: MethodRequest.getUser().firstName,
         opinionValue: this.opinion.grade,
         opinionAvg: null,
         pictureUrl: this.opinion.pictureURL,

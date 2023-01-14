@@ -15,7 +15,8 @@ export type Opinion = {
     opinionValue: number,
     opinionAvg: number,
     pictureUrl: string,
-    sku: string
+    sku: string,
+    productName: string
 }
 
 export type ProductGet = {
@@ -25,7 +26,7 @@ export type ProductGet = {
     pictureUrl: string,
     sku: string,
     opinionAvg: number,
-    visible:boolean
+    visible: boolean
 }
 
 export type ProductSend = {
@@ -34,7 +35,7 @@ export type ProductSend = {
     name: string,
     pictureUrl: string,
     sku: string,
-    visible:boolean
+    visible: boolean
 }
 
 export type ProductSearch = {
@@ -77,7 +78,7 @@ export type User = {
     id: number,
     isAdmin: boolean,
     lastName: string,
-    pictureUrl:string
+    pictureUrl: string
 }
 
 export type UserEdit = {
@@ -86,7 +87,7 @@ export type UserEdit = {
     isAdmin: boolean,
     lastName: string,
     password: string,
-    pictureUrl:string
+    pictureUrl: string
 }
 
 export type Token = {

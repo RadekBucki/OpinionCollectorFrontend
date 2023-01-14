@@ -142,7 +142,6 @@ export default {
   methods: {
     addNewUser() {
       const toBool = this.convertToBool();
-      console.log(toBool);
       const userData = {
         email: this.newUser.email.val,
         firstName: this.newUser.firstName.val,

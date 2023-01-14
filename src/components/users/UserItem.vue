@@ -3,6 +3,7 @@
     <div class="row">
       <div class="col-4">
         <img :src="img" class="img-fluid rounded m-3" alt="Responsive image">
+        <label v-if="!profilePictureUrl.isValid">URL must not be empty.</label>
         <input v-if="isEditable"
           type="text" 
           class="form-control m-3" 
@@ -15,43 +16,51 @@
           <div class="group-info">
             <label>First Name:</label>
             <p v-if="!isEditable"> {{ first }}</p>
+            <label v-if="!firstName.isValid">First Name must not be empty.</label>
             <input v-if="isEditable"
               type="text" 
               class="form-control m-2" 
               placeholder="First Name" 
               v-model.trim="firstName.val"
+              @blur="clearValidity('firstName')"
               />
           </div>
           <div class="group-info">
             <label>Last Name:</label>
             <p v-if="!isEditable">{{ last }}</p>
+            <label v-if="!lastName.isValid">Last Name must not be empty.</label>
             <input v-if="isEditable"
               type="text" 
               class="form-control m-2" 
               placeholder="Last Name" 
               v-model.trim="lastName.val"
+              @blur="clearValidity('lastName')"
               />
           </div>
           <div class="group-info">
             <label>Email:</label>
             <p v-if="!isEditable">{{ email }}</p>
+            <label v-if="!emailNew.isValid">Email must not be empty.</label>
             <input v-if="isEditable"
               type="email" 
               class="form-control m-2" 
               placeholder="Email" 
               v-model.trim="emailNew.val" 
+              @blur="clearValidity('emailNew')"
               />
           </div>
           <div class="group-info">
             <label v-if="isEditable && editPassword">Password:</label>
+            <label v-if="!password.isValid">Password must not be empty.</label>
             <input v-if="isEditable && editPassword"
               type="password" 
               class="form-control m-2" 
               placeholder="Password" 
               v-model.trim="password.val"
+              @blur="clearValidity('password')"
               />
               <button
-              v-if="editToggle"
+              v-if="editToggle && !editPassword"
               type="button" 
               class="btn btn-outline-dark m-2" 
               @click="passwordEdit()"
@@ -139,6 +148,7 @@ export default {
       },
       adminStatus: false,
       editPassword: false,
+      formIsValid: true
     }
   },
   methods: {
@@ -146,7 +156,10 @@ export default {
       this.editToggle = !this.editToggle;
     },
     passwordEdit() {
-      this.editPassword = !this.editPassword;
+      this.editPassword = true;
+    },
+    clearValidity(input) {
+      this[input].isValid = true;
     },
     saveUserData() {
       const userData = {
@@ -167,6 +180,36 @@ export default {
       this.editToggle = !this.editToggle;
     },
     validateForm() {
+      this.formIsValid = true;
+      if (this.firstName.val === '') {
+        this.firstName.isValid = false;
+        this.formIsValid = false;
+      }
+      if (this.lastName.val === '') {
+        this.lastName.isValid = false;
+        this.formIsValid = false;
+      }
+      if (this.emailNew.val === '' || !this.emailNew.val.includes('@')) {
+        this.emailNew.isValid = false;
+        this.formIsValid = false;
+      }
+      if ((this.password.val === '' || this.password.val < 6) && this.passwordEdit) {
+        this.newUser.password.isValid = false;
+        this.formIsValid = false;
+      }
+      if (this.pictureUrl.val === '') {
+        this.pictureUrl.isValid = false;
+        this.formIsValid = false;
+      }
+    },
+    submitForm() {
+      this.validateForm();
+
+      if (!this.formIsValid) {
+        return;
+      } 
+
+      this.saveUserData();
     },
   },
   computed: {
@@ -204,5 +247,13 @@ export default {
 .radio {
   display: flex;
   justify-content: space-around;
+}
+
+.invalid label {
+  color: red;
+}
+
+.invalid input {
+  border: 1px solid red;
 }
 </style>

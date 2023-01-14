@@ -23,30 +23,34 @@
               <p v-if="!opinion.opinionValue" class="col-5">{{ "No opinions" }}</p>
             </div>
             <div class="col-3">
-            <div v-if="opinion.advantages" class="mt-3">
-            <b class="text-start fs-6" style="color:green;"> Advantages </b>
-            <div class="d-flex align-items-center" v-for="adv in opinion.advantages" :key="adv">
-              <b class="d-flex text-start fs-5" style="color:green;"> + </b>
-              <div class="text-start ms-1" style="color:green;">{{ adv }}</div>
+              <div v-if="opinion.advantages" class="mt-3">
+                <b class="text-start fs-6" style="color: green"> Advantages </b>
+                <div class="d-flex align-items-center" v-for="adv in opinion.advantages" :key="adv">
+                  <b class="d-flex text-start fs-5" style="color: green"> + </b>
+                  <div class="text-start ms-1" style="color: green">{{ adv }}</div>
+                </div>
+              </div>
+              <div v-if="!opinion.advantages" class="mt-3 text-start">
+                <b class="text-start fs-6" style="color: green"> No advantages. </b>
+              </div>
             </div>
-          </div>
-          <div v-if="!opinion.advantages" class="mt-3 text-start">
-            <b class="text-start fs-6" style="color:green;"> No advantages. </b>
-          </div>
-        </div>
 
-        <div class="col-3">
-          <div v-if="opinion.disadvantages" class="mt-3">
-            <b class="d-flex text-start fs-6" style="color:red;"> Disadvantages </b>
-            <div class="d-flex align-items-center" v-for="disadvantage in opinion.disadvantages" :key="disadvantage">
-              <b class="text-start fs-5" style="color:red;"> - </b>
-              <div class="text-start ms-1" style="color:red;">{{ disadvantage }}</div>
+            <div class="col-3">
+              <div v-if="opinion.disadvantages" class="mt-3">
+                <b class="d-flex text-start fs-6" style="color: red"> Disadvantages </b>
+                <div
+                  class="d-flex align-items-center"
+                  v-for="disadvantage in opinion.disadvantages"
+                  :key="disadvantage"
+                >
+                  <b class="text-start fs-5" style="color: red"> - </b>
+                  <div class="text-start ms-1" style="color: red">{{ disadvantage }}</div>
+                </div>
+              </div>
+              <div v-if="!opinion.disadvantages" class="mt-3 text-start">
+                <b class="text-start fs-6" style="color: red"> No disadvantages. </b>
+              </div>
             </div>
-          </div>
-          <div v-if="!opinion.disadvantages" class="mt-3 text-start">
-            <b class="text-start fs-6" style="color:red;"> No disadvantages. </b>
-          </div>
-        </div>
           </div>
         </div>
       </div>
@@ -80,7 +84,7 @@ export default {
           this.userOpinions = result;
         })
         .catch((err) => {
-          if(err.response.status === 401) {
+          if (err.response.status === 401) {
             MethodRequest.userLogout();
             window.location.reload();
           }

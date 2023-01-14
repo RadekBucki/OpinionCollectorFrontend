@@ -140,7 +140,7 @@ export default {
       console.log(product);
       PostRequest.addProduct(product).then(res => {
         console.log(res);
-        this.$router.push({ name: 'ListAdmin' });
+        this.$router.push( { name: 'ListAdmin' } ).then(() => { this.$router.go() });
       })
     }
   },

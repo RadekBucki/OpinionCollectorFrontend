@@ -8,22 +8,6 @@
         <div class="mt-4">
           <button 
             type="button" 
-            class="btn btn-outline-dark" 
-            @click="setSelectedView('editProduct')"
-            :disabled="disableButtonEdit
-            ">
-            Edit Product
-          </button>
-          <button 
-            type="button" 
-            class="btn btn-outline-dark" 
-            @click="setSelectedView('addProduct')"
-            :disabled="disableButtonAdd
-            ">
-            Add Product
-          </button>
-          <button 
-            type="button" 
             class="btn btn-outline-danger" 
             @click="removeProduct()
             ">
@@ -31,7 +15,7 @@
           </button>
         </div>
       </div>
-      <div v-if="selectedView === 'editProduct'">
+      <div>
         <div class="my-2 p-2 col-12">
           <button @click="saveProduct()" type="button" class="btn btn-outline-dark">Save Edit</button>
         </div>
@@ -42,14 +26,12 @@
             :sku="sku" 
             :description="description"
             :categories="categories" />
-          <EditForm 
+          <EditForm v-if="fullLoad"
             :categoriesOwned="categories" 
             :info="infoProduct"
-            @edit-data="setEdit" />
+            @edit-data="setEdit" 
+            :loaded="fullLoad"/>
         </div>
-      </div>
-      <div v-else>
-        <AddProduct />
       </div>
     </div>
   </div>
@@ -60,17 +42,15 @@ import { GetRequest, DeleteRequest, PutRequest } from "@/communication/Network.t
 
 import EditForm from '@/components/product/EditForm.vue';
 import DisplayEdit from '@/components/product/DisplayEdit.vue';
-import AddProduct from './AddProduct.vue';
 
 export default {
   components: {
     EditForm,
     DisplayEdit,
-    AddProduct,
   },
   data() {
     return {
-      selectedView: 'editProduct',
+      fullLoad: false,
       product: {
         sku: '',
         name: '',
@@ -103,9 +83,6 @@ export default {
       this.product.categories = payload.categories;
       this.visible = payload.visible;
     },
-    setSelectedView(cmp) {
-      this.selectedView = cmp;
-    },
     removeProduct() {
       DeleteRequest.deleteProduct(this.$route.params.sku).then(res => {
         console.log(res);
@@ -120,10 +97,11 @@ export default {
         pictureUrl: this.product.pictureUrl,
         sku: this.product.sku,
         visible: this.visible,
-      }
+      };
+      console.log(payload);
       PutRequest.editProduct(payload).then(res => {
         console.log(res);
-        this.$router.push({ name: 'ListAdmin' });
+        this.$router.push( { name: 'ListAdmin' } ).then(() => { this.$router.go() });
       });
     },
     loadProduct() {
@@ -135,6 +113,7 @@ export default {
           pictureUrl: this.product.pictureUrl,
           description: this.product.description,
         }
+        this.fullLoad = true;
       });
     }
   },
@@ -170,7 +149,7 @@ export default {
       return this.productInfo;
     }
   },
-  created() {
+  mounted() {
     this.loadProduct();
   }
 }

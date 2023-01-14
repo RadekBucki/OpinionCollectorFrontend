@@ -1,5 +1,5 @@
 <template>
-  <div class="form-group" v-if="hasAddedCategories">
+  <div class="form-group" v-if="hasAddedCategories && this.$props.loaded">
     <div class="form-group">
       <label for="name">Product Name:</label>
       <input 
@@ -11,12 +11,7 @@
     </div>
     <div class="form-group">
       <label for="name">Product SKU:</label>
-      <input 
-        type="text" 
-        name="name" 
-        class="form-control"  
-        placeholder="Type new SKU..." 
-        v-model.trim="sku">
+      <p>{{ sku }}</p>
     </div>
     <div class="form-group">
       <label for="url">URL:</label>
@@ -107,7 +102,7 @@ import { GetRequest } from "@/communication/Network.ts";
 
 export default {
   emits: ['edit-data'],
-  props: ['categoriesOwned', 'info'],
+  props: ['categoriesOwned', 'info', 'loaded'],
   data() {
     return {
       name: '',

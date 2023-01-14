@@ -12,14 +12,24 @@
         <RouterLink :to="{ name: 'EditProduct', params: { sku: `${this.sku}` } }" class="btn btn-outline-dark">
           Edit
         </RouterLink>
-        <button type="button" class="btn btn-outline-danger">Delete</button>
+        <button type="button" class="btn btn-outline-danger" @click="removeProduct()">Delete</button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { DeleteRequest } from "@/communication/Network.ts";
+
 export default {
   props: ['name', 'url', 'sku'],
+  methods: {
+    removeProduct() {
+      DeleteRequest.deleteProduct(this.$props.sku).then(res => {
+        console.log(res);
+      });
+      this.$router.push({ name: 'ListAdmin' }).then(() => { this.$router.go() });
+    },
+  }
 }
 </script>

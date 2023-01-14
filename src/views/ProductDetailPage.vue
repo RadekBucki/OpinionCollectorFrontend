@@ -32,14 +32,13 @@
         </div>
         <div class="mb-5 mt-4" v-for="opinion in this.opinions" :key="opinion">
 
-
           <div class="d-flex align-items-center">
-            <b>{{ opinion.firstName ?? `Anonymous` }}</b>
+            <b class="mt-1">{{ opinion.firstName ?? `Anonymous` }}</b>
             <star-rating
                 read-only
                 :show-rating="true"
                 v-bind:star-size="25"
-                class="col-6 d-flex align-items-start ms-2"
+                class="d-flex align-items-start ms-2"
                 v-model:rating="opinion.opinionValue" />
           </div>
 
@@ -47,14 +46,14 @@
             <p class="text-start fs-6"> {{ opinion.description }} </p>
           </div>
 
-          <div v-if="!opinion.advantages" class="mt-3">
-            <b class="text-start fs-6" style="color:green;"> Advantages </b>
+          <div v-if="opinion.advantages" class="mt-3">
+            <b class="d-flex text-start fs-6" style="color:green;"> Advantages </b>
             <div class="d-flex align-items-center" v-for="adv in opinion.advantages" :key="adv">
               <b class="d-flex text-start fs-5" style="color:green;"> + </b>
               <div class="text-start ms-1" style="color:green;">{{ adv }}</div>
             </div>
           </div>
-          <div v-if="opinion.advantages" class="mt-3 text-start">
+          <div v-if="!opinion.advantages" class="mt-3 text-start">
             <b class="text-start fs-6" style="color:green;"> No advantages. </b>
           </div>
 
@@ -67,6 +66,10 @@
           </div>
           <div v-if="!opinion.disadvantages" class="mt-3 text-start">
             <b class="text-start fs-6" style="color:red;"> No disadvantages. </b>
+          </div>
+
+          <div v-if="opinion.pictureUrl" class="mt-3 d-flex">
+            <img :src="opinion.pictureUrl" class="rounded img-fluid" style="object-fit: cover; flex-shrink: 0; width: 150px; height: 150px;" alt="opinionProductImage" />
           </div>
 
         </div>

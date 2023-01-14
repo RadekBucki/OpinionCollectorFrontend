@@ -52,6 +52,7 @@ export default {
   methods: {
     sendSuggestion() {
       PostRequest.addSuggestion(this.suggestionDescription, this.sku).then(() => {
+        this.suggestionDescription = null
         this.modal.hide()
         this.messageModal.show()
       })

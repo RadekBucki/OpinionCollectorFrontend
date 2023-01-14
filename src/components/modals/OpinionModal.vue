@@ -16,6 +16,10 @@
               <label>Description</label>
               <textarea v-model="this.opinion.description" class="form-control" rows="3" placeholder="Tell us about this product." required/>
             </div>
+            <div class="form-group text-start mb-3">
+              <label>Product picture URL (Optional)</label>
+              <input v-model="this.opinion.pictureURL" type="url" class="form-control" placeholder="Enter product picture URL"/>
+            </div>
 
             <div class="form-group text-start mb-3">
               <label>Advantages</label>
@@ -93,6 +97,7 @@ export default {
     opinion: {
       firstName: null,
       description: null,
+      pictureURL: null,
       advantages: [],
       disadvantages: [],
       grade: null
@@ -107,13 +112,14 @@ export default {
         firstName: this.opinion.firstName,
         opinionValue: this.opinion.grade,
         opinionAvg: null,
-        pictureUrl: null,
+        pictureUrl: this.opinion.pictureURL,
         sku: this.sku
       }
 
       PostRequest.addOpinion(opinion).then(() => {
-          this.modal.hide()
-          this.messageModal.show()
+          this.clearOpinionObject()
+          this.modal.hide();
+          this.messageModal.show();
       })
     },
     addAdvantage() {
@@ -133,6 +139,14 @@ export default {
         return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
       };
       return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+    },
+    clearOpinionObject() {
+      this.opinion.firstName = null;
+      this.opinion.description = null;
+      this.opinion.grade = null;
+      this.opinion.pictureURL = null;
+      this.opinion.advantages = [];
+      this.opinion.disadvantages = [];
     }
   },
   mounted() {

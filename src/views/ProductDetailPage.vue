@@ -33,7 +33,7 @@
         <div class="mb-5 mt-4" v-for="opinion in this.opinions" :key="opinion">
 
           <div class="d-flex align-items-center">
-            <b class="mt-1">{{ opinion.firstName ?? `Anonymous` }}</b>
+            <b class="mt-1">Anonymous</b>
             <star-rating
                 read-only
                 :show-rating="true"

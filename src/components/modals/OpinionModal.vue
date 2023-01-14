@@ -76,7 +76,6 @@
 <script>
 import {Modal} from "bootstrap";
 import StarRating from "vue-star-rating";
-import {MethodRequest, PostRequest} from "@/communication/Network.ts";
 
 export default {
   name: "OpinionModal",
@@ -104,7 +103,7 @@ export default {
         advantages: this.opinion.advantages.map((adv) => { return adv.advantageDescription }),
         description: this.opinion.description,
         disadvantages: this.opinion.disadvantages.map((adv) => { return adv.disadvantageDescription }),
-        firstName: MethodRequest.getUser().firstName,
+        firstName: null,
         opinionValue: this.opinion.grade,
         opinionAvg: null,
         pictureUrl: this.opinion.pictureURL,
@@ -136,7 +135,6 @@ export default {
       return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
     },
     clearOpinionObject() {
-      this.opinion.firstName = null;
       this.opinion.description = null;
       this.opinion.grade = null;
       this.opinion.pictureURL = null;

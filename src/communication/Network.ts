@@ -247,7 +247,7 @@ export class PostRequest {
             advantages: opinion.advantages,
             description: opinion.description,
             disadvantages: opinion.disadvantages,
-            firstName: opinion.firstName,
+            firstName: null,
             opinionValue: opinion.opinionValue,
             opinionAvg: null,
             pictureUrl: opinion.pictureUrl,

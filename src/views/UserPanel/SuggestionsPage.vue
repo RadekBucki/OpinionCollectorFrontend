@@ -79,9 +79,10 @@ export default {
         })
         .catch((err) => {
           SweetAlert.error(this.$swal, err.response.data.message).then(
-            function () {
+            async function () {
               MethodRequest.userLogout();
-              this.$router.push({ name: "Products" });
+              await this.$router.push({ name: "Products" });
+              window.location.reload();
             }.bind(this)
           );
         });

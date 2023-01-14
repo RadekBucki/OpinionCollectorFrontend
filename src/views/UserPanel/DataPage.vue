@@ -56,9 +56,10 @@ export default {
     this.userData = MethodRequest.getUser();
     if (this.userData === null) {
       SweetAlert.error(this.$swal, "Please login again to see content").then(
-        function () {
+        async function () {
           MethodRequest.userLogout();
-          this.$router.push({ name: "Products" });
+          await this.$router.push({ name: "Products" });
+          window.location.reload();
         }.bind(this)
       );
     }

@@ -1,7 +1,6 @@
 <template>
   <div v-if="hasUsers" class="mt-3">
     <div>
-      <h1 v-if="!addUserToggle">Filter</h1>
       <button type="button" class="btn btn-outline-dark" @click="addUserButton()">{{ buttonText }}</button>
     </div>
     <div v-if="addUserToggle">

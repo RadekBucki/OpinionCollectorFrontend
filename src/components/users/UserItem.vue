@@ -7,7 +7,7 @@
           type="text" 
           class="form-control m-3" 
           placeholder="URL" 
-          v-model="profilePictureUrl"
+          v-model.trim="profilePictureUrl.val"
           />
       </div>
       <div class="d-flex col align-items-center">
@@ -19,7 +19,7 @@
               type="text" 
               class="form-control m-2" 
               placeholder="First Name" 
-              v-model="firstName"
+              v-model.trim="firstName.val"
               />
           </div>
           <div class="group-info">
@@ -29,7 +29,7 @@
               type="text" 
               class="form-control m-2" 
               placeholder="Last Name" 
-              v-model="lastName"
+              v-model.trim="lastName.val"
               />
           </div>
           <div class="group-info">
@@ -39,17 +39,25 @@
               type="email" 
               class="form-control m-2" 
               placeholder="Email" 
-              v-model="emailNew" 
+              v-model.trim="emailNew.val" 
               />
           </div>
           <div class="group-info">
-            <label v-if="isEditable">Password:</label>
-            <input v-if="isEditable"
+            <label v-if="isEditable && editPassword">Password:</label>
+            <input v-if="isEditable && editPassword"
               type="password" 
               class="form-control m-2" 
               placeholder="Password" 
-              v-model="password"
+              v-model.trim="password.val"
               />
+              <button
+              v-if="editToggle"
+              type="button" 
+              class="btn btn-outline-dark m-2" 
+              @click="passwordEdit()"
+              >
+              Change Password
+            </button>
           </div>
           <div class="group-info">
             <label>Admin Status:</label>
@@ -108,35 +116,58 @@ export default {
   props: ['first', 'last', 'email', 'admin', 'img', 'userId'],
   data() {
     return {
-      firstName: '',
-      lastName: '',
-      emailNew: '',
-      profilePictureUrl: '',
+      firstName: {
+        val: '',
+        isValid: true,
+      },
+      lastName: {
+        val: '',
+        isValid: true,
+      },
+      emailNew: {
+        val: '',
+        isValid: true,
+      },
+      profilePictureUrl: {
+        val: '',
+        isValid: true,
+      },
       editToggle: false,
-      password: '',
+      password: {
+        val: '',
+        isValid: true,
+      },
       adminStatus: false,
+      editPassword: false,
     }
   },
   methods: {
     editUser() {
       this.editToggle = !this.editToggle;
     },
+    passwordEdit() {
+      this.editPassword = !this.editPassword;
+    },
     saveUserData() {
       const userData = {
-        email: this.emailNew,
-        firstName: this.firstName,
+        email: this.emailNew.val,
+        firstName: this.firstName.val,
         isAdmin: this.adminStatus,
-        lastName: this.lastName,
-        password: this.password,
-        pictureUrl: this.profilePictureUrl,
+        lastName: this.lastName.val,
+        password: this.password.val,
+        pictureUrl: this.profilePictureUrl.val,
       };
-      console.log(userData);
-      PutRequest.userEdit(this.$props.userId, userData).then(res => {
-        console.log(res);
+      if (userData.password.val.length === 0) {
+        delete userData.password;
+      }
+      PutRequest.userEdit(this.$props.userId, userData).then(() => {
+        alert('Succes');
+        this.$router.push( { name: 'usersPanel' } )
       });
-      this.password = '';
       this.editToggle = !this.editToggle;
-    }
+    },
+    validateForm() {
+    },
   },
   computed: {
     isAdmin() {
@@ -150,11 +181,10 @@ export default {
     }
   },
   mounted() {
-    this.firstName = this.$props.first;
-    this.lastName = this.$props.last;
-    this.emailNew = this.$props.email;
-    this.adminStatus = this.$props.admin;
-    this.profilePictureUrl = this.$props.img;
+    this.firstName.val = this.$props.first;
+    this.lastName.val = this.$props.last;
+    this.emailNew.val = this.$props.email;
+    this.profilePictureUrl.val = this.$props.img;
     this.adminStatus = this.$props.admin;
   }
 }

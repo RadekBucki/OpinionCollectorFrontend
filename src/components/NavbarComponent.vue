@@ -82,7 +82,7 @@ export default {
     },
     signOut() {
       MethodRequest.userLogout();
-      window.location.reload();
+      this.$router.push({ name: 'Products' });
     },
   }
 };

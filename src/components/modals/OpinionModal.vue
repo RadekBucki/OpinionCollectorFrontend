@@ -85,6 +85,7 @@
 import {Modal} from "bootstrap";
 import StarRating from "vue-star-rating";
 import {PostRequest} from "@/communication/Network.ts";
+import {SweetAlert} from "@/communication/SweetAlerts.ts";
 
 export default {
   name: "OpinionModal",
@@ -123,6 +124,11 @@ export default {
           this.clearOpinionObject()
           this.modal.hide();
           this.messageModal.show();
+      }).catch((err) => {
+        SweetAlert.error(this.$swal, err.response.data.message).then(() => {
+          this.clearOpinionObject()
+          this.modal.hide();
+        }).bind(this);
       })
     },
     addAdvantage() {

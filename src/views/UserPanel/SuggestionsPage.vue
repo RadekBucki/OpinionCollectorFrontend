@@ -24,11 +24,12 @@
                 <div>
                   <b>First name: </b><span>{{ suggestion.reviewer.firstName }}</span>
                 </div>
-               <div>
-                <b>Last name: </b><span>{{ suggestion.reviewer.lastName }}</span>
-               </div>
                 <div>
-                  <b>Profile: </b><img :src="suggestion.reviewer.profilePictureUrl" class="img-fluid" alt="profilePicture" />
+                  <b>Last name: </b><span>{{ suggestion.reviewer.lastName }}</span>
+                </div>
+                <div>
+                  <b>Profile: </b
+                  ><img :src="suggestion.reviewer.profilePictureUrl" class="img-fluid" alt="profilePicture" />
                 </div>
               </div>
               <div v-if="!suggestion.reviewer">Reviewer not assigned</div>
@@ -57,6 +58,7 @@ import PanelNavigation from "@/components/PanelNavigation.vue";
 import MobilePanelNavigation from "@/components/MobilePanelNavigation.vue";
 import { GetRequest } from "@/communication/Network.ts";
 import { MethodRequest } from "@/communication/Network.ts";
+import { SweetAlert } from "@/communication/SweetAlerts.ts";
 
 export default {
   name: "SuggestionsPage",
@@ -76,10 +78,12 @@ export default {
           this.userSuggestions = result;
         })
         .catch((err) => {
-          if(err.response.status === 401) {
-            MethodRequest.userLogout();
-            window.location.reload();
-          }
+          SweetAlert.error(this.$swal, err.response.data.message).then(
+            function () {
+              MethodRequest.userLogout();
+              this.$router.push({ name: "Products" });
+            }.bind(this)
+          );
         });
     },
   },

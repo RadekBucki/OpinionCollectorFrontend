@@ -14,6 +14,8 @@
               read-only
               :show-rating="true"
               v-bind:star-size="25"
+              :fixed-points="2"
+              :round-start-rating="false"
               v-if="this.product"
               class="col-6 d-flex align-items-start"
               v-model:rating="this.product.opinionAvg" />

@@ -7,34 +7,26 @@
     <div class="form col-9 mt-3">
       <h1>User Data</h1>
 
-      <div class="avatarCircle col-2 mt-4 mx-auto">
+      <div class="avatarCircle col-4 mt-4 mx-auto">
         <label class="form-label text-dark mx-4">Avatar Image</label>
-        <img
-          src="https://images.unsplash.com/photo-1536164261511-3a17e671d380?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=682&q=80"
-          alt="Avatar Profile"
-          class="img-fluid"
-        />
-        <input type="text" v-model="imgUrl" class="form-control mt-3" placeholder="Image url" />
+        <img :src="userData.pictureUrl" alt="Avatar Profile" />
       </div>
       <div class="mt-5 d-flex justify-content-center align-items-center">
-        <form class="col-9">
+        <form class="col-7">
           <div class="row form-mobile">
-            <div class="col-4">
+            <div class="col-4 mb-2">
               <label class="form-label text-dark">Name</label>
-              <input type="text" v-model="firstName" class="form-control" placeholder="Name" />
+              <input type="text" v-model="userData.firstName" class="form-control" disabled />
             </div>
-            <div class="col-6">
+            <div class="col-6 mb-2">
               <label class="form-label text-dark">Last name</label>
-              <input type="text" v-model="lastName" class="form-control" placeholder="Last name" />
+              <input type="text" v-model="userData.lastName" class="form-control" disabled />
             </div>
           </div>
           <div class="row form-mobile mt-2">
             <div class="col-7">
               <label class="form-label text-dark">Address e-mail</label>
-              <input type="text" v-model="email" class="form-control" placeholder="e-mail" />
-            </div>
-            <div class="mt-2 d-flex justify-content-end">
-              <button class="btn btn-primary">Save changes</button>
+              <input type="text" v-model="userData.email" class="form-control" disabled />
             </div>
           </div>
         </form>
@@ -46,6 +38,7 @@
 <script>
 import PanelNavigation from "@/components/PanelNavigation.vue";
 import MobilePanelNavigation from "@/components/MobilePanelNavigation.vue";
+import { MethodRequest } from "@/communication/Network.ts";
 
 export default {
   name: "DataPage",
@@ -55,10 +48,15 @@ export default {
   },
   data() {
     return {
-      firstName: null,
-      lastName: null,
-      email: null,
-      imgUrl: null,
+      userData: {
+        firstName: MethodRequest.getUser().firstName,
+        lastName: MethodRequest.getUser().lastName,
+        email: MethodRequest.getUser().email,
+        pictureUrl: MethodRequest.getUser().profilePictureUrl,
+        isAdmin: MethodRequest.getUser().isAdmin,
+        id: MethodRequest.getUser().id,
+        password: MethodRequest.getUser().password,
+      },
     };
   },
 };
@@ -69,15 +67,16 @@ export default {
   border-radius: 50%;
 }
 
+.form-mobile div {
+  width: 100%;
+}
+
 @media (max-width: 1200px) {
   .form {
     width: 100%;
   }
   .form-mobile {
     flex-direction: column !important;
-  }
-  .form-mobile div {
-    width: 100%;
   }
 }
 </style>

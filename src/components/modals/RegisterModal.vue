@@ -23,7 +23,7 @@
             </div>
             <div class="text-start form-group mb-3">
               <label>URL to profile image (optional)</label>
-              <input v-model="this.credentials.pictureUrl" type="text" class="form-control" placeholder="Enter URL to profile image">
+              <input v-model="this.credentials.pictureUrl" type="url" class="form-control" placeholder="Enter URL to profile image">
             </div>
             <div class="text-start form-group mb-3">
               <label>Password</label>

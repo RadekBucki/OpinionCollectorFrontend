@@ -7,7 +7,7 @@
         <div class="text-start col-md-9 col-12">
           <div class="d-flex align-items-center">
             <b class=" fs-5">{{ this.product?.name }} ({{ this.product?.sku }})</b>
-            <button v-if="this.isLoggedIn" @click="this.suggestionModal.show()" type="button" class="btn btn-outline-dark ms-3">Add suggestion</button>
+            <button v-if="this.isLoggedIn && !this.isAdmin" @click="this.suggestionModal.show()" type="button" class="btn btn-outline-dark ms-3">Add suggestion</button>
           </div>
           <p class="fw-lighter">{{ getProductCategoriesForDisplay() }}</p>
           <star-rating
@@ -30,7 +30,7 @@
         <hr>
         <div class="d-flex align-items-center">
           <b class="text-start fs-5">Opinions</b>
-          <button v-if="this.isLoggedIn" @click="this.opinionModal.show()" type="button" class="btn btn-outline-dark ms-3">Add opinion</button>
+          <button v-if="this.isLoggedIn && !this.isAdmin" @click="this.opinionModal.show()" type="button" class="btn btn-outline-dark ms-3">Add opinion</button>
         </div>
         <div class="mb-5 mt-4" v-for="opinion in this.opinions" :key="opinion">
 
@@ -100,6 +100,7 @@ export default {
   },
   data: () => ({
     isLoggedIn: MethodRequest.isTokenAvailable(),
+    isAdmin: MethodRequest.getUser().isAdmin,
     product: null,
     opinions: null,
     opinionModal: null,

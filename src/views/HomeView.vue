@@ -16,10 +16,11 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .item {
   height: 300px;
 }
+
 .item img {
   object-fit: contain;
   max-width: 55%;

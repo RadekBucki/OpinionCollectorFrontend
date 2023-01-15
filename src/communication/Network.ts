@@ -365,10 +365,15 @@ export class PostRequest {
             pictureUrl: user.pictureUrl
         };
 
+        const token = localStorage.getItem("token");
+
         return axios({
             method: 'POST',
             url: BaseUrl + Post.USER_REGISTER,
             data: RegisterUser,
+            headers: {
+                Authorization: token == null ? "" : "Bearer " + token,
+            },
         }).then(function (response) {
             return response.data as User;
         }).catch(function (error) {

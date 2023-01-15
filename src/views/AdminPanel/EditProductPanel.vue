@@ -141,18 +141,6 @@ export default {
     categories() {
       return this.product.categories;
     },
-    disableButtonEdit() {
-      if (this.selectedView === 'editProduct') {
-        return true;
-      }
-      return false;
-    },
-    disableButtonAdd() {
-      if (this.selectedView === 'addProduct') {
-        return true;
-      }
-      return false;
-    },
     infoProduct() {
       return this.productInfo;
     }

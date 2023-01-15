@@ -3,12 +3,12 @@
     <div class="form-group" :class="{ invalid: !name.isValid }">
       <label v-if="name.isValid" for="name">Product Name:</label>
       <label v-else>Product name must not be empty.</label>
-      <input 
-        type="text" 
-        name="name" 
-        class="form-control" 
-        id="name" 
-        placeholder="Type new name..." 
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        id="name"
+        placeholder="Type new name..."
         v-model.trim="name.val"
         @blur="clearValidity('name')"
         >
@@ -16,12 +16,12 @@
     <div class="form-group" :class="{ invalid: !sku.isValid }">
       <label v-if="sku.isValid" for="name">Product SKU:</label>
       <label v-else>Product sku must not be empty.</label>
-      <input 
-        type="text" 
-        name="name" 
-        class="form-control" 
-        id="sku" 
-        placeholder="Type new SKU..." 
+      <input
+        type="text"
+        name="name"
+        class="form-control"
+        id="sku"
+        placeholder="Type new SKU..."
         v-model.trim="sku.val"
         @blur="clearValidity('sku')"
         >
@@ -29,12 +29,12 @@
     <div class="form-group" :class="{ invalid: !url.isValid }">
       <label v-if="url.isValid" for="url">URL:</label>
       <label v-else>Product url must not be empty.</label>
-      <input 
-        type="url" 
-        name="url" 
-        class="form-control" 
-        id="url" 
-        placeholder="https://example.com" 
+      <input
+        type="url"
+        name="url"
+        class="form-control"
+        id="url"
+        placeholder="https://example.com"
         v-model.trim="url.val"
         @blur="clearValidity('url')"
         >
@@ -42,10 +42,10 @@
     <div class="form-group" :class="{ invalid: !desc.isValid }">
       <label v-if="desc.isValid" for="desc">Description</label>
       <label v-else>Description must not be empty and should be 8 letters long.</label>
-      <textarea 
-        class="form-control" 
-        id="desc" 
-        rows="3" 
+      <textarea
+        class="form-control"
+        id="desc"
+        rows="3"
         v-model.trim="desc.val"
         @blur="clearValidity('desc')"
         >
@@ -56,12 +56,12 @@
         <label class="form-check-label" for="flexRadioDefault1">
           Visible
         </label>
-        <input 
-          class="form-check-input" 
-          type="radio" 
-          name="Visible" 
+        <input
+          class="form-check-input"
+          type="radio"
+          name="Visible"
           id="radio1"
-          value="true" 
+          value="true"
           v-model="visible"
           >
       </div>
@@ -69,12 +69,12 @@
         <label class="form-check-label" for="flexRadioDefault2">
           Invisible
         </label>
-        <input 
-          class="form-check-input" 
-          type="radio" 
-          name="Invisible" 
+        <input
+          class="form-check-input"
+          type="radio"
+          name="Invisible"
           id="radio2"
-          value="false" 
+          value="false"
           v-model="visible"
           >
       </div>
@@ -93,20 +93,20 @@
             <td>{{ category.categoryName }}</td>
             <td>{{ category.visible }}</td>
             <td class="buttons-control">
-              <button 
+              <button
                 v-if="category"
-                :disabled="hasCategory(category.categoryName)" 
-                type="button" 
-                class="btn btn-success" 
+                :disabled="hasCategory(category.categoryName)"
+                type="button"
+                class="btn btn-success"
                 @click="addCategory(category)
                 ">
                 Add category to product
                 </button>
               <button
                 v-if="category"
-                :disabled="!hasCategory(category.categoryName)" 
-                type="button" 
-                class="btn btn-danger" 
+                :disabled="!hasCategory(category.categoryName)"
+                type="button"
+                class="btn btn-danger"
                 @click="removeCategory(category)
                 ">
                 Remove category
@@ -125,6 +125,7 @@
 
 <script>
 import { GetRequest, PostRequest } from "@/communication/Network.ts";
+import {SweetAlert} from "@/communication/SweetAlerts.ts";
 
 export default {
   data() {
@@ -178,7 +179,7 @@ export default {
     removeCategory(category) {
       this.checkedCategories = this.checkedCategories.filter(cat => {
         return cat.categoryName === category.categoryName ? false : true;
-      }); 
+      });
       this.categoriesValid--;
     },
     addProduct() {
@@ -191,11 +192,10 @@ export default {
         visible: this.visible,
       };
       console.log(product);
-      PostRequest.addProduct(product).then(res => {
-        console.log(res);
+      PostRequest.addProduct(product).then(() => {
         this.$router.push( { name: 'ListAdmin' } ).then(() => { this.$router.go() });
       }).catch(() => {
-        alert('Something went wrong');
+        SweetAlert.error(this.$swal, "Something went wrong!");
       })
     },
     validateForm() {
@@ -226,7 +226,7 @@ export default {
 
       if (!this.formIsValid) {
         return;
-      } 
+      }
 
       this.addProduct();
     },

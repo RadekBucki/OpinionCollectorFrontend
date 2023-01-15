@@ -5,9 +5,9 @@
         <img :src="img" class="img-fluid rounded m-3" alt="Responsive image">
         <label v-if="!profilePictureUrl.isValid">URL must not be empty.</label>
         <input v-if="isEditable"
-          type="text" 
-          class="form-control m-3" 
-          placeholder="URL" 
+          type="text"
+          class="form-control m-3"
+          placeholder="URL"
           v-model.trim="profilePictureUrl.val"
           @blur="clearValidity('profilePictureUrl')"
           />
@@ -19,9 +19,9 @@
             <p v-if="!isEditable"> {{ first }}</p>
             <label v-if="!firstName.isValid">First Name must not be empty.</label>
             <input v-if="isEditable"
-              type="text" 
-              class="form-control m-2" 
-              placeholder="First Name" 
+              type="text"
+              class="form-control m-2"
+              placeholder="First Name"
               v-model.trim="firstName.val"
               @blur="clearValidity('firstName')"
               />
@@ -31,9 +31,9 @@
             <p v-if="!isEditable">{{ last }}</p>
             <label v-if="!lastName.isValid">Last Name must not be empty.</label>
             <input v-if="isEditable"
-              type="text" 
-              class="form-control m-2" 
-              placeholder="Last Name" 
+              type="text"
+              class="form-control m-2"
+              placeholder="Last Name"
               v-model.trim="lastName.val"
               @blur="clearValidity('lastName')"
               />
@@ -43,25 +43,25 @@
             <p v-if="!isEditable">{{ email }}</p>
             <label v-if="!emailNew.isValid">Email must not be empty and email format.</label>
             <input v-if="isEditable"
-              type="email" 
-              class="form-control m-2" 
-              placeholder="Email" 
-              v-model.trim="emailNew.val" 
+              type="email"
+              class="form-control m-2"
+              placeholder="Email"
+              v-model.trim="emailNew.val"
               @blur="clearValidity('emailNew')"
               />
           </div>
           <div class="group-info">
             <label v-if="isEditable && editPassword">Password:</label>
             <input v-if="isEditable && editPassword"
-              type="password" 
-              class="form-control m-2" 
-              placeholder="Password" 
+              type="password"
+              class="form-control m-2"
+              placeholder="Password"
               v-model.trim="password"
               />
               <button
               v-if="editToggle && !editPassword"
-              type="button" 
-              class="btn btn-outline-dark m-2" 
+              type="button"
+              class="btn btn-outline-dark m-2"
               @click="passwordEdit()"
               >
               Change Password
@@ -77,10 +77,10 @@
                 <label class="form-check-label">
                     Admin
                 </label>
-                <input 
-                  class="form-check-input" 
-                  type="radio"  
-                  value="true" 
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  value="true"
                   v-model="adminStatus"
                   />
                 </div>
@@ -88,10 +88,10 @@
                   <label class="form-check-label">
                     User
                   </label>
-                <input 
-                  class="form-check-input" 
-                  type="radio" 
-                  value="false" 
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  value="false"
                   v-model="adminStatus"
                 />
               </div>
@@ -101,15 +101,15 @@
       </div>
     </div>
     <button
-      type="button" 
-      class="btn btn-outline-dark m-2" 
+      type="button"
+      class="btn btn-outline-dark m-2"
       @click="editUser()
       ">
       {{ buttonText }}
     </button>
-    <button v-if="isEditable" 
-      type="button" 
-      class="btn btn-outline-dark m-2" 
+    <button v-if="isEditable"
+      type="button"
+      class="btn btn-outline-dark m-2"
       @click="submitForm()
       ">
       Save Edit
@@ -119,6 +119,7 @@
 
 <script>
 import { PutRequest } from "@/communication/Network.ts";
+import {SweetAlert} from "@/communication/SweetAlerts.ts";
 
 export default {
   props: ['first', 'last', 'email', 'admin', 'img', 'userId'],
@@ -172,10 +173,11 @@ export default {
         delete userData.password;
       }
       PutRequest.userEdit(this.$props.userId, userData).then(() => {
-        alert('Succes');
-        this.$router.push( { name: 'UsersPanel' } ).then(() => { this.$router.go() });
+        SweetAlert.success(this.$swal, "Successfully edited user").then(() => {
+          this.$router.push( { name: 'UsersPanel' } ).then(() => { this.$router.go() });
+          this.editToggle = !this.editToggle;
+        });
       });
-      this.editToggle = !this.editToggle;
     },
     validateForm() {
       this.formIsValid = true;
@@ -201,7 +203,7 @@ export default {
 
       if (!this.formIsValid) {
         return;
-      } 
+      }
 
       this.saveUserData();
     },

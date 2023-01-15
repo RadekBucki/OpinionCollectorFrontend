@@ -2,16 +2,16 @@
   <div>
     <button type="button" class="btn btn-dark mt-2" :disabled="editPanel" @click="visibleChange">Add New
       Category</button>
-    <div v-if="visibleAddPanel" 
-      class="input-group mt-4" 
+    <div v-if="visibleAddPanel"
+      class="input-group mt-4"
       :class="{ invalid: !categoryName.isValid }">
       <div class="input-group-prepend">
         <span class="input-group-text" id="">Category and visibility</span>
       </div>
       <label v-if="!categoryName.isValid">Category must not be empty.</label>
-      <input 
-        type="text" 
-        class="form-control" 
+      <input
+        type="text"
+        class="form-control"
         v-model.trim="categoryName.val"
         @blur="clearValidity('categoryName')"
         >
@@ -36,9 +36,9 @@
             <td>{{ category.categoryName }}</td>
             <td>{{ category.visible }}</td>
             <td>
-              <button 
-                type="button" 
-                class="btn btn-danger" 
+              <button
+                type="button"
+                class="btn btn-danger"
                 :disabled="editPanel"
                 @click="removeCategory(index)"
                 >
@@ -46,10 +46,10 @@
               </button>
             </td>
             <td>
-              <button 
-                type="button" 
-                class="btn btn-dark" 
-                :disabled="editPanel" 
+              <button
+                type="button"
+                class="btn btn-dark"
+                :disabled="editPanel"
                 @click=editToggle(index)
                 >
                 Edit Category
@@ -71,16 +71,16 @@
         </select>
       </div>
       <div class="button-control">
-        <button 
-          type="button" 
-          class="btn btn-dark mt-3" 
+        <button
+          type="button"
+          class="btn btn-dark mt-3"
           @click="saveEdit()"
           >
           Save Edit
         </button>
-        <button 
-          type="button" 
-          class="btn btn-dark mt-3" 
+        <button
+          type="button"
+          class="btn btn-dark mt-3"
           @click="back()"
           >
           Back
@@ -92,6 +92,7 @@
 
 <script>
 import { GetRequest, PostRequest, PutRequest, DeleteRequest } from "@/communication/Network.ts";
+import {SweetAlert} from "@/communication/SweetAlerts.ts";
 
 export default {
   data() {
@@ -130,7 +131,7 @@ export default {
 
       if (!this.formIsValid) {
         return;
-      } 
+      }
 
       this.addCategory();
     },
@@ -138,19 +139,22 @@ export default {
       const toBool = (this.visible === 'true');
       PostRequest.addCategory(this.categoryName.val, toBool).then(res=> {
         this.categories.push(res);
+        this.categoryName.val = '';
+        this.categoryName.isValid = true;
+        this.visible = null;
       }).catch(() => {
-        alert('Something went wrong');
+        SweetAlert.error(this.$swal, "Something went wrong!").then(() => {
+          this.categoryName.val = '';
+          this.categoryName.isValid = true;
+          this.visible = null;
+        });
       })
-      this.categoryName.val = '';
-      this.categoryName.isValid = true;
-      this.visible = null;
     },
-    removeCategory(index) { 
-      DeleteRequest.deleteCategory(this.categories[index].categoryName).then(res => {
-        console.log(res);
+    removeCategory(index) {
+      DeleteRequest.deleteCategory(this.categories[index].categoryName).then(() => {
         this.loadCategories();
       }).catch(() => {
-        alert('Something went wrong');
+        SweetAlert.error(this.$swal, "Something went wrong!");
       });
     },
     visibleChange() {
@@ -170,7 +174,7 @@ export default {
       PutRequest.editCategory(edit.categoryName, edit.isVisible).then(res => {
         this.categories[this.index] = res;
       }).catch(() => {
-        alert('Something went wrong');
+        SweetAlert.error(this.$swal, "Something went wrong!");
       });
       this.editPanel = !this.editPanel;
     },

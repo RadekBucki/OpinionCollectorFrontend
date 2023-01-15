@@ -6,9 +6,9 @@
           Back to browse
         </RouterLink>
         <div class="mt-4">
-          <button 
-            type="button" 
-            class="btn btn-outline-danger" 
+          <button
+            type="button"
+            class="btn btn-outline-danger"
             @click="removeProduct()
             ">
             Remove Product
@@ -20,16 +20,16 @@
           <button @click="saveProduct()" type="button" class="btn btn-outline-dark">Save Edit</button>
         </div>
         <div class="col">
-          <DisplayEdit 
-            :url="pictureUrl" 
-            :name="productName" 
-            :sku="sku" 
+          <DisplayEdit
+            :url="pictureUrl"
+            :name="productName"
+            :sku="sku"
             :description="description"
             :categories="categories" />
           <EditForm v-if="fullLoad"
-            :categoriesOwned="categories" 
+            :categoriesOwned="categories"
             :info="infoProduct"
-            @edit-data="setEdit" 
+            @edit-data="setEdit"
             :loaded="fullLoad"/>
         </div>
       </div>
@@ -42,6 +42,7 @@ import { GetRequest, DeleteRequest, PutRequest } from "@/communication/Network.t
 
 import EditForm from '@/components/product/EditForm.vue';
 import DisplayEdit from '@/components/product/DisplayEdit.vue';
+import {SweetAlert} from "@/communication/SweetAlerts.ts";
 
 export default {
   components: {
@@ -85,11 +86,14 @@ export default {
     },
     removeProduct() {
       DeleteRequest.deleteProduct(this.$route.params.sku).then(() => {
-        alert('Success');
+        SweetAlert.success(this.$swal, "Successfully removed product").then(() => {
+          this.$router.push({ name: 'ListAdmin' });
+        });
       }).catch(() => {
-        alert('Something went wrong');
+        SweetAlert.error(this.$swal, "Something went wrong!").then(() => {
+          this.$router.push({ name: 'ListAdmin' });
+        });
       });
-      this.$router.push({ name: 'ListAdmin' });
     },
     saveProduct() {
       const payload = {
@@ -101,9 +105,10 @@ export default {
         visible: this.visible,
       };
       PutRequest.editProduct(payload).then(() => {
-        alert('Success');
-        this.$router.push( { name: 'ListAdmin' } ).then(() => { this.$router.go() }).catch(() => {
-          alert('Something went wrong');
+        SweetAlert.success(this.$swal, "Successfully edited product").then(() => {
+          this.$router.push( { name: 'ListAdmin' } ).then(() => { this.$router.go() }).catch(() => {
+            SweetAlert.error(this.$swal, "Something went wrong!");
+          });
         });
       });
     },

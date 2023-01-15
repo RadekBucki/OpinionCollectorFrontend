@@ -20,17 +20,21 @@
 
 <script>
 import { DeleteRequest } from "@/communication/Network.ts";
+import {SweetAlert} from "@/communication/SweetAlerts.ts";
 
 export default {
   props: ['name', 'url', 'sku'],
   methods: {
     removeProduct() {
       DeleteRequest.deleteProduct(this.$props.sku).then(() => {
-        alert('Success');
+        SweetAlert.success(this.$swal, "Successfully removed product").then(() => {
+          this.$router.push({ name: 'ListAdmin' }).then(() => { this.$router.go() });
+        });
       }).catch(() => {
-        alert('Something went wrong');
+        SweetAlert.error(this.$swal, "Something went wrong!").then(() => {
+          this.$router.push({ name: 'ListAdmin' }).then(() => { this.$router.go() });
+        });
       });
-      this.$router.push({ name: 'ListAdmin' }).then(() => { this.$router.go() });
     },
   }
 }

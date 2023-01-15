@@ -53,6 +53,7 @@
 
 <script>
 import { PutRequest } from "@/communication/Network.ts";
+import {SweetAlert} from "@/communication/SweetAlerts.ts";
 
 export default {
   props: ['id', 'sku', 'description', 'user', 'review'],
@@ -79,12 +80,15 @@ export default {
         suggestionStatus: this.pickedStatus,
       };
       PutRequest.replySuggestion(data).then(() => {
-        alert("Reply send");
-        this.$router.push({ name: 'SuggestionsPanel' }).then(() => { this.$router.go() });
+        SweetAlert.success(this.$swal, "Successfully replied to the suggestion").then(() => {
+          this.$router.push({ name: 'SuggestionsPanel' }).then(() => { this.$router.go() });
+          this.replyToggle = !this.replyToggle;
+        });
       }).catch(() => {
-        alert('Something went wrong');
+        SweetAlert.error(this.$swal, "Something went wrong!").then(() => {
+          this.replyToggle = !this.replyToggle;
+        });
       })
-      this.replyToggle = !this.replyToggle;
     },
     validateForm() {
       this.formIsValid = true;
@@ -98,7 +102,7 @@ export default {
 
       if (!this.formIsValid) {
         return;
-      } 
+      }
 
       this.sendReply();
     },

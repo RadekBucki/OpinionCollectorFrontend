@@ -7,6 +7,7 @@
       :sku="suggestion.product.sku"
       :description="suggestion.description"
       :user="suggestion.user"
+      :review="suggestion.review"
       class="mt-3"
       >
     </suggestion-item>

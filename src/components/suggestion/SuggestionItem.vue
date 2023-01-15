@@ -10,27 +10,42 @@
         <label>User Suggestion:</label>
         <p>{{ description }}</p>
       </div>
+      <div v-if="this.$props.review != null" class="col">
+        <h1 class="fs-6 fw-bold">Review:</h1>
+        <div>
+          <div>
+            <b>Status: </b><span>{{ review?.status }}</span>
+          </div>
+          <div>
+            <b>Reply: </b><span>{{ review?.reply }}</span>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="row">
       <div class="button-control">
         <RouterLink :to="{ name: 'EditProduct', params: { sku: `${this.sku}` } }" class="btn btn-outline-dark">
           Edit Product
         </RouterLink>
-        <button type="button" class="btn btn-outline-dark" @click="reply">{{ buttonText }}</button>
+        <button v-if="this.$props.review === null" type="button" class="btn btn-outline-dark" @click="reply">
+          {{ buttonText }}</button>
       </div>
-      <div v-if="getToggle" class="row mt-3">
-        <div class="form-group">
-          <label for="desc">Reply message</label>
-          <textarea class="form-control" id="desc" rows="3" v-model="suggestionReply"></textarea>
+      <div>
+        <div v-if="getToggle" class="row mt-3">
+          <div class="form-group" :class="{ invalid: !suggestionReply.isValid }">
+            <label v-if="suggestionReply.isValid" for="desc">Reply message</label>
+            <label v-else>Reply must not be empty.</label>
+            <textarea class="form-control" id="desc" rows="3" v-model="suggestionReply.val" @blur="clearValidity('suggestionReply')"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="select">Status</label>
+            <select class="form-control" id="select" v-model="pickedStatus">
+              <option v-for="status in suggestionStatus" :key="status" :value="status">{{ status }}
+              </option>
+            </select>
+          </div>
+          <button type="button" class="mt-3 btn btn-success" @click="submitForm()">Send Reply</button>
         </div>
-        <div class="form-group">
-          <label for="select">Status</label>
-          <select class="form-control" id="select" v-model="pickedStatus">
-            <option v-for="status in suggestionStatus" :key="status" :value="status">{{ status }}
-            </option>
-          </select>
-        </div>
-        <button type="button" class="mt-3 btn btn-success" @click="sendReply()">Send Reply</button>
       </div>
     </div>
   </div>
@@ -40,13 +55,17 @@
 import { PutRequest } from "@/communication/Network.ts";
 
 export default {
-  props: ['id', 'sku', 'description', 'user'],
+  props: ['id', 'sku', 'description', 'user', 'review'],
   data() {
     return {
-      suggestionReply: '',
-      suggestionStatus: ['DECLINED', 'PENDING', 'DONE'], 
+      suggestionReply: {
+        val: '',
+        isValid: true,
+      },
+      suggestionStatus: ['DECLINED', 'PENDING', 'DONE'],
       replyToggle: false,
-      pickedStatus: null,
+      pickedStatus: 'DECLINED',
+      formIsValid: true,
     };
   },
   methods: {
@@ -56,17 +75,36 @@ export default {
     sendReply() {
       const data = {
         suggestionId: this.id,
-        suggestionReply: this.suggestionReply,
+        suggestionReply: this.suggestionReply.val,
         suggestionStatus: this.pickedStatus,
       };
       PutRequest.replySuggestion(data).then(() => {
         alert("Reply send");
-        this.$router.push( { name: 'SuggestionsPanel' } ).then(() => { this.$router.go() });
+        this.$router.push({ name: 'SuggestionsPanel' }).then(() => { this.$router.go() });
       }).catch(() => {
         alert('Something went wrong');
       })
       this.replyToggle = !this.replyToggle;
-    }
+    },
+    validateForm() {
+      this.formIsValid = true;
+      if (this.suggestionReply.val === '') {
+        this.suggestionReply.isValid = false;
+        this.formIsValid = false;
+      }
+    },
+    submitForm() {
+      this.validateForm();
+
+      if (!this.formIsValid) {
+        return;
+      } 
+
+      this.sendReply();
+    },
+    clearValidity(input) {
+      this[input].isValid = true;
+    },
   },
   computed: {
     getToggle() {
@@ -74,7 +112,7 @@ export default {
     },
     buttonText() {
       return this.replyToggle ? 'Back' : 'Reply';
-    }
+    },
   },
 }
 </script>
@@ -88,5 +126,13 @@ export default {
 
 label {
   font-weight: bold;
+}
+
+.invalid label {
+  color: red;
+}
+
+.invalid textarea {
+  border: 1px solid red;
 }
 </style>

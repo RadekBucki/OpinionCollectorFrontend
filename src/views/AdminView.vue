@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-center">
-      <MobileBoard /> 
+      <MobileBoard />
       <div class="row">
         <div class="d-none d-lg-block col-4">
           <DashBoard />
@@ -23,6 +23,15 @@ export default {
   components: {
     DashBoard,
     MobileBoard,
+  },
+  beforeRouteEnter(_, _2, next) {
+    const admin = JSON.parse(localStorage.getItem("user"))
+    if (admin != null && admin.isAdmin) {
+      next(true);
+    }
+    else {
+      next('/');
+    }
   }
 }
 </script>

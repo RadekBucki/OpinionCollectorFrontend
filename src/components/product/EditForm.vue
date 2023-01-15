@@ -11,10 +11,6 @@
         >
     </div>
     <div class="form-group">
-      <label for="name">Product SKU:</label>
-      <p>{{ sku }}</p>
-    </div>
-    <div class="form-group">
       <label for="url">URL:</label>
       <input 
         type="url" 

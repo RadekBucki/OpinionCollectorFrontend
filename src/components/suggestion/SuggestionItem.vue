@@ -10,15 +10,18 @@
         <label>User Suggestion:</label>
         <p>{{ description }}</p>
       </div>
-      <div v-if="this.$props.review != null" class="col">
+      <div class="col">
         <h1 class="fs-6 fw-bold">Review:</h1>
-        <div>
+        <div v-if="this.$props.review != null">
           <div>
-            <b>Status: </b><span>{{ review?.status }}</span>
+            <b>Status: </b><span style="color:forestgreen;">{{ review?.status }}</span>
           </div>
           <div>
             <b>Reply: </b><span>{{ review?.reply }}</span>
           </div>
+        </div>
+        <div v-else>
+          <b>Status: </b><span style="color:red;"> Pending </span>
         </div>
       </div>
     </div>
@@ -63,7 +66,7 @@ export default {
         val: '',
         isValid: true,
       },
-      suggestionStatus: ['DECLINED', 'PENDING', 'DONE'],
+      suggestionStatus: ['Declined', 'Done'],
       replyToggle: false,
       pickedStatus: 'DECLINED',
       formIsValid: true,
@@ -77,7 +80,7 @@ export default {
       const data = {
         suggestionId: this.id,
         suggestionReply: this.suggestionReply.val,
-        suggestionStatus: this.pickedStatus,
+        suggestionStatus: this.pickedStatus.toLocaleUpperCase(),
       };
       PutRequest.replySuggestion(data).then(() => {
         SweetAlert.success(this.$swal, "Successfully replied to the suggestion").then(() => {

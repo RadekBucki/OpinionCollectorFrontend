@@ -38,7 +38,7 @@ import { GetRequest } from "@/communication/Network.ts";
 
 import ProductItem from '@/components/product/ProductItem.vue';
 import ProductsFilter from '@/components/product/ProductsFilter.vue';
-import AddProduct from './AddProduct.vue';
+import AddProduct from '../../components/product/AddProduct.vue';
 
 export default {
   components: {

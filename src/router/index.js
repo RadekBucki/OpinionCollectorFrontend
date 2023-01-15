@@ -8,11 +8,11 @@ import SuggestionsPage from '@/views/UserPanel/SuggestionsPage.vue'
 import ProductsListPage from "@/views/ProductsListPage";
 import ProductDetailPage from "@/views/ProductDetailPage";
 
-import EditProduct from '@/views/EditProduct.vue';
-import ProductsList from '@/views/ProductsList.vue';
-import CategoriesPanel from '@/views/CategoriesPanel.vue';
-import UsersList from '@/views/UsersList.vue';
-import SuggestionsPanel from '@/views/SuggestionsPanel.vue'
+import EditProduct from '@/views/AdminPanel/EditProductPanel.vue';
+import ProductsList from '@/views/AdminPanel/ProductsPanel.vue';
+import CategoriesPanel from '@/views/AdminPanel/CategoriesPanel.vue';
+import UsersList from '@/views/AdminPanel/UsersPanel.vue';
+import SuggestionsPanel from '@/views/AdminPanel/SuggestionsPanel.vue'
 
 const routes = [
     {

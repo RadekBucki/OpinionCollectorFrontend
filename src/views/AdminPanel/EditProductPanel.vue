@@ -106,11 +106,11 @@ export default {
       };
       PutRequest.editProduct(payload).then(() => {
         SweetAlert.success(this.$swal, "Successfully edited product").then(() => {
-          this.$router.push( { name: 'ListAdmin' } ).then(() => { this.$router.go() }).catch(() => {
-            SweetAlert.error(this.$swal, "Something went wrong!");
+          this.$router.push( { name: 'ListAdmin' } ).then(() => { this.$router.go() })
           });
+        }).catch(() => {
+            SweetAlert.error(this.$swal, "Something went wrong!");
         });
-      });
     },
     loadProduct() {
       GetRequest.getProductDetails(this.$route.params.sku).then(res => {

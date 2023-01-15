@@ -37,6 +37,7 @@
         :value="modelValue"
         @input="$emit('update:modelValue', $event.target.value)"
         >
+        <option value="">Select category</option>
         <option v-for="category in getCategories" 
           :key="category.categoryName" 
           :value="category.categoryName"

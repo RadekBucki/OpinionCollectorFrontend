@@ -9,7 +9,7 @@
           <div class="fw-semibold fs-5 mx-2 mt-1">{{ opinion.productName }}</div>
           <div class="row px-3 box d-flex justify-content-center align-items-center">
             <div class="col-3 image d-flex justify-content-center align-items-center">
-              <img :src="opinion.pictureUrl" class="img-fluid" alt="productImage" />
+              <img v-if="opinion.pictureUrl" :src="opinion.pictureUrl" class="img-fluid" alt="productImage" />
             </div>
             <div class="col-3">
               <star-rating

@@ -2,7 +2,6 @@
   <div class="p-2 mt-3 border rounded item row">
     <div class="col">
       <div class="row m-3">
-        <label>Product Name</label>
         <span>{{ name }}</span>
       </div>
       <div class="row m-3">
@@ -32,7 +31,7 @@ export default {
       return this.categories.filter(cat => {
         return cat.visible === true;
       });
-    }
+    },
   }
 }
 </script>

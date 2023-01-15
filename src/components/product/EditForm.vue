@@ -7,7 +7,8 @@
         name="name" 
         class="form-control"  
         placeholder="Type new name..." 
-        v-model.trim="name">
+        v-model.trim="name"
+        >
     </div>
     <div class="form-group">
       <label for="name">Product SKU:</label>
@@ -163,7 +164,7 @@ export default {
       this.name = this.$props.info.name;
       this.url = this.$props.info.pictureUrl;
       this.desc = this.$props.info.description;
-    }
+    },
   },
   computed: {
     hasAddedCategories() {

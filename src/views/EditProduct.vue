@@ -98,9 +98,7 @@ export default {
         sku: this.product.sku,
         visible: this.visible,
       };
-      console.log(payload);
-      PutRequest.editProduct(payload).then(res => {
-        console.log(res);
+      PutRequest.editProduct(payload).then(() => {
         this.$router.push( { name: 'ListAdmin' } ).then(() => { this.$router.go() });
       });
     },
@@ -115,7 +113,7 @@ export default {
         }
         this.fullLoad = true;
       });
-    }
+    },
   },
   computed: {
     productName() {

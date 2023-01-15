@@ -1,21 +1,55 @@
 <template>
   <div class="form-group">
-    <div class="form-group">
-      <label for="name">Product Name:</label>
-      <input type="text" name="name" class="form-control" id="name" placeholder="Type new name..." v-model.trim="name">
+    <div class="form-group" :class="{ invalid: !name.isValid }">
+      <label v-if="name.isValid" for="name">Product Name:</label>
+      <label v-else>Product name must not be empty.</label>
+      <input 
+        type="text" 
+        name="name" 
+        class="form-control" 
+        id="name" 
+        placeholder="Type new name..." 
+        v-model.trim="name.val"
+        @blur="clearValidity('name')"
+        >
     </div>
-    <div class="form-group">
-      <label for="name">Product SKU:</label>
-      <input type="text" name="name" class="form-control" id="sku" placeholder="Type new SKU..." v-model.trim="sku">
+    <div class="form-group" :class="{ invalid: !sku.isValid }">
+      <label v-if="sku.isValid" for="name">Product SKU:</label>
+      <label v-else>Product sku must not be empty.</label>
+      <input 
+        type="text" 
+        name="name" 
+        class="form-control" 
+        id="sku" 
+        placeholder="Type new SKU..." 
+        v-model.trim="sku.val"
+        @blur="clearValidity('sku')"
+        >
     </div>
-    <div class="form-group">
-      <label for="url">URL:</label>
-      <input type="url" name="url" class="form-control" id="url" placeholder="https://example.com" pattern="https://.*"
-        v-model.trim="url">
+    <div class="form-group" :class="{ invalid: !url.isValid }">
+      <label v-if="url.isValid" for="url">URL:</label>
+      <label v-else>Product url must not be empty.</label>
+      <input 
+        type="url" 
+        name="url" 
+        class="form-control" 
+        id="url" 
+        placeholder="https://example.com" 
+        v-model.trim="url.val"
+        @blur="clearValidity('url')"
+        >
     </div>
-    <div class="form-group">
-      <label for="desc">Description</label>
-      <textarea class="form-control" id="desc" rows="3" v-model.trim="desc"></textarea>
+    <div class="form-group" :class="{ invalid: !desc.isValid }">
+      <label v-if="desc.isValid" for="desc">Description</label>
+      <label v-else>Description must not be empty and should be 8 letters long.</label>
+      <textarea 
+        class="form-control" 
+        id="desc" 
+        rows="3" 
+        v-model.trim="desc.val"
+        @blur="clearValidity('desc')"
+        >
+      </textarea>
     </div>
     <div class="radio m-4">
       <div class="form-check">
@@ -82,7 +116,10 @@
         </tbody>
       </table>
     </div>
-    <button type="button" class="set btn btn-outline-dark" @click="addProduct()">Add product</button>
+    <div>
+      <p v-if="categoriesValid === 0">Product should have at least one category</p>
+    </div>
+    <button type="button" class="set btn btn-outline-dark" @click="submitForm()">Add product</button>
   </div>
 </template>
 
@@ -92,13 +129,27 @@ import { GetRequest, PostRequest } from "@/communication/Network.ts";
 export default {
   data() {
     return {
-      name: '',
-      url: '',
-      desc: '',
-      sku: '',
+      name: {
+        val: '',
+        isValid: true,
+      },
+      url: {
+        val: '',
+        isValid: true,
+      },
+      desc: {
+        val: '',
+        isValid: true,
+      },
+      sku: {
+        val: '',
+        isValid: true,
+      },
       categories: [],
       visible: true,
       checkedCategories: [],
+      categoriesValid: 0,
+      formIsValid: true,
     }
   },
   methods: {
@@ -122,19 +173,21 @@ export default {
     },
     addCategory(category) {
       this.checkedCategories.push(category);
+      this.categoriesValid++;
     },
     removeCategory(category) {
       this.checkedCategories = this.checkedCategories.filter(cat => {
         return cat.categoryName === category.categoryName ? false : true;
       }); 
+      this.categoriesValid--;
     },
     addProduct() {
       const product = {
         categoryNames: this.checkedCategories.map(element => element.categoryName),
-        description: this.desc,
-        name: this.name,
-        pictureUrl: this.url,
-        sku: this.sku,
+        description: this.desc.val,
+        name: this.name.val,
+        pictureUrl: this.url.val,
+        sku: this.sku.val,
         visible: this.visible,
       };
       console.log(product);
@@ -142,7 +195,42 @@ export default {
         console.log(res);
         this.$router.push( { name: 'ListAdmin' } ).then(() => { this.$router.go() });
       })
-    }
+    },
+    validateForm() {
+      this.formIsValid = true;
+      if (this.name.val === '') {
+        this.name.isValid = false;
+        this.formIsValid = false;
+      }
+      if (this.sku.val === '') {
+        this.sku.isValid = false;
+        this.formIsValid = false;
+      }
+      if (this.url.val === '') {
+        this.url.isValid = false;
+        this.formIsValid = false;
+      }
+      if (this.desc.val === '') {
+        this.desc.isValid = false;
+        this.formIsValid = false;
+      }
+      if (this.checkedCategories.length === 0) {
+        this.categoriesValid = false;
+        this.formIsValid = false;
+      }
+    },
+    submitForm() {
+      this.validateForm();
+
+      if (!this.formIsValid) {
+        return;
+      } 
+
+      this.addProduct();
+    },
+    clearValidity(input) {
+      this[input].isValid = true;
+    },
   },
   computed: {
     hasAddedCategories() {
@@ -151,7 +239,7 @@ export default {
   },
   mounted() {
     this.loadCategories();
-  }
+  },
 }
 </script>
 
@@ -168,5 +256,20 @@ export default {
   display: flex;
   justify-content: center;
   gap: 10px;
+}
+
+.invalid label {
+  color: red;
+}
+.invalid input {
+  border: 1px solid red;
+}
+
+.invalid textarea {
+  border: 1px solid red;
+}
+
+p {
+  color: red;
 }
 </style>

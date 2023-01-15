@@ -3,7 +3,7 @@
     <div class="py-2 fw-semibold fs-5 col text-start">{{ name }}</div>
     <div class="row">
       <div class="col">
-        <img :src="url" class="img-fluid" alt="productImage" />
+        <img :src="url" class="img-thumbnail" alt="productImage" style="width: 300px; height: 300px; object-fit: contain;"/>
       </div>
       <div class="col">{{ sku }}</div>
     </div>

@@ -84,8 +84,10 @@ export default {
       this.visible = payload.visible;
     },
     removeProduct() {
-      DeleteRequest.deleteProduct(this.$route.params.sku).then(res => {
-        console.log(res);
+      DeleteRequest.deleteProduct(this.$route.params.sku).then(() => {
+        alert('Success');
+      }).catch(() => {
+        alert('Something went wrong');
       });
       this.$router.push({ name: 'ListAdmin' });
     },
@@ -99,7 +101,10 @@ export default {
         visible: this.visible,
       };
       PutRequest.editProduct(payload).then(() => {
-        this.$router.push( { name: 'ListAdmin' } ).then(() => { this.$router.go() });
+        alert('Success');
+        this.$router.push( { name: 'ListAdmin' } ).then(() => { this.$router.go() }).catch(() => {
+          alert('Something went wrong');
+        });
       });
     },
     loadProduct() {

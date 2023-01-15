@@ -25,8 +25,10 @@ export default {
   props: ['name', 'url', 'sku'],
   methods: {
     removeProduct() {
-      DeleteRequest.deleteProduct(this.$props.sku).then(res => {
-        console.log(res);
+      DeleteRequest.deleteProduct(this.$props.sku).then(() => {
+        alert('Success');
+      }).catch(() => {
+        alert('Something went wrong');
       });
       this.$router.push({ name: 'ListAdmin' }).then(() => { this.$router.go() });
     },

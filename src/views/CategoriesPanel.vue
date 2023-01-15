@@ -138,6 +138,8 @@ export default {
       const toBool = (this.visible === 'true');
       PostRequest.addCategory(this.categoryName.val, toBool).then(res=> {
         this.categories.push(res);
+      }).catch(() => {
+        alert('Something went wrong');
       })
       this.categoryName.val = '';
       this.categoryName.isValid = true;
@@ -147,6 +149,8 @@ export default {
       DeleteRequest.deleteCategory(this.categories[index].categoryName).then(res => {
         console.log(res);
         this.loadCategories();
+      }).catch(() => {
+        alert('Something went wrong');
       });
     },
     visibleChange() {
@@ -165,6 +169,8 @@ export default {
       };
       PutRequest.editCategory(edit.categoryName, edit.isVisible).then(res => {
         this.categories[this.index] = res;
+      }).catch(() => {
+        alert('Something went wrong');
       });
       this.editPanel = !this.editPanel;
     },

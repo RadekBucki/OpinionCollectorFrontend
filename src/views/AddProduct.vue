@@ -194,6 +194,8 @@ export default {
       PostRequest.addProduct(product).then(res => {
         console.log(res);
         this.$router.push( { name: 'ListAdmin' } ).then(() => { this.$router.go() });
+      }).catch(() => {
+        alert('Something went wrong');
       })
     },
     validateForm() {

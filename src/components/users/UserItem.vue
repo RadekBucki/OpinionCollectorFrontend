@@ -177,7 +177,9 @@ export default {
           this.$router.push( { name: 'UsersPanel' } ).then(() => { this.$router.go() });
           this.editToggle = !this.editToggle;
         });
-      });
+      }).catch(() => {
+          SweetAlert.error(this.$swal, "Something went wrong!");
+      })
     },
     validateForm() {
       this.formIsValid = true;

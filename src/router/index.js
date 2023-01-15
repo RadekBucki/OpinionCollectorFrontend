@@ -65,7 +65,7 @@ const routes = [
                         props: true
                     },
                     {
-                        path: '/suggestions',
+                        path: '/suggestionsEdit',
                         name: 'SuggestionsPanel',
                         component: SuggestionsPanel,
                         props: true

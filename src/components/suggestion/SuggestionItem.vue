@@ -21,7 +21,7 @@
           </div>
         </div>
         <div v-else>
-          <b>Status: </b><span style="color:red;"> Pending </span>
+          <b>Status: </b><span style="color:red;"> PENDING </span>
         </div>
       </div>
     </div>
@@ -66,7 +66,7 @@ export default {
         val: '',
         isValid: true,
       },
-      suggestionStatus: ['Declined', 'Done'],
+      suggestionStatus: ['DECLINED', 'DONE'],
       replyToggle: false,
       pickedStatus: 'DECLINED',
       formIsValid: true,

@@ -45,18 +45,18 @@
       <div @mouseover="changeCursorToPointer" @mouseleave="changeCursorToDefault" @click="openProductDetails(item.sku)" v-for="item in this.products" :key="item" class="col-lg-6 col-md-12 gx-5">
         <div class="p-2 mt-3 border rounded item row text-start">
           <div class="fw-semibold fs-5 col-12">{{ item.name }}</div>
-          <div class="row">
-            <img :src="item.pictureUrl" class="rounded img-fluid" alt="productImage" />
+          <div class="row d-flex justify-content-between mt-3">
+            <img :src="item.pictureUrl" class="col-8 img-thumbnail" alt="productImage" style="height: 300px; width: 300px; object-fit: contain" />
             <star-rating
               read-only
+              class="col-4"
               :show-rating="true"
               v-bind:star-size="25"
               :fixed-points="2"
               :round-start-rating="false"
               v-if="item.opinionAvg"
-              class="col-5 d-flex align-items-start"
               v-model:rating="item.opinionAvg" />
-            <p v-if="!item.opinionAvg" class="col-5">{{ 'No opinions' }}</p>
+            <p v-if="!item.opinionAvg" class="col-4">{{ 'No opinions' }}</p>
           </div>
         </div>
       </div>

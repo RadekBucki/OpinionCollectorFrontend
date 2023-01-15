@@ -6,4 +6,12 @@ export class SweetAlert {
             icon: "error",
         })
     }
+
+    static success(swal, message: string): object {
+        return swal({
+            title: "Success",
+            text: message,
+            icon: "success",
+        })
+    }
 }

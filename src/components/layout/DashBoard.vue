@@ -1,24 +1,21 @@
 <template>
-  <div class="sidepanel d-flex flex-column flex-shrink-0 p-3 bg-light" style="width: 280px; height: 92vh"> 
+  <div class="sidepanel d-flex flex-column flex-shrink-0 p-3 bg-light">
     <a class="mb-3 mb-md-0 me-md-auto link-dark text-decoration-none mx-auto">
       <h1 class="fs-4">Dashboard</h1>
     </a>
     <hr />
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-        <router-link class="nav-link" :class="itemClasses('panel')" :to="{ name: 'Panel' }">
-          Data
-        </router-link>
+        <RouterLink class="nav-link" :class="itemClasses('userspanel')" :to="{ name: 'UsersPanel' }">Manage users</RouterLink>
       </li>
-      <li>
-        <router-link class="nav-link" :class="itemClasses('opinions')" :to="{ name: 'Opinions' }">
-          Opinions
-        </router-link>
+      <li class="nav-item">
+        <RouterLink class="nav-link" :class="itemClasses('listadmin')" :to="{ name: 'ListAdmin' }">Browse Products</RouterLink>
       </li>
-      <li>
-        <router-link class="nav-link" :class="itemClasses('suggestions')" :to="{ name: 'Suggestions' }">
-          Suggestions
-        </router-link>
+      <li class="nav-item">
+        <RouterLink class="nav-link" :class="itemClasses('categoriespanel')" :to="{ name: 'CategoriesPanel' }">Categories Panel</RouterLink>
+      </li>
+      <li class="nav-item">
+        <RouterLink class="nav-link" :class="itemClasses('suggestionspanel')" :to="{ name: 'SuggestionsPanel' }">Suggestions Panel</RouterLink>
       </li>
     </ul>
     <hr />
@@ -47,6 +44,11 @@ export default {
 </script>
 
 <style scoped>
+ul {
+  display: flex;
+  gap: 20px;
+}
+
 @media (max-width: 1200px) {
   .sidepanel {
     display: none !important;

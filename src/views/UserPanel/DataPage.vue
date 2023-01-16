@@ -70,6 +70,7 @@ export default {
 <style scoped>
 .avatarCircle img {
   border-radius: 50%;
+  max-width: 300px;
 }
 
 .form-mobile div {

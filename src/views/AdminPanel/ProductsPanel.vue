@@ -1,19 +1,19 @@
 <template>
   <div>
-    <ProductsFilter v-if="!selectedView" 
-      v-model:phrase="phrase" 
+    <ProductsFilter v-if="!selectedView"
+      v-model:phrase="phrase"
       v-model:min="min"
       v-model:max="max"
       v-model="cat"
       />
     <div class="button-control mt-3">
       <button v-if="!selectedView"
-        type="button" 
-        class="btn btn-outline-dark" 
+        type="button"
+        class="btn btn-outline-dark"
         @click="submitFilters()">Search</button>
-        <button 
-        type="button" 
-        class="btn btn-outline-dark mt-3" 
+        <button
+        type="button"
+        class="btn btn-outline-dark mt-3"
         @click="setSelectedView()"
         >
         {{ buttonText }}
@@ -23,11 +23,11 @@
       <AddProduct />
     </div>
     <div v-else>
-      <ProductItem v-for="product in products" 
-        :key="product.sku" 
-        :name="product.name" 
+      <ProductItem v-for="product in products"
+        :key="product.sku"
+        :name="product.name"
         :url="product.pictureUrl"
-        :sku="product.sku" 
+        :sku="product.sku"
         />
       </div>
   </div>
@@ -66,7 +66,7 @@ export default {
       this.selectedView = !this.selectedView;
     },
     fetchInitData() {
-      GetRequest.getProducts(this.actualPage).then((res) => {
+      GetRequest.getAllProducts(this.actualPage).then((res) => {
         this.actualPage = res.actualPage;
         this.numberOfPages = res.numberOfPages;
         this.products = res.products;

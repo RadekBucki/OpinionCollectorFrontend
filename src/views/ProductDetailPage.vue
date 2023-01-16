@@ -114,6 +114,9 @@ export default {
   mounted() {
     Promise.all([GetRequest.getProductDetails(this.sku), GetRequest.getProductOpinions(this.sku)]).then((res) => {
       this.product = res[0]
+      if (!this.product.opinionAvg) {
+        this.product.opinionAvg = 0;
+      }
       this.opinions = res[1]
     })
   }

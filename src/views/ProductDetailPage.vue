@@ -100,7 +100,7 @@ export default {
   },
   data: () => ({
     isLoggedIn: MethodRequest.isTokenAvailable(),
-    isAdmin: MethodRequest.getUser().isAdmin,
+    isAdmin: MethodRequest.getUser()?.isAdmin ?? false,
     product: null,
     opinions: null,
     opinionModal: null,
